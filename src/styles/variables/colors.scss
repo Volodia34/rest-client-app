@@ -1,8 +1,10 @@
+@use "sass:color";
+
 $white: #fffefe;
 $black: #171a1f;
 
 $primary: #fe6c37;
-$primary-hover: darken($primary, 10%);
+$primary-hover: color.adjust($primary, $lightness: 10%, $space: hsl);
 $secondary: #ac7a04;
 
 $danger: #973027;
