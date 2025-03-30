@@ -1,5 +1,5 @@
 'use client';
-import Button from '@/components/button/Button';
+import Button from '@/UI/buttons/Button';
 import Image from 'next/image';
 import './header.scss';
 import { useEffect, useState } from 'react';
@@ -20,7 +20,13 @@ export default function Header() {
   return (
     <header className={`app-header ${isSticky ? 'sticky' : ''}`}>
       <div className="logo">
-        <Image src="/logo.png" alt="Logo" width={100} height={100} />
+        <Image
+          priority={true}
+          src="/logo.png"
+          alt="Logo"
+          width={100}
+          height={100}
+        />
       </div>
       <div className="header-controls">
         <Button

@@ -1,5 +1,5 @@
 'use client';
-import Button from '@/components/button/Button';
+import Button from '@/UI/buttons/Button';
 import { ApplicationError } from '@/types/errors';
 import React from 'react';
 import './errorBoundary.scss';

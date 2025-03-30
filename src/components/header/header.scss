@@ -1,7 +1,7 @@
-@use '../styles/variables/typography';
-@use '../styles/variables/colors';
-@use '../styles/variables/transitions';
-@use '../styles/variables/z-index';
+@use '../../styles/variables/typography';
+@use '../../styles/variables/colors';
+@use '../../styles/variables/transitions';
+@use '../../styles/variables/z-index';
 
 .app-header {
   position: sticky;
