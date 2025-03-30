@@ -36,12 +36,12 @@ export default function Header() {
         />
         <Button
           className="login-button"
-          text={t('header.login')}
+          text={t('header.login') as string}
           onClick={() => alert('Login clicked')}
         />
         <Button
           className="sign-up-button"
-          text={t('header.signup')}
+          text={t('header.signup') as string}
           onClick={() => alert('Sign Up clicked')}
         />
       </div>
