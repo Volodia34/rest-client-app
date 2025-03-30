@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'REST Client 2025',
-  description: 'We are working on creating a lightweight version of Postman in one application.',
+  description:
+    'We are working on creating a lightweight version of Postman in one application.',
 };
 
 export default function RootLayout({
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header>header</header>
-          {children}
+        {children}
         <footer>Footer</footer>
       </body>
     </html>

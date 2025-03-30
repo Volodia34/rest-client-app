@@ -1,7 +1,9 @@
+import RestClient from '@/components/restClient/RestClient';
+
 export default function Home() {
   return (
     <div>
-      Home
+      <RestClient />
     </div>
   );
 }

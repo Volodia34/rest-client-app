@@ -1,0 +1,34 @@
+@use '../../styles/variables/mixin.scss' as *;
+@use '../../styles/variables/colors.scss' as *;
+@use '../../styles/variables/typography.scss' as *;
+
+.path-wrapper {
+  @extend %flex-between;
+  width: 100%;
+
+  .widthPath {
+    width: 85%;
+  }
+
+  .widthMeth {
+    width: 15%;
+
+    input {
+      border-right: none;
+    }
+  }
+
+  .button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    background-color: $background;
+    background-color: $primary;
+    font-weight: $font-weight-bold;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+}
