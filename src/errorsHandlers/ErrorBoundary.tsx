@@ -1,9 +1,11 @@
 'use client';
 import Button from '@/components/button/Button';
+import { ApplicationError } from '@/types/errors';
 import React from 'react';
+import './errorBoundary.scss';
 
 interface ErrorBoundaryState {
-  hasError: boolean;
+  error: ApplicationError | null;
 }
 
 class ErrorBoundary extends React.Component<
@@ -12,23 +14,34 @@ class ErrorBoundary extends React.Component<
 > {
   constructor(props: { children: React.ReactNode }) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { error: null };
   }
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: ApplicationError) {
+    return { error };
   }
   componentDidCatch() {}
 
   handleReset = () => {
-    this.setState({ hasError: false });
+    this.setState({ error: null });
   };
 
   render() {
-    if (this.state.hasError) {
+    const { error } = this.state;
+    if (error) {
       return (
         <div className="error-boundary">
-          <h1>Something went wrong.</h1>
-          <Button text="Reset" onClick={this.handleReset} />
+          {error.type === 'network' ? (
+            <>
+              <h2>Network Error</h2>
+              <p>{error.message}</p>
+            </>
+          ) : (
+            <>
+              <h2>HTTP Error {error.status}</h2>
+              <p>{error.statusText}</p>
+            </>
+          )}
+          <Button text="Try Again" onClick={this.handleReset} />
         </div>
       );
     }

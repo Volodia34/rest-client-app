@@ -1,23 +1,35 @@
-@import '../styles/variables/typography.scss';
-@import '../styles/variables/colors.scss';
+@use '../styles/variables/typography';
+@use '../styles/variables/colors';
+@use '../styles/variables/transitions';
+@use '../styles/variables/z-index';
 
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: z-index.$z-header;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: $gray-300;
+  background-color: colors.$gray-300;
   height: 7rem;
+  transition: all transitions.$transition-base;
+
+  &.sticky {
+    height: 5rem;
+    background-color: rgba(colors.$gray-300, 0.95);
+    backdrop-filter: blur(5px);
+  }
 }
 
 .login-button,
 .sign-up-button {
   cursor: pointer;
   text-align: center;
-  font-size: $font-size-base;
-  color: $gray-900;
-  background-color: $gray-500;
+  font-size: typography.$font-size-base;
+  color: colors.$gray-900;
+  background-color: colors.$gray-500;
   width: 6rem;
   height: 2rem;
   padding: 0.5rem 1rem;
