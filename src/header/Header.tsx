@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <header className={`app-header ${isSticky ? 'sticky' : ''}`}>
       <div className="logo">
-        <Image src="/next.svg" alt="Logo" width={100} height={100} />
+        <Image src="/logo.png" alt="Logo" width={100} height={100} />
       </div>
       <div className="header-controls">
         <Button
