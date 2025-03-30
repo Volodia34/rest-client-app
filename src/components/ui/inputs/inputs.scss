@@ -13,7 +13,8 @@
     @extend %input;
 
     &:focus {
-      border-color: $primary;
+      border: $border-hover;
+      border-right: $border-hover !important;
       outline: none;
     }
   }
@@ -42,3 +43,18 @@
     display: block;
   }
 }
+
+.textarea {
+  @extend %input;
+  width: 100%;
+  height: 150px;
+  padding: 30px;
+  resize:none;
+  overflow: auto;
+
+  &:focus {
+    border: $border-hover;
+    outline: none;
+  }
+}
+  
