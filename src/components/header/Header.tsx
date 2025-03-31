@@ -18,32 +18,34 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`app-header ${isSticky ? 'sticky' : ''}`}>
-      <div className="logo">
-        <Image
-          priority={true}
-          src="/logo.png"
-          alt="Logo"
-          width={100}
-          height={100}
-        />
-      </div>
-      <div className="header-controls">
-        <Button
-          className="language-button"
-          text={currentLang}
-          onClick={toggleLanguage}
-        />
-        <Button
-          className="login-button"
-          text={t('header.login') as string}
-          onClick={() => alert('Login clicked')}
-        />
-        <Button
-          className="sign-up-button"
-          text={t('header.signup') as string}
-          onClick={() => alert('Sign Up clicked')}
-        />
+    <header className='header-wrapper'>
+      <div className={`container app-header ${isSticky ? 'sticky' : ''}`}>
+        <div className="logo">
+          <Image
+            priority={true}
+            src="/logo.png"
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </div>
+        <div className="header-controls">
+          <Button
+            className="language-button"
+            text={currentLang}
+            onClick={toggleLanguage}
+          />
+          <Button
+            className="login-button"
+            text={t('header.login') as string}
+            onClick={() => alert('Login clicked')}
+          />
+          <Button
+            className="sign-up-button"
+            text={t('header.signup') as string}
+            onClick={() => alert('Sign Up clicked')}
+          />
+        </div>
       </div>
     </header>
   );
