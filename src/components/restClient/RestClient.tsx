@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/UI/buttons/Button';
 import Input from '../../UI/inputs/Input';
 import SelectInput from '../../UI/inputs/SelectInput';
 import Textarea from '../../UI/inputs/Textarea';
@@ -22,7 +23,11 @@ const RestClient = () => {
           value="GET"
         />
         <Input forInput="path" type="text" customStyle="widthPath" />
-        <button className="button">Send</button>
+        <Button
+          className="button"
+          text={'Send'}
+          onClick={() => {}}
+        />
       </div>
       <RequestHeaders />
       <GeneratedCode title={"Generated request code:"} code={`<section className="container rest-client-wrapper">`} buttonText="Generate" />

@@ -26,7 +26,7 @@ const SelectInput: FC<SelectInputType> = ({
         id={forInput}
         type={type}
         list="method-list"
-        className="input"
+        className="input select-input"
         placeholder={placeholder}
         value={value}
         onChange={(e) => console.log(e.target.value)}

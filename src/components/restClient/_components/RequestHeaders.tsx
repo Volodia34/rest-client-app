@@ -1,6 +1,7 @@
 import Input from "@/UI/inputs/Input";
 import SelectInput from "@/UI/inputs/SelectInput";
 import RequestSection from "./RequestSection";
+import Button from "@/UI/buttons/Button";
 
 const headerKeys = ["Content-Type", "Authorization", "Accept", "User-Agent"];
 
@@ -10,7 +11,11 @@ const RequestHeaders = () => {
       <div className="path-wrapper">
         <SelectInput forInput="headers-key" type="text" options={headerKeys} customStyle="widthMeth" />
         <Input forInput="headers-value" type="text" customStyle="widthPath" />
-        <button className="button">Remove</button>
+        <Button
+          className="button"
+          text={'Remove'}
+          onClick={() => {}}
+        />
       </div>
     </RequestSection>
   );

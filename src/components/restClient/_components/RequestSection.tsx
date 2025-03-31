@@ -1,3 +1,4 @@
+import Button from "@/UI/buttons/Button";
 import { ReactNode } from "react";
 
 interface RequestSectionHeadProps {
@@ -12,7 +13,11 @@ const RequestSection = ({ title, buttonText, onClick, children }: RequestSection
     <div className="request-wrapper">
       <header className="head-wrapper">
         <p className="rest-title">{title}</p>
-        {buttonText && <button className="button" onClick={onClick}>{buttonText}</button>}
+        {buttonText && <Button
+          className="button"
+          text={buttonText}
+          onClick={onClick}
+        />}
       </header>
       {children}
     </div>
