@@ -1,13 +1,8 @@
 import { FC } from 'react';
 import './inputs.scss';
+import { TextareaType } from '@/types/input';
 
-interface SelectInputType {
-  forInput: string;
-  placeholder?: string;
-  customStyle?: string;
-}
-
-const Textarea: FC<SelectInputType> = ({
+const Textarea: FC<TextareaType> = ({
   forInput,
   placeholder,
   customStyle,

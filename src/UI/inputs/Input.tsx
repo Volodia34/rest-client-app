@@ -1,15 +1,8 @@
 import { FC } from 'react';
 import './inputs.scss';
+import { InputType } from '@/types/input';
 
-interface SelectInputType {
-  forInput: string;
-  placeholder?: string;
-  type: string;
-  customStyle?: string;
-  value?: string;
-}
-
-const Input: FC<SelectInputType> = ({
+const Input: FC<InputType> = ({
   forInput,
   type,
   placeholder,

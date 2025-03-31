@@ -1,12 +1,5 @@
+import { RequestSectionHeadProps } from '@/types/restClient';
 import Button from '@/UI/buttons/Button';
-import { ReactNode } from 'react';
-
-interface RequestSectionHeadProps {
-  title: string;
-  buttonText?: string;
-  onClick?: () => void;
-  children: ReactNode;
-}
 
 const RequestSection = ({
   title,

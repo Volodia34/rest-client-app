@@ -1,11 +1,6 @@
 import { FC } from 'react';
 import RequestSection from './RequestSection';
-
-interface GeneratedCodeType {
-  title: string;
-  code: string;
-  buttonText?: string;
-}
+import { GeneratedCodeType } from '@/types/restClient';
 
 const GeneratedCode: FC<GeneratedCodeType> = ({ title, code, buttonText }) => {
   return (
