@@ -1,8 +1,8 @@
 'use client';
 
-import Input from '../ui/inputs/Input';
-import SelectInput from '../ui/inputs/SelectInput';
-import Textarea from '../ui/inputs/Textarea';
+import Input from '../../UI/inputs/Input';
+import SelectInput from '../../UI/inputs/SelectInput';
+import Textarea from '../../UI/inputs/Textarea';
 import GeneratedCode from './_components/GeneratedCode';
 import RequestHeaders from './_components/RequestHeaders';
 import RequestSection from './_components/RequestSection';

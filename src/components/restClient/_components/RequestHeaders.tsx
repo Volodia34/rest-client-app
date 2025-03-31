@@ -1,5 +1,5 @@
-import Input from "@/components/ui/inputs/Input";
-import SelectInput from "@/components/ui/inputs/SelectInput";
+import Input from "@/UI/inputs/Input";
+import SelectInput from "@/UI/inputs/SelectInput";
 import RequestSection from "./RequestSection";
 
 const headerKeys = ["Content-Type", "Authorization", "Accept", "User-Agent"];

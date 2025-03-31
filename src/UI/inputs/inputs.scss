@@ -1,7 +1,7 @@
-@use '../../../styles/variables/colors.scss' as *;
-@use '../../../styles/variables/typography.scss' as *;
-@use '../../../styles/variables/mixin.scss' as *;
-@use '../../../styles/variables/z-index.scss' as *;
+@use '../../styles/variables/colors.scss' as *;
+@use '../../styles/variables/typography.scss' as *;
+@use '../../styles/variables/mixin.scss' as *;
+@use '../../styles/variables/z-index.scss' as *;
 
 .input-container {
   @extend %flex-column;
