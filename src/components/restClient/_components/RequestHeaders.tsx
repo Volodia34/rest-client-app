@@ -2,8 +2,7 @@ import Input from '@/UI/inputs/Input';
 import SelectInput from '@/UI/inputs/SelectInput';
 import RequestSection from './RequestSection';
 import Button from '@/UI/buttons/Button';
-
-const headerKeys = ['Content-Type', 'Authorization', 'Accept', 'User-Agent'];
+import { headerKeys } from '@/constants/mockData';
 
 const RequestHeaders = () => {
   return (

@@ -8,8 +8,7 @@ import GeneratedCode from './_components/GeneratedCode';
 import RequestHeaders from './_components/RequestHeaders';
 import RequestSection from './_components/RequestSection';
 import './restClient.scss';
-
-const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
+import { methods } from '@/constants/mockData';
 
 const RestClient = () => {
   return (
