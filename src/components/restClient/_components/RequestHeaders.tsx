@@ -1,21 +1,22 @@
-import Input from "@/UI/inputs/Input";
-import SelectInput from "@/UI/inputs/SelectInput";
-import RequestSection from "./RequestSection";
-import Button from "@/UI/buttons/Button";
+import Input from '@/UI/inputs/Input';
+import SelectInput from '@/UI/inputs/SelectInput';
+import RequestSection from './RequestSection';
+import Button from '@/UI/buttons/Button';
 
-const headerKeys = ["Content-Type", "Authorization", "Accept", "User-Agent"];
+const headerKeys = ['Content-Type', 'Authorization', 'Accept', 'User-Agent'];
 
 const RequestHeaders = () => {
   return (
     <RequestSection title="Headers:" buttonText="Add Header">
       <div className="path-wrapper">
-        <SelectInput forInput="headers-key" type="text" options={headerKeys} customStyle="widthMeth" />
-        <Input forInput="headers-value" type="text" customStyle="widthPath" />
-        <Button
-          className="button"
-          text={'Remove'}
-          onClick={() => {}}
+        <SelectInput
+          forInput="headers-key"
+          type="text"
+          options={headerKeys}
+          customStyle="widthMeth"
         />
+        <Input forInput="headers-value" type="text" customStyle="widthPath" />
+        <Button className="button" text={'Remove'} onClick={() => {}} />
       </div>
     </RequestSection>
   );

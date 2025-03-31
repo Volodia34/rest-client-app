@@ -23,14 +23,14 @@ const RestClient = () => {
           value="GET"
         />
         <Input forInput="path" type="text" customStyle="widthPath" />
-        <Button
-          className="button"
-          text={'Send'}
-          onClick={() => {}}
-        />
+        <Button className="button" text={'Send'} onClick={() => {}} />
       </div>
       <RequestHeaders />
-      <GeneratedCode title={"Generated request code:"} code={`<section className="container rest-client-wrapper">`} buttonText="Generate" />
+      <GeneratedCode
+        title={'Generated request code:'}
+        code={`<section className="container rest-client-wrapper">`}
+        buttonText="Generate"
+      />
       <RequestSection title="Body:">
         <Textarea forInput="body-json" />
       </RequestSection>

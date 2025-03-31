@@ -1,5 +1,5 @@
-import { FC } from "react";
-import RequestSection from "./RequestSection";
+import { FC } from 'react';
+import RequestSection from './RequestSection';
 
 interface GeneratedCodeType {
   title: string;
@@ -7,17 +7,14 @@ interface GeneratedCodeType {
   buttonText?: string;
 }
 
-const GeneratedCode: FC<GeneratedCodeType> = ({title, code, buttonText}) => {
+const GeneratedCode: FC<GeneratedCodeType> = ({ title, code, buttonText }) => {
   return (
     <RequestSection title={title} buttonText={buttonText}>
       <pre className="whitespace-pre-wrap">
-        <code>
-          {code}
-        </code>
+        <code>{code}</code>
       </pre>
     </RequestSection>
   );
 };
 
 export default GeneratedCode;
-  

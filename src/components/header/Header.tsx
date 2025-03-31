@@ -18,8 +18,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='header-wrapper'>
-      <div className={`container app-header ${isSticky ? 'sticky' : ''}`}>
+    <header className={`header-wrapper ${isSticky ? 'sticky' : ''}`}>
+      <div className="container app-header">
         <div className="logo">
           <Image
             priority={true}
