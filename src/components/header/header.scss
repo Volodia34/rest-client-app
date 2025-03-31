@@ -3,24 +3,27 @@
 @use '../../styles/variables/transitions';
 @use '../../styles/variables/z-index';
 
-.app-header {
+.header-wrapper {
   position: sticky;
   top: 0;
   z-index: z-index.$z-header;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: colors.$gray-300;
-  height: 7rem;
   transition: all transitions.$transition-base;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &.sticky {
     height: 5rem;
     background-color: rgba(colors.$gray-300, 0.95);
     backdrop-filter: blur(5px);
   }
+}
+
+.app-header {
+  height: 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
 }
 
 .header-controls {
