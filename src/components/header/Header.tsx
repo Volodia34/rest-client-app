@@ -5,7 +5,7 @@ import './header.scss';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 
-export default function Header() {
+const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { currentLang, toggleLanguage, t } = useLanguage();
 
@@ -49,4 +49,5 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+export default Header;

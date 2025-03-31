@@ -1,0 +1,13 @@
+.footer {
+  min-height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.image {
+  width: 10rem;
+  height: -moz-fit-content;
+  height: fit-content;
+  cursor: pointer;
+}/*# sourceMappingURL=Footer.module.css.map */
