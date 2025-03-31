@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "true",
+    "test": "jest",
     "coverage": "jest --coverage",
     "lint": "next lint",
     "prettier-fix": "prettier --write ."
