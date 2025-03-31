@@ -12,7 +12,7 @@ const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
 
 const RestClient = () => {
   return (
-    <section className="container">
+    <section className="container rest-client-wrapper">
       <div className="path-wrapper">
         <SelectInput
           forInput="methods"
@@ -25,7 +25,7 @@ const RestClient = () => {
         <button className="button">Send</button>
       </div>
       <RequestHeaders />
-      <GeneratedCode />
+      <GeneratedCode title={"Generated request code:"} code={`<section className="container rest-client-wrapper">`} buttonText="Generate" />
       <RequestSection title="Body:">
         <Textarea forInput="body-json" />
       </RequestSection>

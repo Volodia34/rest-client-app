@@ -2,6 +2,10 @@
 @use '../../styles/variables/colors.scss' as *;
 @use '../../styles/variables/typography.scss' as *;
 
+.rest-client-wrapper {
+  padding: 2rem 0;
+}
+
 .path-wrapper {
   @extend %flex-between;
   width: 100%;
