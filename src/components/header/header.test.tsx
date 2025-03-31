@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Header from '@/components/header/Header';
+import Header from './Header';
 
 jest.mock('@/hooks/useLanguage', () => ({
   useLanguage: () => ({
@@ -37,11 +37,10 @@ describe('Header Component', () => {
       value: 0,
       writable: true,
     });
+    render(<Header />);
   });
 
   it('renders header with all elements', () => {
-    render(<Header />);
-
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(screen.getByText('EN')).toBeInTheDocument();
@@ -50,9 +49,7 @@ describe('Header Component', () => {
   });
 
   it('applies sticky class on scroll', () => {
-    render(<Header />);
     const header = screen.getByRole('banner');
-
     expect(header).not.toHaveClass('sticky');
 
     Object.defineProperty(window, 'scrollY', { value: 10 });
@@ -75,7 +72,6 @@ describe('Header Component', () => {
 
   it('handles button clicks', () => {
     const alertMock = jest.spyOn(window, 'alert').mockImplementation();
-    render(<Header />);
 
     fireEvent.click(screen.getByText('Login'));
     expect(alertMock).toHaveBeenCalledWith('Login clicked');
