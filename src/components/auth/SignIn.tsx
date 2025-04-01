@@ -42,7 +42,7 @@ const SignIn = () => {
         required
       />
       {error && <p>{error}</p>}
-      <Button text="Sign In" onClick={handleSubmit} />
+      <Button text="Sign In" onClick={() => handleSubmit} />
     </form>
   );
 };

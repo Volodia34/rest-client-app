@@ -6,33 +6,33 @@
 form {
   display: flex;
   flex-direction: column;
-  background-color: colors.$dark-surface;
-  padding: 3rem; /* Increased padding for larger form */
+  background-color: colors.$gray-100;
+  padding: 3rem;
   border-radius: borders.$border-radius-md;
-  box-shadow: 0 4px 8px rgba(colors.$black, 0.5);
-  max-width: 600px; /* Increased max-width for larger form */
+  box-shadow: 0 4px 8px rgba(colors.$black, 0.1);
+  max-width: 600px;
   width: 100%;
-  margin: 192px auto; /* Center the form with margin */
-  color: colors.$text-light;
+  margin: 192px auto;
+  color: colors.$text-dark;
 }
 
 h2 {
   font-size: typography.$font-size-xl;
   font-weight: typography.$font-weight-bold;
-  color: colors.$white;
-  margin-bottom: 2rem; /* Add space below the header */
-  text-align: center; /* Center the header text */
+  color: colors.$text-dark;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 input {
   width: 100%;
-  padding: 1rem; /* Increased padding for larger input fields */
-  margin-bottom: 1.5rem; /* Increased margin for better spacing */
-  border: 1px solid colors.$gray-700;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid colors.$gray-300;
   border-radius: borders.$border-radius-sm;
-  font-size: typography.$font-size-md; /* Increased font size */
-  background-color: colors.$gray-900;
-  color: colors.$text-light;
+  font-size: typography.$font-size-md;
+  background-color: colors.$white;
+  color: colors.$text-dark;
 }
 
 input::placeholder {
@@ -41,12 +41,12 @@ input::placeholder {
 
 button {
   width: 100%;
-  padding: 1rem; /* Increased padding for larger button */
+  padding: 1rem;
   background-color: colors.$primary;
   color: colors.$text-light;
   border: none;
   border-radius: borders.$border-radius-sm;
-  font-size: typography.$font-size-md; /* Increased font size */
+  font-size: typography.$font-size-md;
   cursor: pointer;
   transition: background-color transitions.$transition-base, color transitions.$transition-base;
 }
@@ -57,5 +57,5 @@ button:hover {
 
 p {
   color: colors.$danger;
-  font-size: 1rem; /* Increased font size for error message */
+  font-size: 1rem;
 }
