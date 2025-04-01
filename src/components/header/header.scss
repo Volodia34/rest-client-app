@@ -4,13 +4,17 @@
 @use '../../styles/variables/z-index';
 
 .header-wrapper {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: z-index.$z-header;
   background-color: colors.$gray-300;
   transition: all transitions.$transition-base;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0 1rem;
+  height: 7rem;
 
   &.sticky {
     height: 5rem;
@@ -19,12 +23,17 @@
   }
 }
 
+body {
+  padding-top: 7rem;
+}
+
 .app-header {
-  height: 7rem;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
+  margin: 0 auto;
 }
 
 .header-controls {
@@ -54,8 +63,4 @@
     background-color: colors.$gray-500;
     color: colors.$gray-100;
   }
-}
-
-.language-button {
-  min-width: 4rem;
 }

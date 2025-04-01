@@ -5,7 +5,6 @@ import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
 import { LanguageProvider } from '@/context/LanguageContext';
 import MainPage from '@/components/header/main/MainPage';
-
 export default function Home() {
   return (
     <ErrorBoundary>
