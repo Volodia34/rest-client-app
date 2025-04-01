@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
 }
 .main-page-wrapper .main-page-content {
   display: flex;

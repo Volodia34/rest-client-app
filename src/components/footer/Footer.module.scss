@@ -1,12 +1,17 @@
 .footer {
-  min-height: 85px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
+  align-items: center;
+  padding: 1rem 0;
+  margin-top: auto;
 
-.image {
-  width: 10rem;
-  height: fit-content;
-  cursor: pointer;
+  .copy {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .image {
+    height: 30px;
+    width: auto;
+  }
 }

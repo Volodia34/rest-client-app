@@ -1,7 +1,7 @@
 import ErrorBoundary from '@/errorsHandlers/ErrorBoundary';
 import Header from '@/components/header/Header';
-import RestClient from '@/components/restClient/RestClient';
-import ResponseBlock from '@/components/restClient/response/ResponseBlock';
+
+// import ResponseBlock from '@/components/restClient/response/ResponseBlock';
 import Footer from '@/components/footer/Footer';
 import { LanguageProvider } from '@/context/LanguageContext';
 import MainPage from '@/components/header/main/MainPage';
@@ -11,8 +11,7 @@ export default function Home() {
     <ErrorBoundary>
       <LanguageProvider>
         <Header />
-        <RestClient />
-        <ResponseBlock />
+        {/* <ResponseBlock /> */}
         <MainPage />
         <Footer />
       </LanguageProvider>

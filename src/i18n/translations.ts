@@ -10,6 +10,8 @@ export const translations: Record<Language, Translations> = {
     },
     main: {
       welcome: 'Welcome to the REST Client App!',
+      restClient: 'REST Client',
+      history: 'History',
     },
   },
   [LANGUAGES.RU]: {
@@ -20,6 +22,8 @@ export const translations: Record<Language, Translations> = {
     },
     main: {
       welcome: 'Добро пожаловать в REST Client App!',
+      restClient: 'REST Клиент',
+      history: 'История',
     },
   },
 } as const;

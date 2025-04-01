@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <div className={`container ${styles.footer}`}>
+    <footer className={`container ${styles.footer}`}>
       <div className={styles.copy}>© 2025 All rights reserved.</div>
       <a
         href="https://rollingscopes.com/courses/#main"
@@ -18,7 +18,7 @@ const Footer = () => {
           alt="Rs School image"
         />
       </a>
-    </div>
+    </footer>
   );
 };
 

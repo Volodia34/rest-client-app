@@ -1,13 +1,15 @@
 .footer {
-  min-height: 85px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-top: auto;
 }
-
-.image {
-  width: 10rem;
-  height: -moz-fit-content;
-  height: fit-content;
-  cursor: pointer;
+.footer .copy {
+  font-size: 0.875rem;
+  color: #666;
+}
+.footer .image {
+  height: 30px;
+  width: auto;
 }/*# sourceMappingURL=Footer.module.css.map */
