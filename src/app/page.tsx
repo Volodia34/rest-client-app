@@ -3,14 +3,19 @@ import Header from '@/components/header/Header';
 import RestClient from '@/components/restClient/RestClient';
 import ResponseBlock from '@/components/restClient/response/ResponseBlock';
 import Footer from '@/components/footer/Footer';
+import { LanguageProvider } from '@/context/LanguageContext';
+import MainPage from '@/components/header/main/MainPage';
 
 export default function Home() {
   return (
     <ErrorBoundary>
-      <Header />
-      <RestClient />
-      <ResponseBlock />
-      <Footer />
+      <LanguageProvider>
+        <Header />
+        <RestClient />
+        <ResponseBlock />
+        <MainPage />
+        <Footer />
+      </LanguageProvider>
     </ErrorBoundary>
   );
 }

@@ -8,12 +8,18 @@ export const translations: Record<Language, Translations> = {
       signup: 'Sign Up',
       language: 'Language',
     },
+    main: {
+      welcome: 'Welcome to the REST Client App!',
+    },
   },
   [LANGUAGES.RU]: {
     header: {
       login: 'Войти',
       signup: 'Регистрация',
       language: 'Язык',
+    },
+    main: {
+      welcome: 'Добро пожаловать в REST Client App!',
     },
   },
 } as const;

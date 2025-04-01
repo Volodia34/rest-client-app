@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from './Header';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 jest.mock('@/hooks/useLanguage', () => ({
   useLanguage: () => ({
@@ -37,7 +38,11 @@ describe('Header Component', () => {
       value: 0,
       writable: true,
     });
-    render(<Header />);
+    render(
+      <LanguageProvider>
+        <Header />
+      </LanguageProvider>
+    );
   });
 
   it('renders header with all elements', () => {
@@ -59,7 +64,11 @@ describe('Header Component', () => {
   });
 
   it('removes scroll event listener on unmount', () => {
-    const { unmount } = render(<Header />);
+    const { unmount } = render(
+      <LanguageProvider>
+        <Header />
+      </LanguageProvider>
+    );
     const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
 
     unmount();

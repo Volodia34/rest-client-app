@@ -3,11 +3,11 @@ import Button from '@/UI/buttons/Button';
 import Image from 'next/image';
 import './header.scss';
 import { useEffect, useState } from 'react';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const { currentLang, toggleLanguage, t } = useLanguage();
+  const { currentLang, toggleLanguage, t } = useLanguageContext();
 
   useEffect(() => {
     const handleScroll = () => {
