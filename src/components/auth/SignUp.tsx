@@ -5,7 +5,21 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import Button from '@/UI/buttons/Button';
+import { z } from 'zod';
 import './formStyles.scss';
+
+const signUpSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .regex(/[a-zA-Z]/, { message: 'Password must contain at least one letter' })
+    .regex(/\d/, { message: 'Password must contain at least one digit' })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: 'Password must contain at least one special character',
+    }),
+  username: z.string().min(1, { message: 'Username is required' }),
+});
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +30,12 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const result = signUpSchema.safeParse({ email, password, username });
+    if (!result.success) {
+      setError(result.error.errors[0].message);
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -55,7 +75,7 @@ const SignUp = () => {
         required
       />
       {error && <p>{error}</p>}
-      <Button text="Sign Up" onClick={handleSubmit} />
+      <Button text="Sign Up" onClick={() => handleSubmit} />
     </form>
   );
 };
