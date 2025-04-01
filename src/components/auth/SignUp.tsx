@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import Button from '@/UI/buttons/Button';
+import './formStyles.scss';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -30,7 +31,8 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="sign-up-form" onSubmit={handleSubmit}>
+      <h2>Sign Up</h2>
       <input
         type="text"
         value={username}

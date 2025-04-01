@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
 import Button from '@/UI/buttons/Button';
+import './formStyles.scss';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -25,6 +26,7 @@ const SignIn = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Sign In</h2>
       <input
         type="email"
         value={email}
