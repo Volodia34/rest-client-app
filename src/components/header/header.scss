@@ -8,7 +8,6 @@
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
   z-index: z-index.$z-header;
   background-color: colors.$gray-300;
   transition: all transitions.$transition-base;
@@ -24,7 +23,7 @@
 }
 
 body {
-  padding-top: 7rem;
+  padding-top: 5rem;
 }
 
 .app-header {
@@ -44,7 +43,8 @@ body {
 
 .language-button,
 .login-button,
-.sign-up-button {
+.sign-up-button,
+.logout-button {
   cursor: pointer;
   text-align: center;
   font-size: typography.$font-size-base;

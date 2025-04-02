@@ -4,10 +4,15 @@ export interface Translations {
   header: {
     login: string;
     signup: string;
+    logout: string;
     language: string;
   };
   main: {
     welcome: string;
+    welcomeBack: string;
+    restClient: string;
+    history: string;
+    variables: string;
   };
 }
 

@@ -8,6 +8,7 @@ import { useLanguageContext } from '@/context/LanguageContext';
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { currentLang, toggleLanguage, t } = useLanguageContext();
+  const isAuth = false;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,8 +19,8 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`header-wrapper ${isSticky ? 'sticky' : ''}`}>
-      <div className="container app-header">
+    <header className={`container header-wrapper ${isSticky ? 'sticky' : ''}`}>
+      <div className="app-header">
         <div className="logo">
           <Image
             priority={true}
@@ -35,16 +36,26 @@ const Header = () => {
             text={currentLang}
             onClick={toggleLanguage}
           />
-          <Button
-            className="login-button"
-            text={t('header.login') as string}
-            onClick={() => alert('Login clicked')}
-          />
-          <Button
-            className="sign-up-button"
-            text={t('header.signup') as string}
-            onClick={() => alert('Sign Up clicked')}
-          />
+          {!isAuth ? (
+            <>
+              <Button
+                className="login-button"
+                text={t('header.login') as string}
+                onClick={() => alert('Login clicked')}
+              />
+              <Button
+                className="sign-up-button"
+                text={t('header.signup') as string}
+                onClick={() => alert('Sign Up clicked')}
+              />
+            </>
+          ) : (
+            <Button
+              className="logout-button"
+              text={t('header.logout') as string}
+              onClick={() => alert('Logout clicked')}
+            />
+          )}
         </div>
       </div>
     </header>

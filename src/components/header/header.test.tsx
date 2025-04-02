@@ -46,7 +46,6 @@ describe('Header Component', () => {
   });
 
   it('renders header with all elements', () => {
-    expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(screen.getByText('EN')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();

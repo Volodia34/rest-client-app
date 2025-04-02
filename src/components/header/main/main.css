@@ -11,4 +11,18 @@
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;
+}
+.main-page-wrapper .main-page-content-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.main-page-wrapper .auth-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }/*# sourceMappingURL=main.css.map */
