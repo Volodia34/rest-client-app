@@ -4,6 +4,7 @@ import Image from 'next/image';
 import './header.scss';
 import { useEffect, useState } from 'react';
 import { useLanguageContext } from '@/context/LanguageContext';
+import Link from 'next/link';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -22,13 +23,15 @@ const Header = () => {
     <header className={`container header-wrapper ${isSticky ? 'sticky' : ''}`}>
       <div className="app-header">
         <div className="logo">
-          <Image
-            priority={true}
-            src="/logo.png"
-            alt="Logo"
-            width={80}
-            height={80}
-          />
+          <Link href="/">
+            <Image
+              priority={true}
+              src="/logo.png"
+              alt="Logo"
+              width={80}
+              height={80}
+            />
+          </Link>
         </div>
         <div className="header-controls">
           <Button
@@ -50,11 +53,18 @@ const Header = () => {
               />
             </>
           ) : (
-            <Button
-              className="logout-button"
-              text={t('header.logout') as string}
-              onClick={() => alert('Logout clicked')}
-            />
+            <>
+              <Button
+                className="main-page-button"
+                text={t('header.mainpage') as string}
+                onClick={() => (window.location.href = '/')}
+              />
+              <Button
+                className="logout-button"
+                text={t('header.logout') as string}
+                onClick={() => alert('Logout clicked')}
+              />
+            </>
           )}
         </div>
       </div>

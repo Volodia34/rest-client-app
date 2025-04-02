@@ -5,6 +5,7 @@ export interface Translations {
     login: string;
     signup: string;
     logout: string;
+    mainpage: string;
     language: string;
   };
   main: {

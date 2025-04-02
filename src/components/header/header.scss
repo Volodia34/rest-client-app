@@ -17,7 +17,7 @@
 
   &.sticky {
     height: 5rem;
-    background-color: rgba(colors.$gray-300, 0.95);
+    background-color: rgba(colors.$gray-300, 0.5);
     backdrop-filter: blur(5px);
   }
 }
@@ -44,7 +44,8 @@ body {
 .language-button,
 .login-button,
 .sign-up-button,
-.logout-button {
+.logout-button,
+.main-page-button {
   cursor: pointer;
   text-align: center;
   font-size: typography.$font-size-base;

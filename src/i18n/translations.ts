@@ -7,6 +7,7 @@ export const translations: Record<Language, Translations> = {
       login: 'Login',
       signup: 'Sign Up',
       logout: 'Logout',
+      mainpage: 'Main Page',
       language: 'Language',
     },
     main: {
@@ -22,6 +23,7 @@ export const translations: Record<Language, Translations> = {
       login: 'Войти',
       signup: 'Регистрация',
       logout: 'Выйти',
+      mainpage: 'Главная страница',
       language: 'Язык',
     },
     main: {
