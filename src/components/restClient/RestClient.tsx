@@ -13,8 +13,9 @@ import { methods } from '@/constants/mockData';
 const RestClient = () => {
   return (
     <section className="container rest-client-wrapper">
-      <div className="path-wrapper">
+      <div className="path-wrapper" data-testid="path-wrapper">
         <SelectInput
+          data-test="select-methods"
           forInput="methods"
           type="text"
           options={methods}
