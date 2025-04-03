@@ -7,7 +7,25 @@ jest.mock('@/hooks/useLanguage', () => ({
   useLanguage: () => ({
     currentLang: 'EN',
     toggleLanguage: jest.fn(),
-    t: (key: string) => (key === 'header.login' ? 'Login' : 'Sign Up'),
+    t: (key: string) => {
+      switch (key) {
+        case 'header.login':
+          return 'Login';
+        case 'header.signup':
+          return 'Sign Up';
+        case 'header.logout':
+          return 'Logout';
+        default:
+          return key;
+      }
+    },
+  }),
+}));
+
+jest.mock('@/hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: null,
+    logout: jest.fn(),
   }),
 }));
 
@@ -32,8 +50,9 @@ jest.mock('next/image', () => ({
   ),
 }));
 
-describe('Header Component', () => {
+
   beforeEach(() => {
+
     Object.defineProperty(window, 'scrollY', {
       value: 0,
       writable: true,
@@ -78,7 +97,7 @@ describe('Header Component', () => {
     );
   });
 
-  it('handles button clicks', () => {
+ it('handles button clicks', () => {
     const alertMock = jest.spyOn(window, 'alert').mockImplementation();
 
     fireEvent.click(screen.getByText('Login'));

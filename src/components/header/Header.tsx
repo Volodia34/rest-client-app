@@ -1,4 +1,6 @@
 'use client';
+
+import { useAuth } from '@/hooks/useAuth';
 import Button from '@/UI/buttons/Button';
 import Image from 'next/image';
 import './header.scss';
@@ -9,6 +11,7 @@ import Link from 'next/link';
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { currentLang, toggleLanguage, t } = useLanguageContext();
+  const { user, logout } = useAuth();
   const isAuth = false;
 
   useEffect(() => {
