@@ -50,7 +50,7 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   }
 
   return (
-      <div key={`${render}`} className="path-wrapper" id={`${id}`}>
+      <div key={`${render}`} className="path-wrapper" id={`${id}`} data-testid="headers-inputs">
         <SelectInput
           value={headers[index].key}
           forInput="headers-key"

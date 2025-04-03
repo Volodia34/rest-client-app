@@ -12,6 +12,11 @@ const mockStore = configureStore({
     rest: {
       body: '',
       base64EncodedBody: '',
+      headers: [{
+        id: 0,
+        key: '',
+        value: '',
+      }]
     },
   },
 });
