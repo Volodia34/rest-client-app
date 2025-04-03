@@ -31,7 +31,7 @@ const RestBody = () => {
   return (
     <RequestSection title="Body:" buttonText={'Prettify'} onClick={handlePrettify}>
       <Textarea forInput="body-json" value={body} onChange={handleChange} placeholder="Enter JSON..." />
-      {error && <p className="">{error}</p>}
+      <p className={error ? "error" : 'hidden'}>{error}.</p>
     </RequestSection>
   )
 }

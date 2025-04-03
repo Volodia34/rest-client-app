@@ -35,3 +35,12 @@ a {
     color-scheme: dark;
   }
 }
+
+.error {
+  color: $danger;
+  display: block;
+}
+
+.hidden {
+  opacity: 0;
+}
