@@ -1,5 +1,8 @@
+'use client';
 import { RequestSectionHeadProps } from '@/types/restClient';
-import Button from '@/UI/buttons/Button';
+// import Button from '@/UI/buttons/Button';
+import { lazy } from 'react';
+const Button = lazy(() => import('@/UI/buttons/Button'));
 
 const RequestSection = ({
   title,

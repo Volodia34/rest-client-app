@@ -19,5 +19,5 @@ const restSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const {} = restSlice.actions;
+export const { setBody } = restSlice.actions;
 export default restSlice.reducer;

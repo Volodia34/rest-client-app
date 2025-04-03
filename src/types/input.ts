@@ -1,16 +1,22 @@
-export interface TextareaType {
+import { ChangeEvent } from "react";
+
+export interface BaseInputType {
   forInput: string;
   placeholder?: string;
   customStyle?: string;
+  value?: string;
 }
 
-export interface SelectInputType extends TextareaType {
+export interface TextareaType extends BaseInputType {
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export interface SelectInputType extends BaseInputType {
   type: string;
   options: string[];
-  value?: string;
 }
 
-export interface InputType extends TextareaType {
+export interface InputType extends BaseInputType {
   type: string;
-  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
