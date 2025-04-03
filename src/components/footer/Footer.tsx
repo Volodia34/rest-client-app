@@ -18,10 +18,10 @@ const Footer = () => {
             className={styles.developerLink}
           >
             <Image
-              priority={true}
               className={styles.image}
               src={gitHubIcon}
               alt={`${dev.name}'s GitHub`}
+              loading="lazy"
             />
             <span className={styles.developerName}>{dev.name}</span>
           </a>
@@ -34,10 +34,10 @@ const Footer = () => {
         rel="noopener noreferrer"
       >
         <Image
-          priority={true}
           className={styles.image}
           src={rsSchool}
           alt="Rs School image"
+          loading="lazy"
         />
       </a>
     </footer>

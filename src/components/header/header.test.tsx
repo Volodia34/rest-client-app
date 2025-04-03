@@ -3,10 +3,22 @@ import '@testing-library/jest-dom';
 import Header from './Header';
 import { LanguageProvider } from '@/context/LanguageContext';
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+    replace: jest.fn(),
+  }),
+  usePathname: () => '/',
+  useSearchParams: () => new URLSearchParams(),
+}));
+
+const mockToggleLanguage = jest.fn();
 jest.mock('@/hooks/useLanguage', () => ({
   useLanguage: () => ({
     currentLang: 'EN',
-    toggleLanguage: jest.fn(),
+    toggleLanguage: mockToggleLanguage,
     t: (key: string) => {
       switch (key) {
         case 'header.login':
@@ -19,13 +31,6 @@ jest.mock('@/hooks/useLanguage', () => ({
           return key;
       }
     },
-  }),
-}));
-
-jest.mock('@/hooks/useAuth', () => ({
-  useAuth: () => ({
-    user: null,
-    logout: jest.fn(),
   }),
 }));
 
@@ -50,21 +55,25 @@ jest.mock('next/image', () => ({
   ),
 }));
 
-
+describe('Header', () => {
   beforeEach(() => {
-
+    jest.clearAllMocks();
     Object.defineProperty(window, 'scrollY', {
       value: 0,
       writable: true,
     });
-    render(
+  });
+
+  const renderHeader = () => {
+    return render(
       <LanguageProvider>
         <Header />
       </LanguageProvider>
     );
-  });
+  };
 
   it('renders header with all elements', () => {
+    renderHeader();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(screen.getByText('EN')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();
@@ -72,6 +81,7 @@ jest.mock('next/image', () => ({
   });
 
   it('applies sticky class on scroll', () => {
+    renderHeader();
     const header = screen.getByRole('banner');
     expect(header).not.toHaveClass('sticky');
 
@@ -82,12 +92,8 @@ jest.mock('next/image', () => ({
   });
 
   it('removes scroll event listener on unmount', () => {
-    const { unmount } = render(
-      <LanguageProvider>
-        <Header />
-      </LanguageProvider>
-    );
     const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+    const { unmount } = renderHeader();
 
     unmount();
 
@@ -95,17 +101,15 @@ jest.mock('next/image', () => ({
       'scroll',
       expect.any(Function)
     );
+    removeEventListenerSpy.mockRestore();
   });
 
- it('handles button clicks', () => {
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation();
+  it('handles language toggle', () => {
+    renderHeader();
+    const langButton = screen.getByText('EN');
 
-    fireEvent.click(screen.getByText('Login'));
-    expect(alertMock).toHaveBeenCalledWith('Login clicked');
+    fireEvent.click(langButton);
 
-    fireEvent.click(screen.getByText('Sign Up'));
-    expect(alertMock).toHaveBeenCalledWith('Sign Up clicked');
-
-    alertMock.mockRestore();
+    expect(mockToggleLanguage).toHaveBeenCalledTimes(1);
   });
 });

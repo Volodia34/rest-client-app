@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 import Button from '@/UI/buttons/Button';
 import Image from 'next/image';
 import './header.scss';
@@ -12,7 +13,7 @@ const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { currentLang, toggleLanguage, t } = useLanguageContext();
   const { user, logout } = useAuth();
-  const isAuth = false;
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,17 +43,17 @@ const Header = () => {
             text={currentLang}
             onClick={toggleLanguage}
           />
-          {!isAuth ? (
+          {!user ? (
             <>
               <Button
                 className="login-button"
                 text={t('header.login') as string}
-                onClick={() => alert('Login clicked')}
+                onClick={() => router.push('/signin')}
               />
               <Button
                 className="sign-up-button"
                 text={t('header.signup') as string}
-                onClick={() => alert('Sign Up clicked')}
+                onClick={() => router.push('/signup')}
               />
             </>
           ) : (
@@ -60,12 +61,12 @@ const Header = () => {
               <Button
                 className="main-page-button"
                 text={t('header.mainpage') as string}
-                onClick={() => (window.location.href = '/')}
+                onClick={() => (window.location.href = '/restClient')}
               />
               <Button
                 className="logout-button"
                 text={t('header.logout') as string}
-                onClick={() => alert('Logout clicked')}
+                onClick={() => logout()}
               />
             </>
           )}

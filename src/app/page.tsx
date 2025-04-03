@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from '@/store/store';
 import Footer from '@/components/footer/Footer';
 import { LanguageProvider } from '@/context/LanguageContext';
-import MainPage from '@/components/header/main/MainPage';
+import MainPage from '@/components/main/MainPage';
 
 export default function Home() {
   return (
