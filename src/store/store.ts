@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import restReducer from './slices/restSlice'
 
 export const store = configureStore({
-  reducer: { },
+  reducer: {
+    restReducer
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
 });
