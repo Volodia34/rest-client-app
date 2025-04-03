@@ -46,8 +46,7 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   }, [headers[index]?.key])
 
   if (!headers[index]) {
-    console.warn(`⚠️ Warning: HeadersInput получил некорректный idEl: ${id}`);
-    return null; // Чтобы не рендерить компонент, если данных нет
+    return null;
   }
 
   return (
