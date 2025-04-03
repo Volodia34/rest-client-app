@@ -28,7 +28,6 @@
   }
 
   .datalist {
-    display: none;
     position: absolute;
     top: 100%;
     left: 0;
@@ -44,11 +43,8 @@
 
     &:hover {
       color: $primary;
+      background-color: antiquewhite;
     }
-  }
-
-  &:focus-within .datalist {
-    display: block;
   }
 }
 

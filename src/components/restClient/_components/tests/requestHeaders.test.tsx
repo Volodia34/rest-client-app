@@ -1,33 +1,46 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import RequestHeaders from '../RequestHeaders';
-import { headerKeys } from '@/constants/mockData';;
+import restReducer, { setNewHeader } from '@/store/slices/restSlice';
 
-const mockOnClickRemove = jest.fn();
+const setupStore = (preloadedState = {}) =>
+  configureStore({
+    reducer: { rest: restReducer },
+    preloadedState,
+  });
 
 describe('RequestHeaders Component', () => {
+  let store: ReturnType<typeof setupStore>;
+
   beforeEach(() => {
-    render(<RequestHeaders />);
-  });
-  test('renders the title and button correctly', () => {
-    const titleElement = screen.getByText('Headers:');
-    expect(titleElement).toBeInTheDocument();
-
-    const buttonText = screen.getByText('Add Header');
-    expect(buttonText).toBeInTheDocument();
-  });
-
-  test('renders the "Remove" button and handles click', () => {
-    const removeButton = screen.getByText('Remove');
-    expect(removeButton).toBeInTheDocument();
-
-    fireEvent.click(removeButton);
-    expect(mockOnClickRemove).toHaveBeenCalledTimes(0);
-  });
-  
-  test('SelectInput renders with options', () => {
-    headerKeys.forEach((key) => {
-      const optionElement = screen.getByText(key);
-      expect(optionElement).toBeInTheDocument();
+    store = setupStore({
+      rest: {
+        body: '',
+        base64EncodedBody: '',
+        headers: [{ id: 0, key: '', value: '' }],
+      },
     });
+
+    render(
+      <Provider store={store}>
+        <RequestHeaders />
+      </Provider>
+    );
+  });
+
+  test('Displays the title and the button', () => {
+    expect(screen.getByText('Headers:')).toBeInTheDocument();
+    expect(screen.getByText('Add Header')).toBeInTheDocument();
+  });
+
+  test('Renders the initial header', () => {
+    expect(screen.getAllByTestId('headers-inputs')).toHaveLength(1);
+  });
+
+  test('Adds a new header when clicking on Add Header', async () => {
+    fireEvent.click(screen.getByText('Add Header'));
+    store.dispatch(setNewHeader());
+    expect(screen.getAllByTestId('headers-inputs')).toHaveLength(2);
   });
 });
