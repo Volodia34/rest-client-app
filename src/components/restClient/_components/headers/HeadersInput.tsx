@@ -1,5 +1,5 @@
 import { headerKeys } from "@/constants/mockData";
-import { setHeaderData } from "@/store/slices/restSlice";
+import { setHeaderData, setUpdateHeaders } from "@/store/slices/restSlice";
 import { RootState } from "@/store/store";
 import Button from "@/UI/buttons/Button";
 import Input from "@/UI/inputs/Input";
@@ -7,44 +7,53 @@ import SelectInput from "@/UI/inputs/SelectInput";
 import { ChangeEvent, MouseEvent, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const HeadersInput = ({ id }: { id: number }) => {
+const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
   const headers = useSelector((state: RootState) => state.rest.headers);
   const [render, setRender] = useState(false)
-  const header = headers[id] || { key: "", value: "" };
+  const header = headers[index] || { id, key: "", value: "" };
 
   const handleKeyChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(setHeaderData({ id, key: e.target.value, value: header.value }));
+      dispatch(setHeaderData({data: { id, key: e.target.value, value: header.value }, index}));
     },
-    [dispatch, id, header.value]
+    [dispatch, id, header.value, index]
   );
 
   const handleValueChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(setHeaderData({ id, key: header.key, value: e.target.value }));
+      dispatch(setHeaderData({data: { id, key: header.key, value: e.target.value }, index}));
     },
-    [dispatch, id, header.key]
+    [dispatch, id, header.key, index]
   );
 
   const handleSetChange = useCallback(
     (e: MouseEvent<HTMLElement>) => {
       if (e.currentTarget.id) {
-        dispatch(setHeaderData({ id, key: e.currentTarget.id, value: headers[id].value }));
+        dispatch(setHeaderData({data: { id, key: e.currentTarget.id, value: headers[id].value }, index}));
       }
     },
-    [dispatch, id, headers]
+    [dispatch, id, headers, index]
   );
+
+  const removeRow = () => {
+    dispatch(setUpdateHeaders(id))
+  }
 
   useEffect(() => {
     setRender(!render)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headers[id].key])
+  }, [headers[index]?.key])
+
+  if (!headers[index]) {
+    console.warn(`⚠️ Warning: HeadersInput получил некорректный idEl: ${id}`);
+    return null; // Чтобы не рендерить компонент, если данных нет
+  }
 
   return (
       <div key={`${render}`} className="path-wrapper" id={`${id}`}>
         <SelectInput
-          value={headers[id].key}
+          value={headers[index].key}
           forInput="headers-key"
           type="text"
           options={headerKeys}
@@ -52,8 +61,8 @@ const HeadersInput = ({ id }: { id: number }) => {
           onChange={handleKeyChange}
           onSelect={handleSetChange}
         />
-        <Input onChange={handleValueChange} value={headers[id].value } forInput="headers-value" type="text" customStyle="widthPath" />
-        <Button className="button" text={'Remove'} onClick={() => {}} />
+        <Input onChange={handleValueChange} value={headers[index].value } forInput="headers-value" type="text" customStyle="widthPath" />
+        <Button className="button" text={'Remove'} onClick={removeRow} />
       </div>
       )
 }

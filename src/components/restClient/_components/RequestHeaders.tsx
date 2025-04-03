@@ -14,8 +14,8 @@ const RequestHeaders = () => {
 
   return (
     <RequestSection title="Headers:" buttonText="Add Header" onClick={addHeaderBlock}>
-      {headers.length && headers.map((el, id) => (
-          <HeadersInput key={`${id}-item-header`} id={el.id} />
+      {headers.length && headers.map((el, index) => (
+          <HeadersInput key={`${index}-item-header`} id={el.id} index={index} />
         ))}
         <p></p>
     </RequestSection>
