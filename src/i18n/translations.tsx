@@ -7,6 +7,7 @@ export const translations: Record<Language, Translations> = {
       login: 'Login',
       signup: 'Sign Up',
       language: 'Language',
+      logout: 'Logout',
     },
   },
   [LANGUAGES.RU]: {
@@ -14,6 +15,7 @@ export const translations: Record<Language, Translations> = {
       login: 'Войти',
       signup: 'Регистрация',
       language: 'Язык',
+      logout: 'Выйти',
     },
   },
 } as const;
