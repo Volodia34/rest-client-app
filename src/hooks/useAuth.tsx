@@ -20,37 +20,51 @@ export const useAuth = () => {
     }
   }, [router]);
 
+  const checkToken = useCallback(
+    async (currentUser: User) => {
+      try {
+        const decodedToken = await currentUser.getIdTokenResult();
+        const expirationTime = new Date(decodedToken.expirationTime).getTime();
+        const currentTime = new Date().getTime();
+
+        if (expirationTime <= currentTime) {
+          console.warn('Token expired');
+          await logout();
+          return false;
+        }
+        return true;
+      } catch (error) {
+        console.error('Error checking token:', error);
+        await logout();
+        return false;
+      }
+    },
+    [logout]
+  );
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        try {
-          const decodedToken = await user.getIdTokenResult();
-          const expirationTime = new Date(
-            decodedToken.expirationTime
-          ).getTime();
-          const currentTime = new Date().getTime();
-          console.warn(
-            `Token expires: ${new Date(decodedToken.expirationTime)}`
-          );
-          if (expirationTime <= currentTime) {
-            console.warn('Token expired');
-            await logout();
-            return;
-          }
+        const isValid = await checkToken(user);
+        if (isValid) {
           setUser(user);
-          if (user && (pathname === '/signin' || pathname === '/signup')) {
+          if (pathname === '/signin' || pathname === '/signup') {
             router.push('/');
           }
-        } catch (error) {
-          console.error('Error getting token:', error);
-          await logout();
         }
       } else {
         setUser(null);
       }
     });
+
+    const tokenCheckInterval = setInterval(async () => {
+      if (auth.currentUser) {
+        await checkToken(auth.currentUser);
+        clearInterval(tokenCheckInterval);
+      }
+    }, 60_000);
     return () => unsubscribe();
-  }, [router, pathname, logout]);
+  }, [router, pathname, logout, checkToken]);
 
   return { user, logout };
 };
