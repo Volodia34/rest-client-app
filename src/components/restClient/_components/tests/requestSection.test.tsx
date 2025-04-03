@@ -34,17 +34,10 @@ describe('RequestSection Component', () => {
     fireEvent.click(button);
     expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
-
 });
 
 test('does not render button when buttonText is not provided', () => {
-  render(
-    <RequestSection
-      title={mockTitle}
-    >
-      {mockChildren}
-    </RequestSection>
-  );
+  render(<RequestSection title={mockTitle}>{mockChildren}</RequestSection>);
 
   const button = screen.queryByText(mockButtonText);
   expect(button).toBeNull();

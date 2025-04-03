@@ -9,15 +9,20 @@ const RequestHeaders = () => {
   const { headers } = useSelector((state: RootState) => state.rest);
 
   const addHeaderBlock = () => {
-    dispatch(setNewHeader())
-  }
+    dispatch(setNewHeader());
+  };
 
   return (
-    <RequestSection title="Headers:" buttonText="Add Header" onClick={addHeaderBlock}>
-      {headers.length && headers.map((el, index) => (
+    <RequestSection
+      title="Headers:"
+      buttonText="Add Header"
+      onClick={addHeaderBlock}
+    >
+      {headers.length &&
+        headers.map((el, index) => (
           <HeadersInput key={`${index}-item-header`} id={el.id} index={index} />
         ))}
-        <p></p>
+      <p></p>
     </RequestSection>
   );
 };

@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import restReducer from './slices/restSlice'
+import restReducer from './slices/restSlice';
 
 export const store = configureStore({
   reducer: {
-    rest: restReducer
+    rest: restReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

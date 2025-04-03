@@ -18,9 +18,7 @@ describe('RequestHeaders Component', () => {
       rest: {
         body: '',
         base64EncodedBody: '',
-        headers: [
-          { id: 0, key: '', value: '' },
-        ],
+        headers: [{ id: 0, key: '', value: '' }],
       },
     });
 

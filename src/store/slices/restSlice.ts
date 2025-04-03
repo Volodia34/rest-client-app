@@ -17,12 +17,12 @@ const headItem: Header = {
   id: 0,
   key: '',
   value: '',
-}
+};
 
 const initialState: RestSliceType = {
   body: '',
   base64EncodedBody: '',
-  headers: [headItem]
+  headers: [headItem],
 };
 
 const restSlice = createSlice({
@@ -38,22 +38,26 @@ const restSlice = createSlice({
         id: state.headers.length,
         key: '',
         value: '',
-      })
+      });
     },
     setUpdateHeaders(state, action: PayloadAction<number>) {
       if (state.headers.length !== 1) {
-        state.headers = state.headers.filter((el) => el.id !== action.payload)
+        state.headers = state.headers.filter((el) => el.id !== action.payload);
       } else {
-        state.headers = [headItem]
+        state.headers = [headItem];
       }
     },
-    setHeaderData(state, action: PayloadAction<{data: Header, index: number}>) {
-      state.headers[action.payload.index].key = action.payload.data.key
-      state.headers[action.payload.index].value = action.payload.data.value
+    setHeaderData(
+      state,
+      action: PayloadAction<{ data: Header; index: number }>
+    ) {
+      state.headers[action.payload.index].key = action.payload.data.key;
+      state.headers[action.payload.index].value = action.payload.data.value;
     },
   },
   extraReducers: () => {},
 });
 
-export const { setBody, setNewHeader, setHeaderData, setUpdateHeaders } = restSlice.actions;
+export const { setBody, setNewHeader, setHeaderData, setUpdateHeaders } =
+  restSlice.actions;
 export default restSlice.reducer;

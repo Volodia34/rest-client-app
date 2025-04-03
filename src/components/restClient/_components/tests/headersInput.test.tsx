@@ -16,9 +16,7 @@ describe('HeadersInput Component', () => {
   beforeEach(() => {
     store = setupStore({
       rest: {
-        headers: [
-          { id: 0, key: 'Content-Type', value: 'application/json' },
-        ],
+        headers: [{ id: 0, key: 'Content-Type', value: 'application/json' }],
       },
     });
 

@@ -7,7 +7,13 @@ const mockButtonText = 'Copy Code';
 
 describe('GeneratedCode Component', () => {
   beforeEach(() => {
-    render(<GeneratedCode title={mockTitle} code={mockCode} buttonText={mockButtonText} />);
+    render(
+      <GeneratedCode
+        title={mockTitle}
+        code={mockCode}
+        buttonText={mockButtonText}
+      />
+    );
   });
   test('renders the title correctly', () => {
     const titleElement = screen.getByText(mockTitle);

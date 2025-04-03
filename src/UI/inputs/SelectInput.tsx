@@ -33,12 +33,7 @@ const SelectInput: FC<SelectInputType> = ({
       {isListOpen && options && (
         <ul className="datalist">
           {options.map((opt, idx) => (
-            <li
-              key={idx}
-              className="datalist-item"
-              id={opt}
-              onClick={onSelect}
-            >
+            <li key={idx} className="datalist-item" id={opt} onClick={onSelect}>
               {opt}
             </li>
           ))}
