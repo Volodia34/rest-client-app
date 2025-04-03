@@ -8,6 +8,7 @@ const Input: FC<InputType> = ({
   placeholder,
   customStyle,
   value,
+  onChange,
 }) => {
   return (
     <div className={`input-container ${customStyle}`}>
@@ -17,7 +18,7 @@ const Input: FC<InputType> = ({
         className="input"
         value={value}
         placeholder={placeholder}
-        onChange={(e) => console.log(e.target.value)}
+        onChange={onChange}
         onFocus={() => console.log(true)}
       />
     </div>

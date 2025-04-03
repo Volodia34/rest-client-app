@@ -2,7 +2,7 @@
 
 import Textarea from '@/UI/inputs/Textarea';
 import RequestSection from '../RequestSection';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { setBody } from '@/store/slices/restSlice';
@@ -12,7 +12,7 @@ const RestBody = () => {
   const { body } = useSelector((state: RootState) => state.rest);
   const [error, setError] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(setBody(e.target.value as string));
     setError('');
   };

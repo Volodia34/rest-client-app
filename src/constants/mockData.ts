@@ -34,6 +34,5 @@ export const headerKeys = [
   'Upgrade',
   'User-Agent',
   'Via',
-  'Warning'
+  'Warning',
 ];
-  

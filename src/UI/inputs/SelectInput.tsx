@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import './inputs.scss';
 import { SelectInputType } from '@/types/input';
 
@@ -11,7 +11,11 @@ const SelectInput: FC<SelectInputType> = ({
   placeholder,
   customStyle,
   value,
+  onChange,
+  onSelect,
 }) => {
+  const [isListOpen, setIsListOpen] = useState(false);
+
   return (
     <div className={`input-container ${customStyle}`}>
       <input
@@ -20,19 +24,16 @@ const SelectInput: FC<SelectInputType> = ({
         list="method-list"
         className="input select-input"
         placeholder={placeholder}
-        value={value}
-        onChange={(e) => console.log(e.target.value)}
-        onFocus={() => console.log(true)}
-        onBlur={() => setTimeout(() => console.log(false), 200)}
+        defaultValue={value}
+        onChange={onChange}
+        autoComplete="off"
+        onFocus={() => setIsListOpen(true)}
+        onBlur={() => setTimeout(() => setIsListOpen(false), 200)}
       />
-      {options && (
+      {isListOpen && options && (
         <ul className="datalist">
           {options.map((opt, idx) => (
-            <li
-              key={idx}
-              className="datalist-item"
-              onMouseDown={() => console.log(opt)}
-            >
+            <li key={idx} className="datalist-item" id={opt} onClick={onSelect}>
               {opt}
             </li>
           ))}
