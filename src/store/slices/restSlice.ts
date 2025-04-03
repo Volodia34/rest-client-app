@@ -1,3 +1,4 @@
+import { encodeBase64 } from '@/helpers/encodeBase64';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface RestSliceType {
@@ -16,7 +17,7 @@ const restSlice = createSlice({
   reducers: {
     setBody(state, action: PayloadAction<string>) {
       state.body = action.payload;
-      state.base64EncodedBody = btoa(action.payload);
+      state.base64EncodedBody = encodeBase64(action.payload);
     }
   },
   extraReducers: () => {},
