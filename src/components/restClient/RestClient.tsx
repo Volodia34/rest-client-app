@@ -3,18 +3,18 @@
 import Button from '@/UI/buttons/Button';
 import Input from '../../UI/inputs/Input';
 import SelectInput from '../../UI/inputs/SelectInput';
-import Textarea from '../../UI/inputs/Textarea';
 import GeneratedCode from './_components/GeneratedCode';
 import RequestHeaders from './_components/RequestHeaders';
-import RequestSection from './_components/RequestSection';
 import './restClient.scss';
 import { methods } from '@/constants/mockData';
+import RestBody from './_components/restBody/RestBody';
 
 const RestClient = () => {
   return (
     <section className="container rest-client-wrapper">
-      <div className="path-wrapper">
+      <div className="path-wrapper" data-testid="path-wrapper">
         <SelectInput
+          data-test="select-methods"
           forInput="methods"
           type="text"
           options={methods}
@@ -30,9 +30,7 @@ const RestClient = () => {
         code={`<section className="container rest-client-wrapper">`}
         buttonText="Generate"
       />
-      <RequestSection title="Body:">
-        <Textarea forInput="body-json" />
-      </RequestSection>
+      <RestBody />
     </section>
   );
 };
