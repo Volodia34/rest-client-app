@@ -1,3 +1,4 @@
+'use client';
 import { RequestSectionHeadProps } from '@/types/restClient';
 import Button from '@/UI/buttons/Button';
 
