@@ -20,6 +20,8 @@ const RestClient = () => {
           options={methods}
           customStyle="widthMeth"
           value="GET"
+          onChange={() => {}}
+          onSelect={() => {}}
         />
         <Input forInput="path" type="text" customStyle="widthPath" />
         <Button className="button" text={'Send'} onClick={() => {}} />
