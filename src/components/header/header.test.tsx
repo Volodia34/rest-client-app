@@ -1,12 +1,31 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from './Header';
+import { useRouter } from 'next/navigation';
 
 jest.mock('@/hooks/useLanguage', () => ({
   useLanguage: () => ({
     currentLang: 'EN',
     toggleLanguage: jest.fn(),
-    t: (key: string) => (key === 'header.login' ? 'Login' : 'Sign Up'),
+    t: (key: string) => {
+      switch (key) {
+        case 'header.login':
+          return 'Login';
+        case 'header.signup':
+          return 'Sign Up';
+        case 'header.logout':
+          return 'Logout';
+        default:
+          return key;
+      }
+    },
+  }),
+}));
+
+jest.mock('@/hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: null,
+    logout: jest.fn(),
   }),
 }));
 
@@ -31,8 +50,18 @@ jest.mock('next/image', () => ({
   ),
 }));
 
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
+
 describe('Header Component', () => {
+  const mockRouterPush = jest.fn();
+
   beforeEach(() => {
+    (useRouter as jest.Mock).mockReturnValue({
+      push: mockRouterPush,
+    });
+
     Object.defineProperty(window, 'scrollY', {
       value: 0,
       writable: true,
@@ -71,14 +100,10 @@ describe('Header Component', () => {
   });
 
   it('handles button clicks', () => {
-    const alertMock = jest.spyOn(window, 'alert').mockImplementation();
-
     fireEvent.click(screen.getByText('Login'));
-    expect(alertMock).toHaveBeenCalledWith('Login clicked');
+    expect(mockRouterPush).toHaveBeenCalledWith('/signin');
 
     fireEvent.click(screen.getByText('Sign Up'));
-    expect(alertMock).toHaveBeenCalledWith('Sign Up clicked');
-
-    alertMock.mockRestore();
+    expect(mockRouterPush).toHaveBeenCalledWith('/signup');
   });
 });
