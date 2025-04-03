@@ -9,7 +9,7 @@ import { setBody } from "@/store/slices/restSlice";
 
 const RestBody = () => {
   const dispatch = useDispatch();
-  const { body } = useSelector((state: RootState) => state.restReducer);
+  const { body } = useSelector((state: RootState) => state.rest);
   const [error, setError] = useState("");
   
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

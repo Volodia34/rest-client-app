@@ -3,7 +3,7 @@ import restReducer from './slices/restSlice'
 
 export const store = configureStore({
   reducer: {
-    restReducer
+    rest: restReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
