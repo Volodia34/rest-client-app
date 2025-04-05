@@ -3,16 +3,17 @@
 import { useEffect, useState, useCallback } from 'react';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const pathname = usePathname();
 
   const logout = useCallback(async () => {
     try {
       await signOut(auth);
+      await fetch('logout', { method: 'POST' });
       setUser(null);
       router.push('/');
     } catch (error) {
@@ -20,51 +21,18 @@ export const useAuth = () => {
     }
   }, [router]);
 
-  const checkToken = useCallback(
-    async (currentUser: User) => {
-      try {
-        const decodedToken = await currentUser.getIdTokenResult();
-        const expirationTime = new Date(decodedToken.expirationTime).getTime();
-        const currentTime = new Date().getTime();
-
-        if (expirationTime <= currentTime) {
-          console.warn('Token expired');
-          await logout();
-          return false;
-        }
-        return true;
-      } catch (error) {
-        console.error('Error checking token:', error);
-        await logout();
-        return false;
-      }
-    },
-    [logout]
-  );
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const isValid = await checkToken(user);
-        if (isValid) {
-          setUser(user);
-          if (pathname === '/signin' || pathname === '/signup') {
-            router.push('/');
-          }
-        }
+        setUser(user);
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
 
-    const tokenCheckInterval = setInterval(async () => {
-      if (auth.currentUser) {
-        await checkToken(auth.currentUser);
-        clearInterval(tokenCheckInterval);
-      }
-    }, 60_000);
     return () => unsubscribe();
-  }, [router, pathname, logout, checkToken]);
+  }, []);
 
-  return { user, logout };
+  return { user, logout, loading };
 };

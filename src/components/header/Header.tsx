@@ -12,7 +12,7 @@ import Link from 'next/link';
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { currentLang, toggleLanguage, t } = useLanguageContext();
-  const { user, logout } = useAuth();
+  const { user, logout, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -43,31 +43,35 @@ const Header = () => {
             text={currentLang}
             onClick={toggleLanguage}
           />
-          {!user ? (
+          {!loading && (
             <>
-              <Button
-                className="login-button"
-                text={t('header.login') as string}
-                onClick={() => router.push('/signin')}
-              />
-              <Button
-                className="sign-up-button"
-                text={t('header.signup') as string}
-                onClick={() => router.push('/signup')}
-              />
-            </>
-          ) : (
-            <>
-              <Button
-                className="main-page-button"
-                text={t('header.mainpage') as string}
-                onClick={() => (window.location.href = '/restClient')}
-              />
-              <Button
-                className="logout-button"
-                text={t('header.logout') as string}
-                onClick={() => logout()}
-              />
+              {!user ? (
+                <>
+                  <Button
+                    className="login-button"
+                    text={t('header.login') as string}
+                    onClick={() => router.push('/signin')}
+                  />
+                  <Button
+                    className="sign-up-button"
+                    text={t('header.signup') as string}
+                    onClick={() => router.push('/signup')}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    className="main-page-button"
+                    text={t('header.mainpage') as string}
+                    onClick={() => router.push('/restClient')}
+                  />
+                  <Button
+                    className="logout-button"
+                    text={t('header.logout') as string}
+                    onClick={() => logout()}
+                  />
+                </>
+              )}
             </>
           )}
         </div>

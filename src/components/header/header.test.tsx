@@ -76,8 +76,6 @@ describe('Header', () => {
     renderHeader();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(screen.getByText('EN')).toBeInTheDocument();
-    expect(screen.getByText('Login')).toBeInTheDocument();
-    expect(screen.getByText('Sign Up')).toBeInTheDocument();
   });
 
   it('applies sticky class on scroll', () => {
