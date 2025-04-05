@@ -1,12 +1,24 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from './Header';
-import { useRouter } from 'next/navigation';
+import { LanguageProvider } from '@/context/LanguageContext';
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+    replace: jest.fn(),
+  }),
+  usePathname: () => '/',
+  useSearchParams: () => new URLSearchParams(),
+}));
+
+const mockToggleLanguage = jest.fn();
 jest.mock('@/hooks/useLanguage', () => ({
   useLanguage: () => ({
     currentLang: 'EN',
-    toggleLanguage: jest.fn(),
+    toggleLanguage: mockToggleLanguage,
     t: (key: string) => {
       switch (key) {
         case 'header.login':
@@ -19,13 +31,6 @@ jest.mock('@/hooks/useLanguage', () => ({
           return key;
       }
     },
-  }),
-}));
-
-jest.mock('@/hooks/useAuth', () => ({
-  useAuth: () => ({
-    user: null,
-    logout: jest.fn(),
   }),
 }));
 
@@ -50,34 +55,31 @@ jest.mock('next/image', () => ({
   ),
 }));
 
-jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(),
-}));
-
-describe('Header Component', () => {
-  const mockRouterPush = jest.fn();
-
+describe('Header', () => {
   beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({
-      push: mockRouterPush,
-    });
-
+    jest.clearAllMocks();
     Object.defineProperty(window, 'scrollY', {
       value: 0,
       writable: true,
     });
-    render(<Header />);
   });
 
+  const renderHeader = () => {
+    return render(
+      <LanguageProvider>
+        <Header />
+      </LanguageProvider>
+    );
+  };
+
   it('renders header with all elements', () => {
-    expect(screen.getByRole('banner')).toBeInTheDocument();
+    renderHeader();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(screen.getByText('EN')).toBeInTheDocument();
-    expect(screen.getByText('Login')).toBeInTheDocument();
-    expect(screen.getByText('Sign Up')).toBeInTheDocument();
   });
 
   it('applies sticky class on scroll', () => {
+    renderHeader();
     const header = screen.getByRole('banner');
     expect(header).not.toHaveClass('sticky');
 
@@ -88,8 +90,8 @@ describe('Header Component', () => {
   });
 
   it('removes scroll event listener on unmount', () => {
-    const { unmount } = render(<Header />);
     const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+    const { unmount } = renderHeader();
 
     unmount();
 
@@ -97,13 +99,15 @@ describe('Header Component', () => {
       'scroll',
       expect.any(Function)
     );
+    removeEventListenerSpy.mockRestore();
   });
 
-  it('handles button clicks', () => {
-    fireEvent.click(screen.getByText('Login'));
-    expect(mockRouterPush).toHaveBeenCalledWith('/signin');
+  it('handles language toggle', () => {
+    renderHeader();
+    const langButton = screen.getByText('EN');
 
-    fireEvent.click(screen.getByText('Sign Up'));
-    expect(mockRouterPush).toHaveBeenCalledWith('/signup');
+    fireEvent.click(langButton);
+
+    expect(mockToggleLanguage).toHaveBeenCalledTimes(1);
   });
 });

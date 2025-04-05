@@ -1,0 +1,34 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-top: auto;
+}
+.footer .copy {
+  font-size: 0.875rem;
+  color: #666;
+}
+.footer .image {
+  height: 30px;
+  width: auto;
+}
+.footer .developers {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.footer .developerLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease;
+}
+.footer .developerLink:hover {
+  transform: translateY(-2px);
+}
+.footer .developerName {
+  font-size: 0.75rem;
+  color: #666;
+}/*# sourceMappingURL=Footer.module.css.map */

@@ -1,17 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useRouter } from 'next/navigation';
 import Button from '@/UI/buttons/Button';
 import Image from 'next/image';
 import './header.scss';
+import { useEffect, useState } from 'react';
+import { useLanguageContext } from '@/context/LanguageContext';
+import Link from 'next/link';
 
-export default function Header() {
+const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const { currentLang, toggleLanguage, t } = useLanguage();
-  const { user, logout } = useAuth();
+  const { currentLang, toggleLanguage, t } = useLanguageContext();
+  const { user, logout, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -23,16 +24,18 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`header-wrapper ${isSticky ? 'sticky' : ''}`}>
-      <div className="container app-header">
+    <header className={`container header-wrapper ${isSticky ? 'sticky' : ''}`}>
+      <div className="app-header">
         <div className="logo">
-          <Image
-            priority={true}
-            src="/logo.png"
-            alt="Logo"
-            width={100}
-            height={100}
-          />
+          <Link href="/">
+            <Image
+              priority={true}
+              src="/logo.png"
+              alt="Logo"
+              width={80}
+              height={80}
+            />
+          </Link>
         </div>
         <div className="header-controls">
           <Button
@@ -40,28 +43,40 @@ export default function Header() {
             text={currentLang}
             onClick={toggleLanguage}
           />
-          {user ? (
-            <Button
-              className="logout-button"
-              text={t('header.logout') as string}
-              onClick={logout}
-            />
-          ) : (
+          {!loading && (
             <>
-              <Button
-                className="login-button"
-                text={t('header.login') as string}
-                onClick={() => router.push('/signin')}
-              />
-              <Button
-                className="sign-up-button"
-                text={t('header.signup') as string}
-                onClick={() => router.push('/signup')}
-              />
+              {!user ? (
+                <>
+                  <Button
+                    className="login-button"
+                    text={t('header.login') as string}
+                    onClick={() => router.push('/signin')}
+                  />
+                  <Button
+                    className="sign-up-button"
+                    text={t('header.signup') as string}
+                    onClick={() => router.push('/signup')}
+                  />
+                </>
+              ) : (
+                <>
+                  <Button
+                    className="main-page-button"
+                    text={t('header.mainpage') as string}
+                    onClick={() => router.push('/restClient')}
+                  />
+                  <Button
+                    className="logout-button"
+                    text={t('header.logout') as string}
+                    onClick={() => logout()}
+                  />
+                </>
+              )}
             </>
           )}
         </div>
       </div>
     </header>
   );
-}
+};
+export default Header;

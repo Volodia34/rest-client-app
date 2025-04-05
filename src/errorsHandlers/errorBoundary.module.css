@@ -1,21 +1,20 @@
-.error-boundary {
+.errorBoundary {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 200px;
+  gap: 1rem;
   padding: 2rem;
   text-align: center;
 }
-.error-boundary h2 {
+.errorBoundary h2 {
   color: #973027;
+  margin-bottom: 0.5rem;
+}
+.errorBoundary p {
+  color: #4a5568;
   margin-bottom: 1rem;
 }
-.error-boundary p {
-  margin-bottom: 1.5rem;
-  color: #9e9e9e;
-}
-.error-boundary .error-button {
+.errorBoundary .error-button {
   background-color: #973027;
   color: #fffefe;
   border: none;
@@ -25,6 +24,8 @@
   font-size: 1rem;
   transition: background-color 0.3s ease;
 }
-.error-boundary .image {
-  width: auto;
-}/*# sourceMappingURL=errorBoundary.css.map */
+.errorBoundary .image {
+  width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
+}/*# sourceMappingURL=errorBoundary.module.css.map */

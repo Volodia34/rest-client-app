@@ -1,12 +1,13 @@
 html,
 body {
   max-width: 100vw;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
 body {
   color: var();
-  background: #fe6c37;
+  background-color: #fffefe;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,8 +24,63 @@ a {
   text-decoration: none;
 }
 
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  width: 600px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin: 15% auto;
+  text-align: center;
+}
+
+.main-content h1 {
+  font-size: 2rem;
+  color: #171a1f;
+  margin-bottom: 20px;
+}
+
+.main-content .auth-buttons,
+.main-content .links {
+  display: flex;
+  gap: 10px;
+}
+
+.main-content .auth-buttons button,
+.main-content .links button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fe6c37;
+  color: #fffefe;
+  transition: background-color 0.3s;
+}
+.main-content .auth-buttons button:hover,
+.main-content .links button:hover {
+  background-color: #fb8e66;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-} /*# sourceMappingURL=globals.css.map */
+}
+.error {
+  color: #973027;
+  display: block;
+}
+
+.hidden {
+  opacity: 0;
+}/*# sourceMappingURL=globals.css.map */

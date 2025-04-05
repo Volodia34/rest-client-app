@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.scss';
-import ErrorBoundary from '@/errorsHandlers/ErrorBoundary';
-import Header from '@/components/header/Header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,11 +26,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ErrorBoundary>
-          <Header />
+        <div
+          style={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           {children}
-          <footer>Footer</footer>
-        </ErrorBoundary>
+        </div>
       </body>
     </html>
   );
