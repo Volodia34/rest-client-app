@@ -1,0 +1,66 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container .input,
+.input-container .datalist, .textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #3d3d3d;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background: white;
+  color: #212121;
+  font-weight: 500;
+}
+
+.input-container {
+  position: relative;
+  gap: 4px;
+}
+.input-container .input:focus,
+.input-container .datalist:focus {
+  border: 2px solid #fe6c37;
+  border-right: 2px solid #fe6c37 !important;
+  outline: none;
+}
+.input-container .input {
+  border-radius: 0 4px 4px 0;
+}
+.input-container .select-input {
+  border-radius: 4px 0 0 4px;
+}
+.input-container .datalist {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1100;
+}
+.input-container .datalist-item {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 10px;
+}
+.input-container .datalist-item:hover {
+  color: #fe6c37;
+}
+.input-container:focus-within .datalist {
+  display: block;
+}
+
+.textarea {
+  width: 100%;
+  height: 150px;
+  padding: 30px;
+  resize: none;
+  overflow: auto;
+  border-radius: 4px;
+}
+.textarea:focus {
+  border: 2px solid #fe6c37;
+  outline: none;
+}/*# sourceMappingURL=inputs.css.map */

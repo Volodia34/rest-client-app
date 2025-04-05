@@ -2,7 +2,9 @@
 import Button from '@/UI/buttons/Button';
 import { ApplicationError } from '@/types/errors';
 import React from 'react';
-import './errorBoundary.scss';
+import Image from 'next/image';
+import errorImage from '@/assets/img/not-found.png';
+import styles from './errorBoundary.module.scss';
 
 interface ErrorBoundaryState {
   error: ApplicationError | null;
@@ -16,10 +18,23 @@ class ErrorBoundary extends React.Component<
     super(props);
     this.state = { error: null };
   }
-  static getDerivedStateFromError(error: ApplicationError) {
-    return { error };
+  static getDerivedStateFromError(error: unknown) {
+    const applicationError: ApplicationError = error as ApplicationError;
+
+    if (error instanceof Error) {
+      applicationError.message = error.message;
+    }
+
+    if (!applicationError.type) {
+      applicationError.type = 'network';
+    }
+
+    return { error: applicationError };
   }
-  componentDidCatch() {}
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught:', error);
+    console.error('Error info:', errorInfo);
+  }
 
   handleReset = () => {
     this.setState({ error: null });
@@ -29,7 +44,13 @@ class ErrorBoundary extends React.Component<
     const { error } = this.state;
     if (error) {
       return (
-        <div className="error-boundary">
+        <div className={styles.errorBoundary}>
+          <Image
+            priority={true}
+            className={styles.image}
+            src={errorImage}
+            alt="Error image"
+          />
           {error.type === 'network' ? (
             <>
               <h2>Network Error</h2>
@@ -41,7 +62,11 @@ class ErrorBoundary extends React.Component<
               <p>{error.statusText}</p>
             </>
           )}
-          <Button text="Try Again" onClick={this.handleReset} />
+          <Button
+            className="error-button"
+            text="Try Again"
+            onClick={this.handleReset}
+          />
         </div>
       );
     }

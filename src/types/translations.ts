@@ -5,12 +5,20 @@ export interface Translations {
     login: string;
     signup: string;
     logout: string;
+    mainpage: string;
     language: string;
   };
   history: {
     empty: string;
     tryOptions: string;
     goToClient: string;
+  };
+  main: {
+    welcome: string;
+    welcomeBack: string;
+    restClient: string;
+    history: string;
+    variables: string;
   };
 }
 
