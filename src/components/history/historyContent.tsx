@@ -22,7 +22,7 @@ export default function HistoryContent() {
   const { t } = useLanguageContext();
 
   if (!loading && !user) {
-    redirect('/signin');
+    redirect('/main');
   }
 
   return (

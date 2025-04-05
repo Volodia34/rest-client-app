@@ -4,6 +4,7 @@ import './globals.scss';
 import ErrorBoundary from '@/errorsHandlers/ErrorBoundary';
 import Header from '@/components/header/Header';
 import { LanguageProvider } from '@/context/LanguageContext';
+import Footer from '@/components/footer/Footer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,7 +34,7 @@ export default function RootLayout({
           <LanguageProvider>
             <Header />
             {children}
-            <footer>Footer</footer>
+            <Footer />
           </LanguageProvider>
         </ErrorBoundary>
       </body>
