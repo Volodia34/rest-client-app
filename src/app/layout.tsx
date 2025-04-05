@@ -30,13 +30,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ErrorBoundary>
-          <LanguageProvider>
-            <Header />
-            {children}
-            <Footer />
-          </LanguageProvider>
-        </ErrorBoundary>
+        <div
+          style={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <ErrorBoundary>
+            <LanguageProvider>
+              <Header />
+              {children}
+              <Footer />
+            </LanguageProvider>
+          </ErrorBoundary>
+        </div>
       </body>
     </html>
   );

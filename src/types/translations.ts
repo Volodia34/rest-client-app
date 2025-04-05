@@ -12,6 +12,7 @@ export interface Translations {
     empty: string;
     tryOptions: string;
     goToClient: string;
+    clearHistory: string;
   };
   main: {
     welcome: string;

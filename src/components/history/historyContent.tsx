@@ -31,6 +31,7 @@ export default function HistoryContent() {
         <>
           <div className={styles.headerActions}>
             <Button
+              className={styles.clearHistoryButton}
               text={t('history.clearHistory') as string}
               onClick={() => {
                 setHistory([]);
@@ -55,6 +56,7 @@ export default function HistoryContent() {
           <p>{t('history.tryOptions') as string}</p>
           <div className={styles.actions}>
             <Button
+              className={styles.goToClientButton}
               text={t('history.goToClient') as string}
               onClick={() => router.push('/restClient')}
             />

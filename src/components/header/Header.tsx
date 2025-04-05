@@ -63,7 +63,7 @@ const Header = () => {
                   <Button
                     className="main-page-button"
                     text={t('header.mainpage') as string}
-                    onClick={() => router.push('/restClient')}
+                    onClick={() => router.push('/')}
                   />
                   <Button
                     className="logout-button"

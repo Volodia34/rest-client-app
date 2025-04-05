@@ -1,10 +1,22 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from './Header';
-import { useRouter } from 'next/navigation';
+import { LanguageProvider } from '@/context/LanguageContext';
 
-jest.mock('@/context/LanguageContext', () => ({
-  useLanguageContext: () => ({
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+    refresh: jest.fn(),
+    prefetch: jest.fn(),
+    replace: jest.fn(),
+  }),
+  usePathname: () => '/',
+  useSearchParams: () => new URLSearchParams(),
+}));
+
+const mockToggleLanguage = jest.fn();
+jest.mock('@/hooks/useLanguage', () => ({
+  useLanguage: () => ({
     currentLang: 'EN',
     toggleLanguage: mockToggleLanguage,
     t: (key: string) => {
