@@ -9,6 +9,11 @@ export const translations: Record<Language, Translations> = {
       language: 'Language',
       logout: 'Logout',
     },
+    history: {
+      empty: "You haven't executed any requests yet",
+      tryOptions: "It's empty here. Try those options:",
+      goToClient: 'Go to REST Client',
+    },
   },
   [LANGUAGES.RU]: {
     header: {
@@ -16,6 +21,11 @@ export const translations: Record<Language, Translations> = {
       signup: 'Регистрация',
       language: 'Язык',
       logout: 'Выйти',
+    },
+    history: {
+      empty: 'Вы еще не выполнили ни одного запроса',
+      tryOptions: 'Здесь пусто. Попробуйте эти варианты:',
+      goToClient: 'Перейти в REST Client',
     },
   },
 } as const;

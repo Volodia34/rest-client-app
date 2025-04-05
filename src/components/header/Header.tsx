@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useLanguageContext } from '@/context/LanguageContext';
 import Button from '@/UI/buttons/Button';
 import Image from 'next/image';
 import './header.scss';
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
-  const { currentLang, toggleLanguage, t } = useLanguage();
+  const { currentLang, toggleLanguage, t } = useLanguageContext();
   const { user, logout } = useAuth();
   const router = useRouter();
 

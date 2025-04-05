@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.scss';
 import ErrorBoundary from '@/errorsHandlers/ErrorBoundary';
 import Header from '@/components/header/Header';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,9 +30,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ErrorBoundary>
-          <Header />
-          {children}
-          <footer>Footer</footer>
+          <LanguageProvider>
+            <Header />
+            {children}
+            <footer>Footer</footer>
+          </LanguageProvider>
         </ErrorBoundary>
       </body>
     </html>

@@ -3,8 +3,8 @@ import '@testing-library/jest-dom';
 import Header from './Header';
 import { useRouter } from 'next/navigation';
 
-jest.mock('@/hooks/useLanguage', () => ({
-  useLanguage: () => ({
+jest.mock('@/context/LanguageContext', () => ({
+  useLanguageContext: () => ({
     currentLang: 'EN',
     toggleLanguage: jest.fn(),
     t: (key: string) => {

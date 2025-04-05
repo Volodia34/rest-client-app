@@ -25,7 +25,10 @@ export default function Home() {
                 <h1>Welcome Back, {user.displayName}!</h1>
                 <div className="links">
                   <Button text="REST Client" onClick={() => {}} />
-                  <Button text="History" onClick={() => {}} />
+                  <Button
+                    text="History"
+                    onClick={() => router.push('/historyPage')}
+                  />
                   <Button text="Variables" onClick={() => {}} />
                 </div>
               </>
@@ -33,8 +36,14 @@ export default function Home() {
               <>
                 <h1>Welcome!</h1>
                 <div className="auth-buttons">
-                  <Button text="Sign In" onClick={() => router.push('/signin')} />
-                  <Button text="Sign Up" onClick={() => router.push('/signup')} />
+                  <Button
+                    text="Sign In"
+                    onClick={() => router.push('/signin')}
+                  />
+                  <Button
+                    text="Sign Up"
+                    onClick={() => router.push('/signup')}
+                  />
                 </div>
               </>
             )}
