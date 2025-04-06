@@ -61,7 +61,7 @@ body {
     background-color transitions.$transition-base,
     color transitions.$transition-base;
   height: auto;
-   &:hover {
+  &:hover {
     background-color: colors.$gray-500;
     color: colors.$gray-100;
   }

@@ -47,7 +47,9 @@ button {
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  transition:
+    background-color 300ms ease-in-out,
+    color 300ms ease-in-out;
 }
 
 button:hover {
@@ -57,4 +59,4 @@ button:hover {
 p {
   color: #973027;
   font-size: 1rem;
-}/*# sourceMappingURL=formStyles.css.map */
+} /*# sourceMappingURL=formStyles.css.map */

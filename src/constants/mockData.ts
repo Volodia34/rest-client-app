@@ -1,4 +1,12 @@
-export const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
+export const methods = [
+  'GET',
+  'POST',
+  'PUT',
+  'DELETE',
+  'PATCH',
+  'OPTIONS',
+  'HEAD',
+];
 export const headerKeys = [
   'Accept',
   'Accept-Charset',
