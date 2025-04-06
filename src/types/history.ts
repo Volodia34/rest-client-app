@@ -2,7 +2,7 @@ export interface HistoryItem {
   method: string;
   url: string;
   timestamp: string;
-  status: number;
+  status?: number;
 }
 export interface HistoryHeaderProps {
   onClearHistory: () => void;
