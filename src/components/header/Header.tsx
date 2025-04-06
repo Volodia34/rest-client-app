@@ -28,13 +28,7 @@ const Header = () => {
       <div className="app-header">
         <div className="logo">
           <Link href="/">
-            <Image
-              priority={true}
-              src="/logo.png"
-              alt="Logo"
-              width={80}
-              height={80}
-            />
+            <Image priority src="/logo.png" alt="Logo" width={80} height={80} />
           </Link>
         </div>
         <div className="header-controls">
