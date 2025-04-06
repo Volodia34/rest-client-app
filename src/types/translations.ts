@@ -9,10 +9,15 @@ export interface Translations {
     language: string;
   };
   history: {
+    title: string;
     empty: string;
     tryOptions: string;
     goToClient: string;
     clearHistory: string;
+    method: string;
+    url: string;
+    time: string;
+    status: string;
   };
   main: {
     welcome: string;

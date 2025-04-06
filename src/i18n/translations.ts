@@ -18,12 +18,18 @@ export const translations: Record<Language, Translations> = {
       variables: 'Variables',
     },
     history: {
+      title: 'Your request History',
       empty: "You haven't executed any requests yet",
       tryOptions: "It's empty here. Make your first request via Rest Client:",
       goToClient: 'Go to REST Client',
       clearHistory: 'Clear History',
+      method: 'Method',
+      url: 'URL',
+      time: 'Date/Time',
+      status: 'Status',
     },
   },
+
   [LANGUAGES.RU]: {
     header: {
       login: 'Войти',
@@ -40,10 +46,15 @@ export const translations: Record<Language, Translations> = {
       variables: 'Переменные',
     },
     history: {
+      title: 'Ваша история запросов',
       empty: 'Вы еще не выполняли запросы',
       tryOptions: 'Здесь пусто. Сделайте свой первый запрос через REST Клиент:',
       goToClient: 'Перейти к REST Клиенту',
       clearHistory: 'Очистить историю',
+      method: 'Метод',
+      url: 'URL',
+      time: 'Дата/Время',
+      status: 'Статус',
     },
   },
 } as const;
