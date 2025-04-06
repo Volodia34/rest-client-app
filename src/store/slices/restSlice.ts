@@ -10,6 +10,9 @@ interface Header {
 interface RestSliceType {
   body: string;
   method: string;
+  baseUrl: string;
+  endpoint: string;
+  params: string;
   base64EncodedBody: string;
   headers: Header[];
 }
@@ -24,7 +27,10 @@ const initialState: RestSliceType = {
   body: '',
   base64EncodedBody: '',
   headers: [headItem],
-  method: '',
+  method: 'GET',
+  baseUrl: '',
+  endpoint: '',
+  params: '',
 };
 
 const restSlice = createSlice({
@@ -37,6 +43,15 @@ const restSlice = createSlice({
     },
     setMethod(state, action: PayloadAction<string>) {
       state.method = action.payload;
+    },
+    setBaseUrl(state, action: PayloadAction<string>) {
+      state.baseUrl = action.payload;
+    },
+    setEndpoint(state, action: PayloadAction<string>) {
+      state.endpoint = action.payload;
+    },
+    setParams(state, action: PayloadAction<string>) {
+      state.params = action.payload;
     },
     setNewHeader(state) {
       state.headers.push({
@@ -69,5 +84,8 @@ export const {
   setHeaderData,
   setUpdateHeaders,
   setMethod,
+  setBaseUrl,
+  setEndpoint,
+  setParams,
 } = restSlice.actions;
 export default restSlice.reducer;
