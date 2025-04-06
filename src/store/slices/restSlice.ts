@@ -9,6 +9,7 @@ interface Header {
 
 interface RestSliceType {
   body: string;
+  method: string;
   base64EncodedBody: string;
   headers: Header[];
 }
@@ -23,6 +24,7 @@ const initialState: RestSliceType = {
   body: '',
   base64EncodedBody: '',
   headers: [headItem],
+  method: '',
 };
 
 const restSlice = createSlice({
@@ -32,6 +34,9 @@ const restSlice = createSlice({
     setBody(state, action: PayloadAction<string>) {
       state.body = action.payload;
       state.base64EncodedBody = encodeBase64(action.payload);
+    },
+    setMethod(state, action: PayloadAction<string>) {
+      state.method = action.payload;
     },
     setNewHeader(state) {
       state.headers.push({
@@ -58,6 +63,11 @@ const restSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const { setBody, setNewHeader, setHeaderData, setUpdateHeaders } =
-  restSlice.actions;
+export const {
+  setBody,
+  setNewHeader,
+  setHeaderData,
+  setUpdateHeaders,
+  setMethod,
+} = restSlice.actions;
 export default restSlice.reducer;
