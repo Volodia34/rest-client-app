@@ -1,3 +1,13 @@
+export const generatedCode = [
+  'CURL',
+  'JavaScript (Fetch api)',
+  'JavaScript (XHR)',
+  'NodeJS',
+  'Python',
+  'Java',
+  'C#',
+  'Go',
+];
 export const methods = [
   'GET',
   'POST',

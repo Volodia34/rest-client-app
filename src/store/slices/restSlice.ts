@@ -13,6 +13,7 @@ interface RestSliceType {
   baseUrl: string;
   endpoint: string;
   params: string;
+  generatedCodeType: string;
   base64EncodedBody: string;
   headers: Header[];
 }
@@ -28,6 +29,7 @@ const initialState: RestSliceType = {
   base64EncodedBody: '',
   headers: [headItem],
   method: 'GET',
+  generatedCodeType: 'JavaScript (Fetch api)',
   baseUrl: '',
   endpoint: '',
   params: '',
@@ -49,6 +51,9 @@ const restSlice = createSlice({
     },
     setEndpoint(state, action: PayloadAction<string>) {
       state.endpoint = action.payload;
+    },
+    setGeneratedCodeType(state, action: PayloadAction<string>) {
+      state.generatedCodeType = action.payload;
     },
     setParams(state, action: PayloadAction<string>) {
       state.params = action.payload;
@@ -87,5 +92,6 @@ export const {
   setBaseUrl,
   setEndpoint,
   setParams,
+  setGeneratedCodeType,
 } = restSlice.actions;
 export default restSlice.reducer;
