@@ -1,4 +1,4 @@
-import { HeaderRest } from "@/types/restClient";
+import { HeaderRest } from '@/types/restClient';
 
 export const generateCode = (
   language: string,
@@ -8,8 +8,8 @@ export const generateCode = (
   body: string | null
 ): string => {
   const headerString = headers.map((el) => {
-    return `${el.key}: ${el.value}`
-  })
+    return `${el.key}: ${el.value}`;
+  });
 
   switch (language) {
     case 'curl':
@@ -70,13 +70,11 @@ export const generateCode = (
         HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create("${fullUrl}"))
         .method("${method}", ${
-        body
-          ? `HttpRequest.BodyPublishers.ofString("${body}")`
-          : 'HttpRequest.BodyPublishers.noBody()'
+          body
+            ? `HttpRequest.BodyPublishers.ofString("${body}")`
+            : 'HttpRequest.BodyPublishers.noBody()'
         })
-        .header(${headers.map((el) => (
-          `${el.key}, ${el.value}`
-        ))})
+        .header(${headers.map((el) => `${el.key}, ${el.value}`)})
         .build();`;
 
     case 'C#':

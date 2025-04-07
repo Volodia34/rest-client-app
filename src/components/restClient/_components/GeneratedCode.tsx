@@ -8,10 +8,13 @@ import { RootState } from '@/store/store';
 import { MouseEvent, ChangeEvent, useState, useEffect } from 'react';
 import { setLanguage } from '@/store/slices/restSlice';
 import { generateCode } from '@/helpers/generateCode';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const GeneratedCode: FC<GeneratedCodeType> = ({ title, buttonText }) => {
   const dispatch = useDispatch();
-  const { language, method, headers, baseUrl, endpoint, params, body } = useSelector((state: RootState) => state.rest);
+  const { language, method, headers, baseUrl, endpoint, params, body } =
+    useSelector((state: RootState) => state.rest);
   const [filterCode, setFilterCode] = useState<string[]>(generatedCode);
   const [render, setRender] = useState(false);
 
@@ -32,7 +35,13 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title, buttonText }) => {
 
   useEffect(() => {
     setRender(!render);
-    generateCode(language, method, `${baseUrl}${endpoint}${params}`, headers, body)
+    generateCode(
+      language,
+      method,
+      `${baseUrl}${endpoint}${params}`,
+      headers,
+      body
+    );
   }, [language]);
 
   return (
@@ -47,9 +56,25 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title, buttonText }) => {
         onChange={handleChange}
         onSelect={handleSelect}
       />
-      <pre className="whitespace-pre-wrap">
-        <code>{generateCode(language, method, `${baseUrl}${endpoint}${params}`, headers, body)}</code>
-      </pre>
+      <SyntaxHighlighter
+        language="javascript"
+        style={ghcolors}
+        showLineNumbers
+        wrapLines
+        customStyle={{
+          borderRadius: '8px',
+          padding: '16px',
+          fontSize: '14px',
+        }}
+      >
+        {generateCode(
+          language,
+          method,
+          `${baseUrl}${endpoint}${params}`,
+          headers,
+          body
+        )}
+      </SyntaxHighlighter>
     </RequestSection>
   );
 };
