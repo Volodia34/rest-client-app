@@ -11,6 +11,10 @@ describe('SelectInput Component', () => {
         type="text"
         placeholder="Select an option"
         options={mockOptions}
+        customStyle={''}
+        value={''}
+        onChange={() => {}}
+        onSelect={() => {}}
       />
     );
   });

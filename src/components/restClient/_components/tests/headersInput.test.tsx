@@ -36,7 +36,7 @@ describe('HeadersInput Component', () => {
     const removeButton = screen.getByText('Remove');
     fireEvent.click(removeButton);
     await waitFor(() => {
-      expect(store.getState().rest.headers.length).toBe(1);
+      expect(store.getState().rest.headers.length).toBe(0);
     });
   });
 
