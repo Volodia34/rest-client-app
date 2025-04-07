@@ -15,8 +15,9 @@ export const generateCode = (
   if (!fullUrl) return '// You need the main URL. ';
   if (!method) return '// You need the method. ';
   if (!headers[0].key) return '// You need the headers. ';
-  if ((!body && method === 'POST') || method === 'PUT' || method === 'PATCH')
+  if (!body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
     return '// You need the body. ';
+  }
 
   switch (language) {
     case 'curl':
