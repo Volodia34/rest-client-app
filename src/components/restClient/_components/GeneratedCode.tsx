@@ -17,7 +17,6 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
     useSelector((state: RootState) => state.rest);
   const [filterCode, setFilterCode] = useState<string[]>(generatedCode);
   const [render, setRender] = useState(false);
-  // const [textError, setTextError] = useState('');
 
   const handleSelect = (e: MouseEvent<HTMLElement>) => {
     dispatch(setLanguage(e.currentTarget.id));
@@ -37,13 +36,6 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
   useEffect(() => {
     setRender(!render);
   }, [language]);
-
-  // useEffect(() => {
-  //   if (!language ) setTextError(() =>'You need the language code. ')
-  //   if (!baseUrl ) setTextError(() =>'You need the main URL. ')
-  //   if (!method ) setTextError(() =>'You need the method. ')
-  //   if (!body && method === 'POST' || method === 'PUT' || method ===  'PATCH') setTextError(() =>'You need the body. ')
-  // }, [baseUrl, language, method, body]);
 
   return (
     <RequestSection key={`${render}`} title={title}>

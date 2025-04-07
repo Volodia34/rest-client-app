@@ -14,7 +14,7 @@ import {
 
 const HttpMethodURL = () => {
   const dispatch = useDispatch();
-  const { method } = useSelector((state: RootState) => state.rest);
+  const { method, baseUrl } = useSelector((state: RootState) => state.rest);
   const [filterMethods, setFilterMethods] = useState<string[]>(methods);
   const [render, setRender] = useState(false);
 
@@ -67,6 +67,7 @@ const HttpMethodURL = () => {
       <Input
         forInput="path"
         type="text"
+        value={baseUrl}
         customStyle="widthPath"
         onChange={handleUrl}
       />
