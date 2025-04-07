@@ -7,27 +7,29 @@ interface RestSliceType {
   method: string;
   baseUrl: string;
   endpoint: string;
+  endpointEnCode: string;
   params: string;
+  encodeParams: string;
+  urlValueInput: string;
   language: string;
   base64EncodedBody: string;
   headers: HeaderRest[];
 }
 
-const headItem: HeaderRest = {
-  id: 0,
-  key: '',
-  value: '',
-};
+const initialHeader: HeaderRest = { id: 0, key: '', value: '' };
 
 const initialState: RestSliceType = {
   body: '',
   base64EncodedBody: '',
-  headers: [headItem],
+  headers: [initialHeader],
   method: 'GET',
   language: 'JavaScript (Fetch api)',
   baseUrl: '',
   endpoint: '',
+  endpointEnCode: '',
   params: '',
+  encodeParams: '',
+  urlValueInput: '',
 };
 
 const restSlice = createSlice({
@@ -45,34 +47,48 @@ const restSlice = createSlice({
       state.baseUrl = action.payload;
     },
     setEndpoint(state, action: PayloadAction<string>) {
-      state.endpoint = action.payload;
+      state.endpoint = action.payload.split('?')[0];
+      state.endpointEnCode = state.endpoint
+        .split('/')
+        .map((el) => encodeBase64(el))
+        .join('/');
     },
     setLanguage(state, action: PayloadAction<string>) {
       state.language = action.payload;
     },
-    setParams(state, action: PayloadAction<string>) {
-      state.params = action.payload;
+    setUrlValueInput(state, action: PayloadAction<string>) {
+      state.urlValueInput = action.payload;
+    },
+    setParamsAndEncode(state, action: PayloadAction<{ params: string }>) {
+      const { params } = action.payload;
+      state.params = params;
+      const originalParams = new URLSearchParams(action.payload);
+      const encodedParams = new URLSearchParams();
+
+      originalParams.forEach((value, key) => {
+        const encodedValue = encodeBase64(value);
+        encodedParams.set(key, encodedValue);
+      });
+
+      state.encodeParams = `?${encodedParams.toString()}`;
     },
     setNewHeader(state) {
-      state.headers.push({
-        id: state.headers.length,
-        key: '',
-        value: '',
-      });
+      state.headers.push({ id: state.headers.length, key: '', value: '' });
     },
     setUpdateHeaders(state, action: PayloadAction<number>) {
-      if (state.headers.length !== 1) {
-        state.headers = state.headers.filter((el) => el.id !== action.payload);
-      } else {
-        state.headers = [headItem];
-      }
+      state.headers = state.headers.filter(
+        (el) => el.id !== action.payload
+      ) || [initialHeader];
     },
     setHeaderData(
       state,
       action: PayloadAction<{ data: HeaderRest; index: number }>
     ) {
-      state.headers[action.payload.index].key = action.payload.data.key;
-      state.headers[action.payload.index].value = action.payload.data.value;
+      const { key, value } = action.payload.data;
+      const { index } = action.payload;
+      if (state.headers[index]) {
+        state.headers[index] = { ...state.headers[index], key, value };
+      }
     },
   },
   extraReducers: () => {},
@@ -86,7 +102,8 @@ export const {
   setMethod,
   setBaseUrl,
   setEndpoint,
-  setParams,
+  setParamsAndEncode,
   setLanguage,
+  setUrlValueInput,
 } = restSlice.actions;
 export default restSlice.reducer;

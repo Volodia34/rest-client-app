@@ -9,12 +9,16 @@ import {
   setBaseUrl,
   setEndpoint,
   setMethod,
-  setParams,
+  setParamsAndEncode,
+  setUrlValueInput,
 } from '@/store/slices/restSlice';
+import { encodeBase64 } from '@/helpers/encodeBase64';
 
 const HttpMethodURL = () => {
   const dispatch = useDispatch();
-  const { method, baseUrl } = useSelector((state: RootState) => state.rest);
+  const { method, urlValueInput } = useSelector(
+    (state: RootState) => state.rest
+  );
   const [filterMethods, setFilterMethods] = useState<string[]>(methods);
   const [render, setRender] = useState(false);
 
@@ -23,20 +27,26 @@ const HttpMethodURL = () => {
   };
 
   const handleUrl = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setUrlValueInput(e.target.value));
     const rawUrl = e.target.value;
     const url = new URL(rawUrl);
 
-    const baseUrl = `${url.protocol}//${url.host}${url.pathname.split('/').slice(0, 2).join('/')}`;
+    dispatch(setBaseUrl(`${url.protocol}//${url.host}`));
+    dispatch(setEndpoint(url.pathname));
+
     const params = new URLSearchParams(url.search);
 
-    params.forEach((value, key) => {
-      const encodedValue = btoa(decodeURIComponent(value));
-      params.set(key, encodedValue);
-    });
+    // params.forEach((value, key) => {
+    //   const cleanValue = value.replace(/^'+|'+$/g, '')
+    //   const encodedValue = encodeBase64(cleanValue);
+    //   params.set(key, encodedValue);
+    // });
 
-    dispatch(setBaseUrl(baseUrl));
-    dispatch(setParams(params.toString()));
-    dispatch(setEndpoint(rawUrl.replace(baseUrl, '')));
+    dispatch(
+      setParamsAndEncode({
+        params: params.toString(),
+      })
+    );
   };
 
   const handleChangeMethod = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +77,7 @@ const HttpMethodURL = () => {
       <Input
         forInput="path"
         type="text"
-        value={baseUrl}
+        value={urlValueInput}
         customStyle="widthPath"
         onChange={handleUrl}
       />

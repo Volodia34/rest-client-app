@@ -64,7 +64,7 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
           {generateCode(
             language,
             method,
-            `${baseUrl}${endpoint}${params}`,
+            `${baseUrl}${endpoint}?${params}`,
             headers,
             body
           )}
