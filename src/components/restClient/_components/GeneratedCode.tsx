@@ -11,12 +11,13 @@ import { generateCode } from '@/helpers/generateCode';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-const GeneratedCode: FC<GeneratedCodeType> = ({ title, buttonText }) => {
+const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
   const dispatch = useDispatch();
   const { language, method, headers, baseUrl, endpoint, params, body } =
     useSelector((state: RootState) => state.rest);
   const [filterCode, setFilterCode] = useState<string[]>(generatedCode);
   const [render, setRender] = useState(false);
+  // const [textError, setTextError] = useState('');
 
   const handleSelect = (e: MouseEvent<HTMLElement>) => {
     dispatch(setLanguage(e.currentTarget.id));
@@ -35,17 +36,17 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title, buttonText }) => {
 
   useEffect(() => {
     setRender(!render);
-    generateCode(
-      language,
-      method,
-      `${baseUrl}${endpoint}${params}`,
-      headers,
-      body
-    );
   }, [language]);
 
+  // useEffect(() => {
+  //   if (!language ) setTextError(() =>'You need the language code. ')
+  //   if (!baseUrl ) setTextError(() =>'You need the main URL. ')
+  //   if (!method ) setTextError(() =>'You need the method. ')
+  //   if (!body && method === 'POST' || method === 'PUT' || method ===  'PATCH') setTextError(() =>'You need the body. ')
+  // }, [baseUrl, language, method, body]);
+
   return (
-    <RequestSection key={`${render}`} title={title} buttonText={buttonText}>
+    <RequestSection key={`${render}`} title={title}>
       <SelectInput
         data-testid="headers-key"
         value={language}
@@ -56,25 +57,27 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title, buttonText }) => {
         onChange={handleChange}
         onSelect={handleSelect}
       />
-      <SyntaxHighlighter
-        language="javascript"
-        style={ghcolors}
-        showLineNumbers
-        wrapLines
-        customStyle={{
-          borderRadius: '8px',
-          padding: '16px',
-          fontSize: '14px',
-        }}
-      >
-        {generateCode(
-          language,
-          method,
-          `${baseUrl}${endpoint}${params}`,
-          headers,
-          body
-        )}
-      </SyntaxHighlighter>
+      {
+        <SyntaxHighlighter
+          language="javascript"
+          style={ghcolors}
+          showLineNumbers
+          wrapLines
+          customStyle={{
+            borderRadius: '8px',
+            padding: '16px',
+            fontSize: '14px',
+          }}
+        >
+          {generateCode(
+            language,
+            method,
+            `${baseUrl}${endpoint}${params}`,
+            headers,
+            body
+          )}
+        </SyntaxHighlighter>
+      }
     </RequestSection>
   );
 };
