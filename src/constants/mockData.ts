@@ -1,5 +1,5 @@
 export const generatedCode = [
-  'CURL',
+  'curl',
   'JavaScript (Fetch api)',
   'JavaScript (XHR)',
   'NodeJS',

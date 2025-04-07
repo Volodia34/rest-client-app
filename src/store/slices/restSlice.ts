@@ -1,11 +1,6 @@
 import { encodeBase64 } from '@/helpers/encodeBase64';
+import { HeaderRest } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface Header {
-  id: number;
-  key: string;
-  value: string;
-}
 
 interface RestSliceType {
   body: string;
@@ -13,12 +8,12 @@ interface RestSliceType {
   baseUrl: string;
   endpoint: string;
   params: string;
-  generatedCodeType: string;
+  language: string;
   base64EncodedBody: string;
-  headers: Header[];
+  headers: HeaderRest[];
 }
 
-const headItem: Header = {
+const headItem: HeaderRest = {
   id: 0,
   key: '',
   value: '',
@@ -29,7 +24,7 @@ const initialState: RestSliceType = {
   base64EncodedBody: '',
   headers: [headItem],
   method: 'GET',
-  generatedCodeType: 'JavaScript (Fetch api)',
+  language: 'JavaScript (Fetch api)',
   baseUrl: '',
   endpoint: '',
   params: '',
@@ -52,8 +47,8 @@ const restSlice = createSlice({
     setEndpoint(state, action: PayloadAction<string>) {
       state.endpoint = action.payload;
     },
-    setGeneratedCodeType(state, action: PayloadAction<string>) {
-      state.generatedCodeType = action.payload;
+    setLanguage(state, action: PayloadAction<string>) {
+      state.language = action.payload;
     },
     setParams(state, action: PayloadAction<string>) {
       state.params = action.payload;
@@ -74,7 +69,7 @@ const restSlice = createSlice({
     },
     setHeaderData(
       state,
-      action: PayloadAction<{ data: Header; index: number }>
+      action: PayloadAction<{ data: HeaderRest; index: number }>
     ) {
       state.headers[action.payload.index].key = action.payload.data.key;
       state.headers[action.payload.index].value = action.payload.data.value;
@@ -92,6 +87,6 @@ export const {
   setBaseUrl,
   setEndpoint,
   setParams,
-  setGeneratedCodeType,
+  setLanguage,
 } = restSlice.actions;
 export default restSlice.reducer;

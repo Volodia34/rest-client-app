@@ -15,7 +15,6 @@ const RestClient = () => {
       <RequestHeaders />
       <GeneratedCode
         title={'Generated request code:'}
-        code={`<section className="container rest-client-wrapper">`}
         buttonText="Generate"
       />
       <RestBody />

@@ -9,6 +9,11 @@ export interface RequestSectionHeadProps {
 
 export interface GeneratedCodeType {
   title: string;
-  code: string;
   buttonText?: string;
+}
+
+export interface HeaderRest {
+  id: number;
+  key: string;
+  value: string;
 }
