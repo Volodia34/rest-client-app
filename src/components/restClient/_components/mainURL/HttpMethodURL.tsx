@@ -12,7 +12,6 @@ import {
   setParamsAndEncode,
   setUrlValueInput,
 } from '@/store/slices/restSlice';
-import { encodeBase64 } from '@/helpers/encodeBase64';
 
 const HttpMethodURL = () => {
   const dispatch = useDispatch();
@@ -35,12 +34,6 @@ const HttpMethodURL = () => {
     dispatch(setEndpoint(url.pathname));
 
     const params = new URLSearchParams(url.search);
-
-    // params.forEach((value, key) => {
-    //   const cleanValue = value.replace(/^'+|'+$/g, '')
-    //   const encodedValue = encodeBase64(cleanValue);
-    //   params.set(key, encodedValue);
-    // });
 
     dispatch(
       setParamsAndEncode({
