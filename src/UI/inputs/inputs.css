@@ -4,7 +4,8 @@
 }
 
 .input-container .input,
-.input-container .datalist, .textarea {
+.input-container .datalist,
+.textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #3d3d3d;
@@ -63,4 +64,4 @@
 .textarea:focus {
   border: 2px solid #fe6c37;
   outline: none;
-}/*# sourceMappingURL=inputs.css.map */
+} /*# sourceMappingURL=inputs.css.map */

@@ -2,6 +2,10 @@
 @use '../../styles/variables/colors.scss' as *;
 @use '../../styles/variables/typography.scss' as *;
 
+.path {
+  margin: 1rem 0;
+}
+
 .rest-client-wrapper {
   padding: 2rem 0;
 }
@@ -52,4 +56,8 @@
   input {
     border-right: none !important;
   }
+}
+
+.generated-code-select {
+  width: 25%;
 }

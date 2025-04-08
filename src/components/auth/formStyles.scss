@@ -48,7 +48,9 @@ button {
   border-radius: borders.$border-radius-sm;
   font-size: typography.$font-size-md;
   cursor: pointer;
-  transition: background-color transitions.$transition-base, color transitions.$transition-base;
+  transition:
+    background-color transitions.$transition-base,
+    color transitions.$transition-base;
 }
 
 button:hover {
