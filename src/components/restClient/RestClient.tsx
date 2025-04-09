@@ -1,43 +1,21 @@
 'use client';
 
-import Button from '@/UI/buttons/Button';
-import Input from '../../UI/inputs/Input';
-import SelectInput from '../../UI/inputs/SelectInput';
 import GeneratedCode from './_components/GeneratedCode';
 import RequestHeaders from './_components/RequestHeaders';
 import './restClient.scss';
-import { methods } from '@/constants/mockData';
-import { Provider } from 'react-redux';
-import { store } from '@/store/store';
 import RestBody from './_components/restBody/RestBody';
+import HttpMethodURL from './_components/mainURL/HttpMethodURL';
+import EncodePath from './_components/EncodePath';
 
 const RestClient = () => {
   return (
-    <Provider store={store}>
-      <section className="container rest-client-wrapper">
-        <div className="path-wrapper" data-testid="path-wrapper">
-          <SelectInput
-            data-test="select-methods"
-            forInput="methods"
-            type="text"
-            options={methods}
-            customStyle="widthMeth"
-            value="GET"
-            onChange={() => {}}
-            onSelect={() => {}}
-          />
-          <Input forInput="path" type="text" customStyle="widthPath" />
-          <Button className="button" text={'Send'} onClick={() => {}} />
-        </div>
-        <RequestHeaders />
-        <GeneratedCode
-          title={'Generated request code:'}
-          code={`<section className="container rest-client-wrapper">`}
-          buttonText="Generate"
-        />
-        <RestBody />
-      </section>
-    </Provider>
+    <section className="container rest-client-wrapper">
+      <EncodePath />
+      <HttpMethodURL />
+      <RequestHeaders />
+      <GeneratedCode title={'Generated request code:'} />
+      <RestBody />
+    </section>
   );
 };
 

@@ -1,4 +1,22 @@
-export const methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
+export const generatedCode = [
+  'curl',
+  'JavaScript (Fetch api)',
+  'JavaScript (XHR)',
+  'NodeJS',
+  'Python',
+  'Java',
+  'C#',
+  'Go',
+];
+export const methods = [
+  'GET',
+  'POST',
+  'PUT',
+  'DELETE',
+  'PATCH',
+  'OPTIONS',
+  'HEAD',
+];
 export const headerKeys = [
   'Accept',
   'Accept-Charset',
