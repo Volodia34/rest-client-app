@@ -52,7 +52,7 @@ const HttpMethodURL = () => {
   };
 
   useEffect(() => {
-    setRender(!render);
+    setRender((prev) => !prev);
   }, [method]);
 
   return (

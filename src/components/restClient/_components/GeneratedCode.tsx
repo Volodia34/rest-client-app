@@ -34,7 +34,7 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
   };
 
   useEffect(() => {
-    setRender(!render);
+    setRender((prev) => !prev);
   }, [language]);
 
   return (
