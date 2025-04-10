@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Header from './Header';
 import { LanguageProvider } from '@/context/LanguageContext';
@@ -43,16 +43,20 @@ jest.mock('next/image', () => ({
     height?: number;
     priority?: boolean;
     [key: string]: unknown;
-  }) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      {...props}
-      src={props.src}
-      alt={props.alt}
-      width={props.width}
-      height={props.height}
-    />
-  ),
+  }) => {
+    const { priority, ...rest } = props;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        {...rest}
+        src={props.src}
+        alt={props.alt}
+        width={props.width}
+        height={props.height}
+        data-priority={priority ? 'true' : undefined}
+      />
+    );
+  },
 }));
 
 describe('Header', () => {
@@ -64,36 +68,44 @@ describe('Header', () => {
     });
   });
 
-  const renderHeader = () => {
-    return render(
-      <LanguageProvider>
-        <Header />
-      </LanguageProvider>
-    );
+  const renderHeader = async () => {
+    let renderResult;
+    await act(async () => {
+      renderResult = render(
+        <LanguageProvider>
+          <Header />
+        </LanguageProvider>
+      );
+    });
+    return renderResult!;
   };
 
-  it('renders header with all elements', () => {
-    renderHeader();
+  it('renders header with all elements', async () => {
+    await renderHeader();
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(screen.getByText('EN')).toBeInTheDocument();
   });
 
-  it('applies sticky class on scroll', () => {
-    renderHeader();
+  it('applies sticky class on scroll', async () => {
+    await renderHeader();
     const header = screen.getByRole('banner');
     expect(header).not.toHaveClass('sticky');
 
-    Object.defineProperty(window, 'scrollY', { value: 10 });
-    fireEvent.scroll(window);
+    await act(async () => {
+      Object.defineProperty(window, 'scrollY', { value: 10 });
+      fireEvent.scroll(window);
+    });
 
     expect(header).toHaveClass('sticky');
   });
 
-  it('removes scroll event listener on unmount', () => {
+  it('removes scroll event listener on unmount', async () => {
     const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
-    const { unmount } = renderHeader();
+    const { unmount } = await renderHeader();
 
-    unmount();
+    await act(async () => {
+      unmount();
+    });
 
     expect(removeEventListenerSpy).toHaveBeenCalledWith(
       'scroll',
@@ -102,11 +114,13 @@ describe('Header', () => {
     removeEventListenerSpy.mockRestore();
   });
 
-  it('handles language toggle', () => {
-    renderHeader();
+  it('handles language toggle', async () => {
+    await renderHeader();
     const langButton = screen.getByText('EN');
 
-    fireEvent.click(langButton);
+    await act(async () => {
+      fireEvent.click(langButton);
+    });
 
     expect(mockToggleLanguage).toHaveBeenCalledTimes(1);
   });

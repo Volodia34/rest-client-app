@@ -8,12 +8,30 @@ export interface Translations {
     mainpage: string;
     language: string;
   };
+  history: {
+    title: string;
+    empty: string;
+    tryOptions: string;
+    goToClient: string;
+    clearHistory: string;
+    method: string;
+    url: string;
+    time: string;
+    status: string;
+  };
   main: {
     welcome: string;
     welcomeBack: string;
     restClient: string;
     history: string;
     variables: string;
+  };
+  auth: {
+    username: string;
+    email: string;
+    password: string;
+    signup: string;
+    signin: string;
   };
 }
 

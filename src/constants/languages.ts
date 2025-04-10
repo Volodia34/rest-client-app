@@ -1,6 +1,6 @@
 export const LANGUAGES = {
-  EN: 'en',
-  RU: 'ru',
+  EN: 'EN',
+  RU: 'RU',
 } as const;
 
 export type Language = (typeof LANGUAGES)[keyof typeof LANGUAGES];

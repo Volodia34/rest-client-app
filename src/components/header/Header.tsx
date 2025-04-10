@@ -28,13 +28,7 @@ const Header = () => {
       <div className="app-header">
         <div className="logo">
           <Link href="/">
-            <Image
-              priority={true}
-              src="/logo.png"
-              alt="Logo"
-              width={80}
-              height={80}
-            />
+            <Image priority src="/logo.png" alt="Logo" width={80} height={80} />
           </Link>
         </div>
         <div className="header-controls">
@@ -63,7 +57,7 @@ const Header = () => {
                   <Button
                     className="main-page-button"
                     text={t('header.mainpage') as string}
-                    onClick={() => router.push('/restClient')}
+                    onClick={() => router.push('/')}
                   />
                   <Button
                     className="logout-button"
