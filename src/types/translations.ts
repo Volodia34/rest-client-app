@@ -26,6 +26,13 @@ export interface Translations {
     history: string;
     variables: string;
   };
+  auth: {
+    username: string;
+    email: string;
+    password: string;
+    signup: string;
+    signin: string;
+  };
 }
 
 export type TranslationKey =

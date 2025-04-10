@@ -28,6 +28,13 @@ export const translations: Record<Language, Translations> = {
       time: 'Date/Time',
       status: 'Status',
     },
+    auth: {
+      username: 'Username',
+      email: 'Email',
+      password: 'Password',
+      signup: 'Sign Up',
+      signin: 'Sign In',
+    },
   },
 
   [LANGUAGES.RU]: {
@@ -55,6 +62,13 @@ export const translations: Record<Language, Translations> = {
       url: 'URL',
       time: 'Дата/Время',
       status: 'Статус',
+    },
+    auth: {
+      username: 'Имя пользователя',
+      email: 'Электронная почта',
+      password: 'Пароль',
+      signup: 'Зарегистрироваться',
+      signin: 'Войти',
     },
   },
 } as const;

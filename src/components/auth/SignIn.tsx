@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/UI/buttons/Button';
 import { z } from 'zod';
 import './formStyles.scss';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const signInSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -25,6 +26,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const { t } = useLanguageContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,23 +47,23 @@ const SignIn = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Sign In</h2>
+      <h2>{t('auth.signin') as string}</h2>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
+        placeholder={t('auth.email') as string}
         required
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
+        placeholder={t('auth.password') as string}
         required
       />
       {error && <p>{error}</p>}
-      <Button text="Sign In" onClick={() => handleSubmit} />
+      <Button text={t('auth.signin') as string} onClick={() => handleSubmit} />
     </form>
   );
 };
