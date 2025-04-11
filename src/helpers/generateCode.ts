@@ -14,7 +14,8 @@ export const generateCode = (
   if (!language) return '// You need the language code. ';
   if (!fullUrl) return '// You need the main URL. ';
   if (!method) return '// You need the method. ';
-  if (!headers[0].key) return '// You need the headers. ';
+  if (!headers || headers.length === 0 || !headers[0].key)
+    return '// You need the headers. ';
   if (!body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
     return '// You need the body. ';
   }

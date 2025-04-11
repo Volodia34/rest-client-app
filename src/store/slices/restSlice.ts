@@ -81,9 +81,8 @@ const restSlice = createSlice({
       state.headers.push({ id: state.headers.length, key: '', value: '' });
     },
     setUpdateHeaders(state, action: PayloadAction<number>) {
-      state.headers = state.headers.filter(
-        (el) => el.id !== action.payload
-      ) || [initialHeader];
+      const headers = state.headers.filter((el) => el.id !== action.payload);
+      state.headers = !headers.length ? [initialHeader] : headers;
     },
     setHeaderData(
       state,
