@@ -55,6 +55,7 @@ const RestBody = () => {
         const prettyJson = JSON.stringify(parsed, null, 2);
         dispatch(setBody(prettyJson));
         setError('');
+        setBodyChange(prettyJson);
       } catch (err) {
         setError(`${err}`);
       }
