@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent } from 'react';
+import { ChangeEvent, MouseEvent, FocusEvent } from 'react';
 
 export interface BaseInputType {
   forInput: string;
@@ -9,6 +9,7 @@ export interface BaseInputType {
 
 export interface TextareaType extends BaseInputType {
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLTextAreaElement>) => void;
 }
 
 export interface SelectInputType extends BaseInputType {

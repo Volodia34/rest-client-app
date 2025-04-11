@@ -16,11 +16,16 @@ const RestBody = () => {
   const dispatch = useDispatch();
   const { body, formatBody } = useSelector((state: RootState) => state.rest);
   const [error, setError] = useState('');
+  const [bodyChange, setBodyChange] = useState('');
   const [optionsValue, setOptionsValue] = useState(option);
   const [render, setRender] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(setBody(e.target.value as string));
+    setBodyChange(e.target.value as string);
+  };
+
+  const handleBlur = () => {
+    dispatch(setBody(bodyChange));
     setError('');
   };
 
@@ -54,18 +59,12 @@ const RestBody = () => {
         setError(`${err}`);
       }
     }
-    if (formatBody === 'Text') {
-      const text = body.trim();
-      const quoted = `"${text}"`;
-      dispatch(setBody(quoted));
-      setError('');
-    }
   };
 
   return (
     <RequestSection
       title="Body:"
-      buttonText={'Prettify'}
+      buttonText={formatBody === 'JSON' ? 'Prettify' : undefined}
       onClick={handlePrettify}
     >
       <SelectInput
@@ -81,8 +80,9 @@ const RestBody = () => {
 
       <Textarea
         forInput="body-json"
-        value={body}
+        value={bodyChange}
         onChange={handleChange}
+        onBlur={handleBlur}
         placeholder="Enter JSON..."
       />
       <p className={error ? 'error' : 'hidden'}>{error}.</p>
