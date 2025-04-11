@@ -2,14 +2,16 @@ import { Options } from '@/types/restClient';
 
 export const option: Options[] = ['JSON', 'Text'];
 export const generatedCode = [
-  'curl',
-  'JavaScript (Fetch api)',
-  'JavaScript (XHR)',
-  'NodeJS',
-  'Python',
-  'Java',
-  'C#',
-  'Go',
+  'JavaScript-Fetch',
+  'JavaScript-XHR',
+  'Java-OkHttp',
+  'Java-Unirest',
+  'Go-Native',
+  'csharp-HttpClient-C#',
+  'curl-cURL',
+  'NodeJs-Axios',
+  'NodeJs-Request',
+  'Python-http.client',
 ];
 export const methods = [
   'GET',

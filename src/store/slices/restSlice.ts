@@ -24,7 +24,7 @@ const initialState: RestSliceType = {
   base64EncodedBody: '',
   headers: [initialHeader],
   method: 'GET',
-  language: 'JavaScript (Fetch api)',
+  language: 'JavaScript-Fetch',
   baseUrl: '',
   endpoint: '',
   endpointEnCode: '',

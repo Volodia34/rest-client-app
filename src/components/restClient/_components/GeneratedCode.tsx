@@ -1,22 +1,20 @@
-import { FC } from 'react';
-import RequestSection from './RequestSection';
-import { GeneratedCodeType } from '@/types/restClient';
-import SelectInput from '@/UI/inputs/SelectInput';
-import { generatedCode } from '@/constants/mockData';
+import { FC, useState, ChangeEvent, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { MouseEvent, ChangeEvent, useState, useEffect } from 'react';
 import { setLanguage } from '@/store/slices/restSlice';
-import { generateCode } from '@/helpers/generateCode';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import RequestSection from './RequestSection';
+import SelectInput from '@/UI/inputs/SelectInput';
+import { generatedCode } from '@/constants/mockData';
+import { useGeneratedCode } from '@/hooks/useGeneratedCode';
+import CodeHighlighter from './generatedComponents/CodeHighlighter';
 
-const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
+const messageText = 'There will be a generated code here...';
+
+const GeneratedCode: FC<{ title: string }> = ({ title }) => {
   const dispatch = useDispatch();
   const { language, method, headers, baseUrl, endpoint, params, body } =
     useSelector((state: RootState) => state.rest);
   const [filterCode, setFilterCode] = useState<string[]>(generatedCode);
-  const [render, setRender] = useState(false);
 
   const handleSelect = (e: MouseEvent<HTMLElement>) => {
     dispatch(setLanguage(e.currentTarget.id));
@@ -33,12 +31,19 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
     }
   };
 
-  useEffect(() => {
-    setRender((prev) => !prev);
-  }, [language]);
+  const { generatedSnippet, warningMessages, render } = useGeneratedCode(
+    language,
+    method,
+    headers,
+    baseUrl,
+    endpoint,
+    params,
+    body
+  );
 
   return (
     <RequestSection key={`${render}`} title={title}>
+      <p className="warning-messages">{warningMessages}</p>
       <SelectInput
         data-testid="headers-key"
         value={language}
@@ -49,27 +54,11 @@ const GeneratedCode: FC<GeneratedCodeType> = ({ title }) => {
         onChange={handleChange}
         onSelect={handleSelect}
       />
-      {
-        <SyntaxHighlighter
-          language="javascript"
-          style={ghcolors}
-          showLineNumbers
-          wrapLines
-          customStyle={{
-            borderRadius: '8px',
-            padding: '16px',
-            fontSize: '14px',
-          }}
-        >
-          {generateCode(
-            language,
-            method,
-            `${baseUrl}${endpoint}?${params}`,
-            headers,
-            body
-          )}
-        </SyntaxHighlighter>
-      }
+      {generatedSnippet ? (
+        <CodeHighlighter code={generatedSnippet} />
+      ) : (
+        <p>{messageText}</p>
+      )}
     </RequestSection>
   );
 };
