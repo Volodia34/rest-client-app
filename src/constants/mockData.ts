@@ -1,3 +1,6 @@
+import { Options } from '@/types/restClient';
+
+export const option: Options[] = ['JSON', 'Text'];
 export const generatedCode = [
   'curl',
   'JavaScript (Fetch api)',

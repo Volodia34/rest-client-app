@@ -1,5 +1,5 @@
 import { encodeBase64 } from '@/helpers/encodeBase64';
-import { HeaderRest } from '@/types/restClient';
+import { HeaderRest, Options } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface RestSliceType {
@@ -14,6 +14,7 @@ interface RestSliceType {
   language: string;
   base64EncodedBody: string;
   headers: HeaderRest[];
+  formatBody: Options;
 }
 
 const initialHeader: HeaderRest = { id: 0, key: '', value: '' };
@@ -30,12 +31,16 @@ const initialState: RestSliceType = {
   params: '',
   encodeParams: '',
   urlValueInput: '',
+  formatBody: 'JSON',
 };
 
 const restSlice = createSlice({
   name: 'rest',
   initialState,
   reducers: {
+    setFormatBody(state, action: PayloadAction<'JSON' | 'Text' | ''>) {
+      state.formatBody = action.payload;
+    },
     setBody(state, action: PayloadAction<string>) {
       state.body = action.payload;
       state.base64EncodedBody = encodeBase64(action.payload);
@@ -105,5 +110,6 @@ export const {
   setParamsAndEncode,
   setLanguage,
   setUrlValueInput,
+  setFormatBody,
 } = restSlice.actions;
 export default restSlice.reducer;
