@@ -5,6 +5,6 @@ const Variables = dynamic(() => import('@/components/variables/variables'), {
   ssr: true,
 });
 
-export default function HistoryPage() {
+export default function VariablesPage() {
   return <Variables />;
 }

@@ -33,6 +33,19 @@ export interface Translations {
     signup: string;
     signin: string;
   };
+  variables: {
+    title: string;
+    empty: string;
+    tryOptions: string;
+    goToClient: string;
+    clearVariables: string;
+    key: string;
+    value: string;
+    enterKey: string;
+    enterValue: string;
+    add: string;
+    delete: string;
+  };
 }
 
 export type TranslationKey =

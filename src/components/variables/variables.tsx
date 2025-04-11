@@ -1,8 +1,8 @@
-import { useAuth } from '@/hooks/useAuth';
 import { redirect } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 import { VariablesClientContent } from './_components/variablesClientContent';
 
-const Variables = () => {
+export default function Variables() {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -13,6 +13,4 @@ const Variables = () => {
   }
 
   return <VariablesClientContent />;
-};
-
-export default Variables;
+}
