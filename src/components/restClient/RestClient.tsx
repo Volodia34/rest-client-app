@@ -13,8 +13,8 @@ const RestClient = () => {
       <EncodePath />
       <HttpMethodURL />
       <RequestHeaders />
-      <GeneratedCode title={'Generated request code:'} />
       <RestBody />
+      <GeneratedCode title={'Generated request code:'} />
     </section>
   );
 };
