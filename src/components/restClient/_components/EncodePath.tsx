@@ -6,8 +6,11 @@ import { useSelector } from 'react-redux';
 // http://localhost:3000/mini-postman/POST/?url=http://localhost:3000/client/&headers={"Accept":"ssddddd"}&body=eeeeee&params=id=123&key=dog
 
 const EncodePath = () => {
-  const { baseUrl, endpointEnCode, encodeParams, method, headers, body } =
-    useSelector((state: RootState) => state.rest);
+  const { baseUrl, endpointEnCode, encodeParams } = useSelector(
+    (state: RootState) => state.urlSlice
+  );
+  const { headers } = useSelector((state: RootState) => state.headerSlice);
+  const { body, method } = useSelector((state: RootState) => state.bodySlice);
   const [encodeHeader, setEncodeHeader] = useState('');
   const [url, setUrl] = useState('');
 
@@ -22,14 +25,23 @@ const EncodePath = () => {
   }, [headers]);
 
   useEffect(() => {
-    const urlSelect =
-      `${encodeBase64(method)}/` +
-      (baseUrl ? `?${baseUrl}` : '') +
-      (endpointEnCode ? `${endpointEnCode}` : '') +
-      (encodeHeader ? `&headers=${encodeHeader}` : '') +
-      (body ? `&body=${encodeBase64(body)}` : '') +
-      (encodeParams ? `${encodeParams}` : '');
-    setUrl(() => urlSelect);
+    let urlSelect = `${encodeBase64(method)}/`;
+    const params = new URLSearchParams();
+
+    if (baseUrl) params.set('url', `${baseUrl}${endpointEnCode || ''}`);
+    if (encodeHeader) params.set('headers', encodeHeader);
+    if (body) params.set('body', encodeBase64(body));
+    if (encodeParams) params.set('params', encodeParams);
+
+    const queryString = params.toString();
+
+    if (queryString) urlSelect += `?${queryString}`;
+
+    setUrl(urlSelect);
+
+    // const currentUrl = new URL(window.location.href);
+    // currentUrl.pathname = `/${urlSelect}`;
+    // window.history.pushState({}, '', currentUrl.toString());
   }, [
     baseUrl,
     body,

@@ -5,16 +5,19 @@ import RequestSection from '../RequestSection';
 import { ChangeEvent, useState, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { setBody, setFormatBody } from '@/store/slices/restSlice';
+import { setFormatBody } from '@/store/slices/bodySlice';
 import SelectInput from '@/UI/inputs/SelectInput';
 import { Options } from '@/types/restClient';
 import { option } from '@/constants/mockData';
+import { setBody } from '@/store/slices/bodySlice';
 
 const optionsMinLength = 1;
 
 const RestBody = () => {
   const dispatch = useDispatch();
-  const { body, formatBody } = useSelector((state: RootState) => state.rest);
+  const { body, formatBody } = useSelector(
+    (state: RootState) => state.bodySlice
+  );
   const [error, setError] = useState('');
   const [bodyChange, setBodyChange] = useState('');
   const [optionsValue, setOptionsValue] = useState(option);

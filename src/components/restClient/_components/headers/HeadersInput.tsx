@@ -1,5 +1,5 @@
 import { headerKeys } from '@/constants/mockData';
-import { setHeaderData, setUpdateHeaders } from '@/store/slices/restSlice';
+import { setHeaderData, setUpdateHeaders } from '@/store/slices/headerSlice';
 import { RootState } from '@/store/store';
 import Button from '@/UI/buttons/Button';
 import Input from '@/UI/inputs/Input';
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
-  const headers = useSelector((state: RootState) => state.rest.headers);
+  const headers = useSelector((state: RootState) => state.headerSlice.headers);
   const [render, setRender] = useState(false);
   const [filterHeaderKeys, setFilterHeaderKeys] =
     useState<string[]>(headerKeys);

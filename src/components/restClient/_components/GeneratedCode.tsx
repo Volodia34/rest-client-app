@@ -1,7 +1,7 @@
 import { FC, useState, ChangeEvent, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { setLanguage } from '@/store/slices/restSlice';
+import { setLanguage } from '@/store/slices/bodySlice';
 import RequestSection from './RequestSection';
 import SelectInput from '@/UI/inputs/SelectInput';
 import { generatedCode } from '@/constants/mockData';
@@ -12,8 +12,13 @@ const messageText = 'There will be a generated code here...';
 
 const GeneratedCode: FC<{ title: string }> = ({ title }) => {
   const dispatch = useDispatch();
-  const { language, method, headers, baseUrl, endpoint, params, body } =
-    useSelector((state: RootState) => state.rest);
+  const { baseUrl, endpoint, params } = useSelector(
+    (state: RootState) => state.urlSlice
+  );
+  const { headers } = useSelector((state: RootState) => state.headerSlice);
+  const { body, language, method } = useSelector(
+    (state: RootState) => state.bodySlice
+  );
   const [filterCode, setFilterCode] = useState<string[]>(generatedCode);
 
   const handleSelect = (e: MouseEvent<HTMLElement>) => {

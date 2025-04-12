@@ -2,11 +2,11 @@ import RequestSection from './RequestSection';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import HeadersInput from './headers/HeadersInput';
-import { setNewHeader } from '@/store/slices/restSlice';
+import { setNewHeader } from '@/store/slices/headerSlice';
 
 const RequestHeaders = () => {
   const dispatch = useDispatch();
-  const { headers } = useSelector((state: RootState) => state.rest);
+  const { headers } = useSelector((state: RootState) => state.headerSlice);
 
   const addHeaderBlock = () => {
     dispatch(setNewHeader());
