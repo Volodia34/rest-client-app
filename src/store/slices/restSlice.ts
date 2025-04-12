@@ -75,7 +75,7 @@ const restSlice = createSlice({
         encodedParams.set(key, encodedValue);
       });
 
-      state.encodeParams = `?${encodedParams.toString()}`;
+      state.encodeParams = `&${encodedParams.toString()}`;
     },
     setNewHeader(state) {
       state.headers.push({ id: state.headers.length, key: '', value: '' });
