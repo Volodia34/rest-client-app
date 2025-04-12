@@ -17,3 +17,7 @@ export interface HeaderRest {
   key: string;
   value: string;
 }
+
+//=====
+
+export type Options = 'JSON' | 'Text' | '';

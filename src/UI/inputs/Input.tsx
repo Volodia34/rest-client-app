@@ -19,7 +19,7 @@ const Input: FC<InputType> = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        onFocus={() => console.log(true)}
+        onFocus={() => {}}
       />
     </div>
   );

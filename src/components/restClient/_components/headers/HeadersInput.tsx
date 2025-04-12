@@ -1,64 +1,56 @@
 import { headerKeys } from '@/constants/mockData';
-import { setHeaderData, setUpdateHeaders } from '@/store/slices/restSlice';
+import { setHeaderData, setUpdateHeaders } from '@/store/slices/headerSlice';
 import { RootState } from '@/store/store';
 import Button from '@/UI/buttons/Button';
 import Input from '@/UI/inputs/Input';
 import SelectInput from '@/UI/inputs/SelectInput';
-import {
-  ChangeEvent,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
-  const headers = useSelector((state: RootState) => state.rest.headers);
+  const headers = useSelector((state: RootState) => state.headerSlice.headers);
   const [render, setRender] = useState(false);
-  const header = headers[index] || { id, key: '', value: '' };
-
-  const handleKeyChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(
-        setHeaderData({
-          data: { id, key: e.target.value, value: header.value },
-          index,
-        })
-      );
-    },
-    [dispatch, id, header.value, index]
+  const [filterHeaderKeys, setFilterHeaderKeys] =
+    useState<string[]>(headerKeys);
+  const [dataHeaders, setDataHeaders] = useState(
+    headers[index] || { id, key: '', value: '' }
   );
 
-  const handleValueChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch(
-        setHeaderData({
-          data: { id, key: header.key, value: e.target.value },
-          index,
-        })
-      );
-    },
-    [dispatch, id, header.key, index]
-  );
+  const handleKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const headerKeySelect = e.target.value.toUpperCase();
+    const filtered = headerKeys.filter((el) =>
+      el.toUpperCase().includes(headerKeySelect)
+    );
+    setFilterHeaderKeys(filtered);
+    if (headerKeys.includes(headerKeySelect)) {
+      setDataHeaders({ ...dataHeaders, key: headerKeySelect });
+    }
+  };
 
-  const handleSetChange = useCallback(
-    (e: MouseEvent<HTMLElement>) => {
-      if (e.currentTarget.id) {
-        dispatch(
-          setHeaderData({
-            data: { id, key: e.currentTarget.id, value: headers[id].value },
-            index,
-          })
-        );
-      }
-    },
-    [dispatch, id, headers, index]
-  );
+  const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDataHeaders({ ...dataHeaders, value: e.target.value });
+  };
+
+  const handleSetChange = (e: MouseEvent<HTMLElement>) => {
+    if (e.currentTarget.id) {
+      setDataHeaders({ ...dataHeaders, key: e.currentTarget.id });
+      setRender(!render);
+    }
+  };
 
   const removeRow = () => {
     dispatch(setUpdateHeaders(id));
+    setDataHeaders({ id, key: '', value: '' });
+  };
+
+  const handleAdd = () => {
+    dispatch(
+      setHeaderData({
+        data: { id, key: dataHeaders.key, value: dataHeaders.value },
+        index,
+      })
+    );
   };
 
   useEffect(() => {
@@ -79,21 +71,22 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
     >
       <SelectInput
         data-testid="headers-key"
-        value={headers[index].key}
+        value={dataHeaders.key}
         forInput="headers-key"
         type="text"
-        options={headerKeys}
+        options={filterHeaderKeys}
         customStyle="widthMeth"
         onChange={handleKeyChange}
         onSelect={handleSetChange}
       />
       <Input
         onChange={handleValueChange}
-        value={headers[index].value}
+        value={dataHeaders.value}
         forInput="headers-value"
         type="text"
         customStyle="widthPath"
       />
+      <Button className="button" text={'Add'} onClick={handleAdd} />
       <Button className="button" text={'Remove'} onClick={removeRow} />
     </div>
   );

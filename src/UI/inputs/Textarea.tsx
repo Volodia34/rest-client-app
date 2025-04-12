@@ -9,6 +9,7 @@ const Textarea: FC<TextareaType> = ({
   placeholder,
   customStyle,
   onChange,
+  onBlur,
 }) => {
   return (
     <div className={`input-container ${customStyle}`}>
@@ -18,6 +19,7 @@ const Textarea: FC<TextareaType> = ({
         name={forInput}
         placeholder={placeholder}
         onChange={onChange}
+        onBlur={onBlur}
         className="textarea"
       ></textarea>
     </div>
