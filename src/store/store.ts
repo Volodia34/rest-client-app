@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import restReducer from './slices/restSlice';
+import urlSlice from './slices/urlSlice';
+import headerSlice from './slices/headerSlice';
+import bodySlice from './slices/bodySlice';
 
 export const store = configureStore({
   reducer: {
-    rest: restReducer,
+    headerSlice: headerSlice,
+    bodySlice: bodySlice,
+    urlSlice: urlSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

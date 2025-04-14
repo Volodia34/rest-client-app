@@ -5,19 +5,18 @@ import { methods } from '@/constants/mockData';
 import { RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { MouseEvent, ChangeEvent, useState, useEffect } from 'react';
+import { setMethod } from '@/store/slices/bodySlice';
 import {
   setBaseUrl,
   setEndpoint,
-  setMethod,
   setParamsAndEncode,
   setUrlValueInput,
-} from '@/store/slices/restSlice';
+} from '@/store/slices/urlSlice';
 
 const HttpMethodURL = () => {
   const dispatch = useDispatch();
-  const { method, urlValueInput } = useSelector(
-    (state: RootState) => state.rest
-  );
+  const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
+  const { method } = useSelector((state: RootState) => state.bodySlice);
   const [filterMethods, setFilterMethods] = useState<string[]>(methods);
   const [render, setRender] = useState(false);
 
