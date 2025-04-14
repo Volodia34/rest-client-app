@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, MouseEvent } from 'react';
 import { useLanguageContext } from '@/context/LanguageContext';
 import Input from '@/UI/inputs/Input';
+import SelectInput from '@/UI/inputs/SelectInput';
 import Button from '@/UI/buttons/Button';
 import { Variable, VariablesListProps } from '../../../types/variables';
 import styles from '../variablesContent.module.scss';
+import { headerKeys } from '@/constants/mockData';
 
 export const VariablesList = ({
   variables,
@@ -15,11 +17,28 @@ export const VariablesList = ({
   const { t } = useLanguageContext();
   const [newKey, setNewKey] = useState('');
   const [newValue, setNewValue] = useState('');
+  const [filteredKeys, setFilteredKeys] = useState<string[]>(headerKeys);
+
+  const handleKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    const filtered = headerKeys.filter((key) =>
+      key.toUpperCase().includes(inputValue.toUpperCase())
+    );
+    setFilteredKeys(filtered);
+    setNewKey(inputValue);
+  };
+
+  const handleKeySelect = (e: MouseEvent<HTMLElement>) => {
+    const selectedId = e.currentTarget.id;
+    if (selectedId) {
+      setNewKey(selectedId);
+      setFilteredKeys(headerKeys);
+    }
+  };
 
   const handleAddVariable = () => {
     if (newKey.trim() && newValue.trim()) {
-      const newId = (variables.length + 1).toString();
-      onAddVariable({ id: newId, key: newKey.trim(), value: newValue.trim() });
+      onAddVariable({ id: '', key: newKey.trim(), value: newValue.trim() });
       setNewKey('');
       setNewValue('');
     }
@@ -44,12 +63,12 @@ export const VariablesList = ({
         </div>
       ))}
       <div className={styles.addVariable}>
-        <Input
+        <SelectInput
           type="text"
           value={newKey}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setNewKey(e.target.value)
-          }
+          onChange={handleKeyChange}
+          onSelect={handleKeySelect}
+          options={filteredKeys}
           placeholder={t('variables.enterKey') as string}
           forInput="key"
         />

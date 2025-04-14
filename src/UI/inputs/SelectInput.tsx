@@ -24,7 +24,7 @@ const SelectInput: FC<SelectInputType> = ({
         list="method-list"
         className="input select-input"
         placeholder={placeholder}
-        defaultValue={value}
+        value={value}
         onChange={onChange}
         autoComplete="off"
         onFocus={() => setIsListOpen(true)}

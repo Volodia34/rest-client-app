@@ -29,13 +29,21 @@ export function VariablesClientContent() {
     setIsLoaded(true);
   }, []);
 
+  const getNextId = (vars: Variable[]): string => {
+    if (vars.length === 0) return '1';
+    const maxId = Math.max(...vars.map((v) => parseInt(v.id)));
+    return (maxId + 1).toString();
+  };
+
   const handleClearVariables = () => {
     setVariables([]);
     localStorage.setItem('variables', JSON.stringify([]));
   };
 
   const handleAddVariable = (newVariable: Variable) => {
-    const updatedVariables = [...variables, newVariable];
+    const nextId = getNextId(variables);
+    const variableWithNewId = { ...newVariable, id: nextId };
+    const updatedVariables = [...variables, variableWithNewId];
     setVariables(updatedVariables);
     localStorage.setItem('variables', JSON.stringify(updatedVariables));
   };
