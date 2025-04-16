@@ -7,12 +7,12 @@ import { VariablesHeader } from './variablesHeader';
 import { VariablesList } from './variablesList';
 import styles from '../variablesContent.module.scss';
 
-const initialVariables: Variable[] = [
-  { id: '1', key: 'API_URL', value: 'https://api.example.com' },
-  { id: '2', key: 'AUTH_TOKEN', value: 'bearer_token_123' },
-  { id: '3', key: 'USER_ID', value: 'user_12345' },
-  { id: '4', key: 'ENVIRONMENT', value: 'development' },
-];
+// const initialVariables: Variable[] = [
+//   { id: '1', key: 'API_URL', value: 'https://api.example.com' },
+//   { id: '2', key: 'AUTH_TOKEN', value: 'bearer_token_123' },
+//   { id: '3', key: 'USER_ID', value: 'user_12345' },
+//   { id: '4', key: 'ENVIRONMENT', value: 'development' },
+// ];
 
 export function VariablesClientContent() {
   const [variables, setVariables] = useState<Variable[]>([]);
@@ -22,9 +22,6 @@ export function VariablesClientContent() {
     const storedVariables = localStorage.getItem('variables');
     if (storedVariables) {
       setVariables(JSON.parse(storedVariables));
-    } else {
-      setVariables(initialVariables);
-      localStorage.setItem('variables', JSON.stringify(initialVariables));
     }
     setIsLoaded(true);
   }, []);

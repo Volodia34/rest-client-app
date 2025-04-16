@@ -19,13 +19,13 @@ export const VariablesList = ({
   const [newValue, setNewValue] = useState('');
   const [filteredKeys, setFilteredKeys] = useState<string[]>(headerKeys);
 
-  const handleKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
-    const filtered = headerKeys.filter((key) =>
-      key.toUpperCase().includes(inputValue.toUpperCase())
-    );
-    setFilteredKeys(filtered);
-    setNewKey(inputValue);
+  const handleKeyChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    filterOptions?: (value: string) => string[]
+  ): string[] | undefined => {
+    const value = e.target.value;
+    setNewKey(value);
+    return filterOptions?.(value);
   };
 
   const handleKeySelect = (e: MouseEvent<HTMLElement>) => {

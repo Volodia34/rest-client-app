@@ -1,16 +1,18 @@
 'use client';
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 
 interface ButtonProps {
-  className?: string;
   text: string;
-  onClick?: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
-const Button: FC<ButtonProps> = ({ text, onClick, className }) => (
-  <button className={className} onClick={onClick}>
-    {text}
-  </button>
-);
+const Button: FC<ButtonProps> = ({ text, onClick, className }) => {
+  return (
+    <button className={className} onClick={onClick}>
+      {text}
+    </button>
+  );
+};
 
 export default Button;

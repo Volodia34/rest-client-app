@@ -30,7 +30,7 @@ const SelectInput: FC<SelectInputType> = ({
         onFocus={() => setIsListOpen(true)}
         onBlur={() => setTimeout(() => setIsListOpen(false), 200)}
       />
-      {isListOpen && options && (
+      {isListOpen && options && onSelect && (
         <ul className="datalist">
           {options.map((opt, idx) => (
             <li key={idx} className="datalist-item" id={opt} onClick={onSelect}>

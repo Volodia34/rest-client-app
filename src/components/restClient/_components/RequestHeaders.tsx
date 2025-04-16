@@ -3,14 +3,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import HeadersInput from './headers/HeadersInput';
 import { setNewHeader } from '@/store/slices/headerSlice';
+import { setHeadersFromLS } from '@/store/slices/headerSlice';
+import { useEffect, useState } from 'react';
 
 const RequestHeaders = () => {
   const dispatch = useDispatch();
-  const { headers } = useSelector((state: RootState) => state.headerSlice);
+  const { variables: headers } = useSelector(
+    (state: RootState) => state.headerSlice
+  );
 
   const addHeaderBlock = () => {
     dispatch(setNewHeader());
   };
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('variables');
+      if (saved) {
+        dispatch(setHeadersFromLS(JSON.parse(saved)));
+      }
+    }
+    setMounted(true);
+  }, [dispatch]);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <RequestSection

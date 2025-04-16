@@ -41,13 +41,14 @@ const HttpMethodURL = () => {
     );
   };
 
-  const handleChangeMethod = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeMethod = (e: ChangeEvent<HTMLInputElement>): string[] => {
     const methodSelect = e.target.value.toUpperCase();
     const filtered = methods.filter((el) => el.includes(methodSelect));
     setFilterMethods(filtered);
     if (methods.includes(methodSelect)) {
       dispatch(setMethod(methodSelect));
     }
+    return filtered;
   };
 
   useEffect(() => {
