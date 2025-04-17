@@ -24,11 +24,13 @@ const RequestSection = ({
     <div className="request-section">
       <div className="rest-title">
         <h3>{title}</h3>
-        <Button
-          className="button"
-          text={buttonText || 'Submit'}
-          onClick={handleClick}
-        />
+        {buttonText ? (
+          <Button
+            className="button"
+            text={buttonText}
+            onClick={handleClick}
+          />
+        ) : null}
       </div>
       <div className="request-wrapper">{children}</div>
     </div>
