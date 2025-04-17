@@ -7,17 +7,21 @@ import { RootState } from '@/store/store';
 import Button from '@/UI/buttons/Button';
 import Input from '@/UI/inputs/Input';
 import SelectInput from '@/UI/inputs/SelectInput';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAddItem } from '@/hooks/useAddItem';
 
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
   const headers = useSelector(
-    (state: RootState) => state.headerSlice.variables
+    (state: RootState) => state.headerSlice.headers
   );
   const [filterHeaderKeys, setFilterHeaderKeys] =
     useState<string[]>(headerKeys);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleKeyChange(e.target.value, filterOptions)
+  };
 
   const removeRow = () => {
     dispatch(setUpdateHeaders(id));
@@ -42,34 +46,34 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
     onAdd: ({ key, value }) => {
       dispatch(setUpdateHeaderData({ data: { id, key, value }, index }));
     },
+    headers,
+    index,
   });
 
   if (!headers[index]) {
     return null;
   }
 
-  const currentHeader = headers[index];
-
   return (
     <div className="path-wrapper" id={`${id}`} data-testid="headers-inputs">
       <SelectInput
         data-testid="headers-key"
-        value={currentHeader.key || newKey}
+        value={newKey}
         forInput="headers-key"
         type="text"
         options={filterHeaderKeys}
         customStyle="widthMeth"
-        onChange={(e) => handleKeyChange(e, filterOptions)}
+        onChange={handleChange}
         onSelect={handleKeySelect}
       />
       <Input
         onChange={handleValueChange}
-        value={currentHeader.value || newValue}
+        value={newValue}
         forInput="headers-value"
         type="text"
         customStyle="widthPath"
       />
-      <Button className="button" text={'Add'} onClick={handleAdd} />
+      <Button className="button" text={headers[index] && headers[index].key ? 'Update' : 'Add'} onClick={handleAdd} />
       <Button className="button" text={'Remove'} onClick={removeRow} />
     </div>
   );

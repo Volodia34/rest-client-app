@@ -5,10 +5,12 @@ import HeadersInput from './headers/HeadersInput';
 import { setNewHeader } from '@/store/slices/headerSlice';
 import { setHeadersFromLS } from '@/store/slices/headerSlice';
 import { useEffect, useState } from 'react';
+import { getFromLocalStorage } from '@/helpers/localActions';
+import { HeaderRest } from '@/types/restClient';
 
 const RequestHeaders = () => {
   const dispatch = useDispatch();
-  const { variables: headers } = useSelector(
+  const { headers } = useSelector(
     (state: RootState) => state.headerSlice
   );
 
@@ -20,13 +22,19 @@ const RequestHeaders = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('variables');
+      const saved = getFromLocalStorage('headers');
       if (saved) {
-        dispatch(setHeadersFromLS(JSON.parse(saved)));
+        dispatch(setHeadersFromLS(saved as HeaderRest[]));
       }
     }
     setMounted(true);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!headers.length) {
+      addHeaderBlock()
+    }
+  }, [headers]);
 
   if (!mounted) {
     return null;

@@ -9,7 +9,7 @@ const EncodePath = () => {
   const { baseUrl, endpointEnCode, encodeParams } = useSelector(
     (state: RootState) => state.urlSlice
   );
-  const { variables: headers } = useSelector(
+  const { headers } = useSelector(
     (state: RootState) => state.headerSlice
   );
   const { body, method } = useSelector((state: RootState) => state.bodySlice);

@@ -1,4 +1,5 @@
-import { encodeBase64 } from '@/helpers/encodeBase64';
+import { decodeBase64, encodeBase64 } from '@/helpers/encodeBase64';
+import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface RequestBody {
@@ -10,7 +11,7 @@ interface RequestBody {
 }
 
 const initialState: RequestBody = {
-  body: '',
+  body: getFromLocalStorage('body') ? decodeBase64(getFromLocalStorage('body') as string) : '',
   base64EncodedBody: '',
   method: 'GET',
   language: 'JavaScript-Fetch',
@@ -24,6 +25,7 @@ const bodySlice = createSlice({
     setBody(state, action: PayloadAction<string>) {
       state.body = action.payload;
       state.base64EncodedBody = encodeBase64(action.payload);
+      saveToLocalStorage('body', state.base64EncodedBody)
     },
     setMethod(state, action: PayloadAction<string>) {
       state.method = action.payload;

@@ -10,6 +10,8 @@ import SelectInput from '@/UI/inputs/SelectInput';
 import { Options } from '@/types/restClient';
 import { option } from '@/constants/mockData';
 import { setBody } from '@/store/slices/bodySlice';
+import { useVariable } from '@/hooks/useVariable';
+import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
 
 const optionsMinLength = 1;
 
@@ -19,16 +21,23 @@ const RestBody = () => {
     (state: RootState) => state.bodySlice
   );
   const [error, setError] = useState('');
-  const [bodyChange, setBodyChange] = useState('');
+  const [bodyChange, setBodyChange] = useState(body);
   const [optionsValue, setOptionsValue] = useState(option);
   const [render, setRender] = useState(false);
+
+  const { variables } = useVariable();
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setBodyChange(e.target.value as string);
   };
 
   const handleBlur = () => {
-    dispatch(setBody(bodyChange));
+    let changeBody = '';
+    if (isVariables(bodyChange)) {
+      changeBody = replaceVariables(bodyChange, variables);
+      setBodyChange(changeBody)
+    }
+    dispatch(setBody(changeBody || bodyChange));
     setError('');
   };
 
@@ -38,7 +47,7 @@ const RestBody = () => {
     setRender(!render);
   };
 
-  const handleFormatChange = (e: ChangeEvent<HTMLInputElement>): string[] => {
+  const handleFormatChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     const filtered = option.filter((el) =>
       el.toLowerCase().includes(val.toLowerCase())
@@ -49,7 +58,6 @@ const RestBody = () => {
     } else {
       dispatch(setFormatBody(''));
     }
-    return filtered;
   };
 
   const handlePrettify = () => {
