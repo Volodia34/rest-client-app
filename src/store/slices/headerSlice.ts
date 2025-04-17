@@ -2,6 +2,7 @@ import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions'
 import { HeaderRest } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const initialHeadr = [{ id: 1, key: '', value: '' }]
 interface HeaderState {
   headers: HeaderRest[];
 }
@@ -9,11 +10,11 @@ interface HeaderState {
 const getExistingHeaders = (): HeaderRest[] => {
   try {
     const savedHeadersles = getFromLocalStorage('headers');
-    if (!savedHeadersles) return [{ id: 1, key: '', value: '' }];
+    if (!savedHeadersles) return initialHeadr;
 
-    if (!Array.isArray(savedHeadersles)) return [{ id: 1, key: '', value: '' }];
+    if (!Array.isArray(savedHeadersles)) return initialHeadr;
 
-    const headers = savedHeadersles
+    const headers: HeaderRest[] = savedHeadersles
       .filter((item) => {
         const id = typeof item.id === 'string' ? parseInt(item.id) : item.id;
         return !isNaN(id);
@@ -26,16 +27,13 @@ const getExistingHeaders = (): HeaderRest[] => {
     return headers;
   } catch (e) {
     console.error('Error loading headers from localStorage:', e);
-    return [{ id: 1, key: '', value: '' }];
+    return initialHeadr;
   }
 };
 
 const getNextId = (headers: HeaderRest[]): number => {
-  if (headers.length === 0) return 1;
-  const allIds = headers.map((header) =>
-    typeof header.id === 'string' ? parseInt(header.id) : header.id
-  );
-  return Math.max(...allIds) + 1;
+  if (!Array.isArray(headers) || headers.length === 0) return 1;
+  return headers.length;
 };
 
 const saveHeadersToLS = (headers: HeaderRest[]) => {
@@ -70,7 +68,7 @@ const headerSlice = createSlice({
     },
     setNewHeader(state) {
       const nextId = getNextId(state.headers);
-      state.headers.push({ id: nextId, key: '', value: '' });
+      state.headers = Array.isArray(state.headers) ? ([...state.headers, { id: nextId, key: '', value: '' }]) : initialHeadr;
     },
     setUpdateHeaders(state, action: PayloadAction<number>) {
       const headers = state.headers.filter((el) => el.id !== action.payload);

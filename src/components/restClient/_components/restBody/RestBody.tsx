@@ -10,6 +10,8 @@ import SelectInput from '@/UI/inputs/SelectInput';
 import { Options } from '@/types/restClient';
 import { option } from '@/constants/mockData';
 import { setBody } from '@/store/slices/bodySlice';
+import { useVariable } from '@/hooks/useVariable';
+import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
 
 const optionsMinLength = 1;
 
@@ -23,12 +25,19 @@ const RestBody = () => {
   const [optionsValue, setOptionsValue] = useState(option);
   const [render, setRender] = useState(false);
 
+  const { variables } = useVariable();
+
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setBodyChange(e.target.value as string);
   };
 
   const handleBlur = () => {
-    dispatch(setBody(bodyChange));
+    let changeBody = '';
+    if (isVariables(bodyChange)) {
+      changeBody = replaceVariables(bodyChange, variables);
+      setBodyChange(changeBody)
+    }
+    dispatch(setBody(changeBody || bodyChange));
     setError('');
   };
 

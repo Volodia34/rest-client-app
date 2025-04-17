@@ -1,4 +1,5 @@
 import { encodeBase64 } from '@/helpers/encodeBase64';
+import { saveToLocalStorage } from '@/helpers/localActions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface RequestBody {
@@ -24,6 +25,7 @@ const bodySlice = createSlice({
     setBody(state, action: PayloadAction<string>) {
       state.body = action.payload;
       state.base64EncodedBody = encodeBase64(action.payload);
+      saveToLocalStorage('body', state.base64EncodedBody)
     },
     setMethod(state, action: PayloadAction<string>) {
       state.method = action.payload;

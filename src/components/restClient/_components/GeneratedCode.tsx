@@ -15,7 +15,7 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
   const { baseUrl, endpoint, params } = useSelector(
     (state: RootState) => state.urlSlice
   );
-  const { variables: headers } = useSelector(
+  const { headers } = useSelector(
     (state: RootState) => state.headerSlice
   );
   const { body, language, method } = useSelector(
