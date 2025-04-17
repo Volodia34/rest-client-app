@@ -15,7 +15,9 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
   const { baseUrl, endpoint, params } = useSelector(
     (state: RootState) => state.urlSlice
   );
-  const { headers } = useSelector((state: RootState) => state.headerSlice);
+  const { variables: headers } = useSelector(
+    (state: RootState) => state.headerSlice
+  );
   const { body, language, method } = useSelector(
     (state: RootState) => state.bodySlice
   );
@@ -25,7 +27,9 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
     dispatch(setLanguage(e.currentTarget.id));
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ): string[] | undefined => {
     const codeSelect = e.target.value.toUpperCase();
     const filtered = generatedCode.filter((el) =>
       el.toUpperCase().includes(codeSelect)
@@ -34,6 +38,7 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
     if (generatedCode.includes(codeSelect)) {
       dispatch(setLanguage(codeSelect));
     }
+    return filtered;
   };
 
   const { generatedSnippet, warningMessages, render } = useGeneratedCode(
@@ -47,7 +52,7 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
   );
 
   return (
-    <RequestSection key={`${render}`} title={title}>
+    <RequestSection key={`${render}`} title={title} buttonText={language}>
       <p className="warning-messages">{warningMessages}</p>
       <SelectInput
         data-testid="headers-key"

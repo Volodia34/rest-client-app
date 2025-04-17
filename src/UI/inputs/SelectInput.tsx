@@ -24,13 +24,13 @@ const SelectInput: FC<SelectInputType> = ({
         list="method-list"
         className="input select-input"
         placeholder={placeholder}
-        defaultValue={value}
+        value={value}
         onChange={onChange}
         autoComplete="off"
         onFocus={() => setIsListOpen(true)}
         onBlur={() => setTimeout(() => setIsListOpen(false), 200)}
       />
-      {isListOpen && options && (
+      {isListOpen && options && onSelect && (
         <ul className="datalist">
           {options.map((opt, idx) => (
             <li key={idx} className="datalist-item" id={opt} onClick={onSelect}>

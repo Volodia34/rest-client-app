@@ -38,7 +38,7 @@ const RestBody = () => {
     setRender(!render);
   };
 
-  const handleFormatChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFormatChange = (e: ChangeEvent<HTMLInputElement>): string[] => {
     const val = e.target.value;
     const filtered = option.filter((el) =>
       el.toLowerCase().includes(val.toLowerCase())
@@ -49,6 +49,7 @@ const RestBody = () => {
     } else {
       dispatch(setFormatBody(''));
     }
+    return filtered;
   };
 
   const handlePrettify = () => {

@@ -1,22 +1,36 @@
 'use client';
-import { RequestSectionHeadProps } from '@/types/restClient';
 import Button from '@/UI/buttons/Button';
+import { MouseEventHandler } from 'react';
+
+interface RequestSectionProps {
+  title: string;
+  buttonText?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}
 
 const RequestSection = ({
   title,
   buttonText,
   onClick,
   children,
-}: RequestSectionHeadProps) => {
+}: RequestSectionProps) => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    onClick?.();
+  };
+
   return (
-    <div className="request-wrapper">
-      <header className="head-wrapper">
-        <p className="rest-title">{title}</p>
-        {buttonText && (
-          <Button className="button" text={buttonText} onClick={onClick} />
-        )}
-      </header>
-      {children}
+    <div className="request-section">
+      <div className="rest-title">
+        <h3>{title}</h3>
+        <Button
+          className="button"
+          text={buttonText || 'Submit'}
+          onClick={handleClick}
+        />
+      </div>
+      <div className="request-wrapper">{children}</div>
     </div>
   );
 };

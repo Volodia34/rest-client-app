@@ -1,87 +1,70 @@
 import { headerKeys } from '@/constants/mockData';
-import { setHeaderData, setUpdateHeaders } from '@/store/slices/headerSlice';
+import {
+  setUpdateHeaderData,
+  setUpdateHeaders,
+} from '@/store/slices/headerSlice';
 import { RootState } from '@/store/store';
 import Button from '@/UI/buttons/Button';
 import Input from '@/UI/inputs/Input';
 import SelectInput from '@/UI/inputs/SelectInput';
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAddItem } from '@/hooks/useAddItem';
 
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
-  const headers = useSelector((state: RootState) => state.headerSlice.headers);
-  const [render, setRender] = useState(false);
+  const headers = useSelector(
+    (state: RootState) => state.headerSlice.variables
+  );
   const [filterHeaderKeys, setFilterHeaderKeys] =
     useState<string[]>(headerKeys);
-  const [dataHeaders, setDataHeaders] = useState(
-    headers[index] || { id, key: '', value: '' }
-  );
-
-  const handleKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const headerKeySelect = e.target.value.toUpperCase();
-    const filtered = headerKeys.filter((el) =>
-      el.toUpperCase().includes(headerKeySelect)
-    );
-    setFilterHeaderKeys(filtered);
-    if (headerKeys.includes(headerKeySelect)) {
-      setDataHeaders({ ...dataHeaders, key: headerKeySelect });
-    }
-  };
-
-  const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDataHeaders({ ...dataHeaders, value: e.target.value });
-  };
-
-  const handleSetChange = (e: MouseEvent<HTMLElement>) => {
-    if (e.currentTarget.id) {
-      setDataHeaders({ ...dataHeaders, key: e.currentTarget.id });
-      setRender(!render);
-    }
-  };
 
   const removeRow = () => {
     dispatch(setUpdateHeaders(id));
-    setDataHeaders({ id, key: '', value: '' });
   };
 
-  const handleAdd = () => {
-    dispatch(
-      setHeaderData({
-        data: { id, key: dataHeaders.key, value: dataHeaders.value },
-        index,
-      })
+  const filterOptions = (value: string) => {
+    const filtered = headerKeys.filter((el) =>
+      el.toUpperCase().includes(value.toUpperCase())
     );
+    setFilterHeaderKeys(filtered);
+    return filtered;
   };
 
-  useEffect(() => {
-    setRender(!render);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headers[index]?.key]);
+  const {
+    newKey,
+    newValue,
+    handleKeyChange,
+    handleValueChange,
+    handleKeySelect,
+    handleAdd,
+  } = useAddItem({
+    onAdd: ({ key, value }) => {
+      dispatch(setUpdateHeaderData({ data: { id, key, value }, index }));
+    },
+  });
 
   if (!headers[index]) {
     return null;
   }
 
+  const currentHeader = headers[index];
+
   return (
-    <div
-      key={`${render}`}
-      className="path-wrapper"
-      id={`${id}`}
-      data-testid="headers-inputs"
-    >
+    <div className="path-wrapper" id={`${id}`} data-testid="headers-inputs">
       <SelectInput
         data-testid="headers-key"
-        value={dataHeaders.key}
+        value={currentHeader.key || newKey}
         forInput="headers-key"
         type="text"
         options={filterHeaderKeys}
         customStyle="widthMeth"
-        onChange={handleKeyChange}
-        onSelect={handleSetChange}
+        onChange={(e) => handleKeyChange(e, filterOptions)}
+        onSelect={handleKeySelect}
       />
       <Input
         onChange={handleValueChange}
-        value={dataHeaders.value}
+        value={currentHeader.value || newValue}
         forInput="headers-value"
         type="text"
         customStyle="widthPath"
