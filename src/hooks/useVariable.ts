@@ -1,7 +1,7 @@
 'use client';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setVariables } from '@/store/slices/variablesSlice';
+import { removeVariable, setVariables } from '@/store/slices/variablesSlice';
 import { getFromLocalStorage } from '@/helpers/localActions';
 import { useEffect } from 'react';
 import { RootState } from '@/store/store';
@@ -10,7 +10,9 @@ const STORAGE_KEY = 'variables';
 
 export const useVariable = () => {
   const dispatch = useDispatch();
-  const variables = useSelector((state: RootState) => state.variablesSlice.variables);
+  const variables = useSelector(
+    (state: RootState) => state.variablesSlice.variables
+  );
 
   useEffect(() => {
     const stored = getFromLocalStorage<{ [key: string]: string }>(STORAGE_KEY);
@@ -25,6 +27,10 @@ export const useVariable = () => {
     dispatch(setVariables({ key, value }));
   };
 
+  const removeVariables = (key: string) => {
+    dispatch(removeVariable(key));
+  };
+
   const getVariable = (key: string) => {
     return variables[key] || '';
   };
@@ -32,6 +38,7 @@ export const useVariable = () => {
   return {
     setVariable,
     getVariable,
+    removeVariables,
     variables,
   };
 };

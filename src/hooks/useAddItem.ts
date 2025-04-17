@@ -8,8 +8,8 @@ interface UseAddItemProps {
   createItem?: (key: string, value: string) => void;
   initialKey?: string;
   initialValue?: string;
-  headers: HeaderRest[]
-  index: number
+  headers: HeaderRest[];
+  index: number;
 }
 
 export const useAddItem = ({
@@ -52,15 +52,14 @@ export const useAddItem = ({
     if (!trimmedKey || !trimmedValue) return;
 
     if (isVariables(trimmedValue)) {
-      const newValue = replaceVariables(trimmedValue, variables)
-      setNewValue(() => newValue)
+      const newValue = replaceVariables(trimmedValue, variables);
+      setNewValue(() => newValue);
       onAdd({ key: trimmedKey, value: newValue });
       setVariable(trimmedKey, newValue);
     } else {
       onAdd({ key: trimmedKey, value: trimmedValue });
       setVariable(trimmedKey, trimmedValue);
     }
-
 
     if (createItem) {
       createItem(trimmedKey, trimmedValue);
@@ -69,10 +68,10 @@ export const useAddItem = ({
 
   useEffect(() => {
     if (headers[index]) {
-      setNewKey(headers[index].key)
-      setNewValue(headers[index].value)
+      setNewKey(headers[index].key);
+      setNewValue(headers[index].value);
     }
-  }, [])
+  }, []);
 
   return {
     newKey,

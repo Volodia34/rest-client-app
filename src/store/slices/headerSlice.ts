@@ -1,8 +1,12 @@
-import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions';
+import {
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from '@/helpers/localActions';
 import { HeaderRest } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialHeadr = [{ id: 0, key: '', value: '' }]
+const initialHeadr = [{ id: 0, key: '', value: '' }];
+
 interface HeaderState {
   headers: HeaderRest[];
 }
@@ -32,7 +36,9 @@ const headerSlice = createSlice({
     },
     setNewHeader(state) {
       const nextId = state.headers.length;
-      state.headers = Array.isArray(state.headers) ? ([...state.headers, { id: nextId, key: '', value: '' }]) : initialHeadr;
+      state.headers = Array.isArray(state.headers)
+        ? [...state.headers, { id: nextId, key: '', value: '' }]
+        : initialHeadr;
     },
     setUpdateHeaders(state, action: PayloadAction<number>) {
       const headers = state.headers.filter((el) => el.id !== action.payload);

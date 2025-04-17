@@ -10,9 +10,7 @@ import { HeaderRest } from '@/types/restClient';
 
 const RequestHeaders = () => {
   const dispatch = useDispatch();
-  const { headers } = useSelector(
-    (state: RootState) => state.headerSlice
-  );
+  const { headers } = useSelector((state: RootState) => state.headerSlice);
 
   const addHeaderBlock = () => {
     dispatch(setNewHeader());
@@ -32,7 +30,7 @@ const RequestHeaders = () => {
 
   useEffect(() => {
     if (!headers.length) {
-      addHeaderBlock()
+      addHeaderBlock();
     }
   }, [headers]);
 
