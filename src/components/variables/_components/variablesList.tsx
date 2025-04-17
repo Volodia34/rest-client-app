@@ -1,48 +1,32 @@
 'use client';
 
-import { useState, ChangeEvent, MouseEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { useLanguageContext } from '@/context/LanguageContext';
 import Input from '@/UI/inputs/Input';
-import SelectInput from '@/UI/inputs/SelectInput';
 import Button from '@/UI/buttons/Button';
-import { Variable, VariablesListProps } from '../../../types/variables';
 import styles from '../variablesContent.module.scss';
-import { headerKeys } from '@/constants/mockData';
+import { useVariable } from '@/hooks/useVariable';
+import { EmptyState } from './emptyState';
 
-export const VariablesList = ({
-  variables,
-  onAddVariable,
-  onDeleteVariable,
-}: VariablesListProps) => {
+export const VariablesList = () => {
   const { t } = useLanguageContext();
+  const [variableKeys, setVariableKeys] = useState<string[]>([]);
   const [newKey, setNewKey] = useState('');
   const [newValue, setNewValue] = useState('');
-  const [filteredKeys, setFilteredKeys] = useState<string[]>(headerKeys);
-
-  const handleKeyChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    filterOptions?: (value: string) => string[]
-  ): string[] | undefined => {
-    const value = e.target.value;
-    setNewKey(value);
-    return filterOptions?.(value);
-  };
-
-  const handleKeySelect = (e: MouseEvent<HTMLElement>) => {
-    const selectedId = e.currentTarget.id;
-    if (selectedId) {
-      setNewKey(selectedId);
-      setFilteredKeys(headerKeys);
-    }
-  };
+  
+  const { setVariable, removeVariables, variables } = useVariable();
 
   const handleAddVariable = () => {
     if (newKey.trim() && newValue.trim()) {
-      onAddVariable({ id: '', key: newKey.trim(), value: newValue.trim() });
+      setVariable(newKey.trim(), newValue.trim());
       setNewKey('');
       setNewValue('');
     }
   };
+
+  useEffect(() => {
+    if (variables) setVariableKeys(Object.keys(variables))
+  }, [variables])
 
   return (
     <div className={styles.variablesList}>
@@ -51,26 +35,27 @@ export const VariablesList = ({
         <span>{t('variables.value') as string}</span>
         <span></span>
       </div>
-      {variables.map((variable: Variable) => (
-        <div key={variable.id} className={styles.variableItem}>
-          <span className={styles.key}>{variable.key}</span>
-          <span className={styles.value}>{variable.value}</span>
+      {variableKeys.map((key) => (
+        <div key={key} className={styles.variableItem}>
+          <span className={styles.key}>{key}</span>
+          <span className={styles.value}>{variables[key]}</span>
           <Button
             className={styles.deleteButton}
-            onClick={() => onDeleteVariable(variable.id)}
+            onClick={() => removeVariables(key)}
             text={t('variables.delete') as string}
           />
         </div>
       ))}
+      {!variableKeys.length && <EmptyState />}
       <div className={styles.addVariable}>
-        <SelectInput
+        <Input
           type="text"
           value={newKey}
-          onChange={handleKeyChange}
-          onSelect={handleKeySelect}
-          options={filteredKeys}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setNewKey(e.target.value)
+          }
           placeholder={t('variables.enterKey') as string}
-          forInput="key"
+          forInput="value"
         />
         <Input
           type="text"

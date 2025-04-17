@@ -25,11 +25,7 @@ const RequestSection = ({
       <div className="rest-title">
         <h3>{title}</h3>
         {buttonText ? (
-          <Button
-            className="button"
-            text={buttonText}
-            onClick={handleClick}
-          />
+          <Button className="button" text={buttonText} onClick={handleClick} />
         ) : null}
       </div>
       <div className="request-wrapper">{children}</div>

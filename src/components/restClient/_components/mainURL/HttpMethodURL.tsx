@@ -31,7 +31,7 @@ const HttpMethodURL = () => {
   const handleUrl = (e: ChangeEvent<HTMLInputElement>) => {
     let rawUrl = e.target.value;
     if (isVariables(rawUrl)) {
-      rawUrl = replaceVariables(rawUrl, variables)
+      rawUrl = replaceVariables(rawUrl, variables);
     }
     dispatch(setUrlValueInput(rawUrl));
     const url = new URL(rawUrl);

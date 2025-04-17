@@ -13,14 +13,12 @@ import { useAddItem } from '@/hooks/useAddItem';
 
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
-  const headers = useSelector(
-    (state: RootState) => state.headerSlice.headers
-  );
+  const headers = useSelector((state: RootState) => state.headerSlice.headers);
   const [filterHeaderKeys, setFilterHeaderKeys] =
     useState<string[]>(headerKeys);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleKeyChange(e.target.value, filterOptions)
+    handleKeyChange(e.target.value, filterOptions);
   };
 
   const removeRow = () => {
@@ -73,7 +71,11 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
         type="text"
         customStyle="widthPath"
       />
-      <Button className="button" text={headers[index] && headers[index].key ? 'Update' : 'Add'} onClick={handleAdd} />
+      <Button
+        className="button"
+        text={headers[index] && headers[index].key ? 'Update' : 'Add'}
+        onClick={handleAdd}
+      />
       <Button className="button" text={'Remove'} onClick={removeRow} />
     </div>
   );

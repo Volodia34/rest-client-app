@@ -1,10 +1,16 @@
 import Button from '@/UI/buttons/Button';
 import { useLanguageContext } from '@/context/LanguageContext';
 import styles from '../variablesContent.module.scss';
-import { VariablesHeaderProps } from '../../../types/variables';
+import { useDispatch } from 'react-redux';
+import { clearVariable } from '@/store/slices/variablesSlice';
 
-export const VariablesHeader = ({ onClearVariables }: VariablesHeaderProps) => {
+export const VariablesHeader = () => {
   const { t } = useLanguageContext();
+  const dispatch = useDispatch();
+
+  const onClearVariables = () => {
+    dispatch(clearVariable());
+  };
 
   return (
     <>

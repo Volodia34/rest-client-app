@@ -7,9 +7,7 @@ export const replaceVariables = (
   });
 };
 
-export const isVariables = (
-  input: string,
-): boolean => {
+export const isVariables = (input: string): boolean => {
   const regex = /{{(.*?)}}/g;
   return regex.test(input);
-}
+};
