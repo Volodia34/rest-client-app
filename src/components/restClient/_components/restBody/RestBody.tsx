@@ -35,7 +35,7 @@ const RestBody = () => {
     let changeBody = '';
     if (isVariables(bodyChange)) {
       changeBody = replaceVariables(bodyChange, variables);
-      setBodyChange(changeBody)
+      setBodyChange(changeBody);
     }
     dispatch(setBody(changeBody || bodyChange));
     setError('');

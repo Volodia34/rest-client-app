@@ -1,11 +1,9 @@
 export interface Variable {
-  id: string;
-  key: string;
-  value: string;
+  [key: string]: string;
 }
 
 export interface VariablesListProps {
-  variables: Variable[];
+  variables: Variable;
   onAddVariable: (variable: Variable) => void;
   onDeleteVariable: (id: string) => void;
 }
