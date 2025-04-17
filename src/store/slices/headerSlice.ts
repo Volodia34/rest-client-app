@@ -6,6 +6,7 @@ import { HeaderRest } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialHeadr = [{ id: 0, key: '', value: '' }];
+
 interface HeaderState {
   headers: HeaderRest[];
 }
