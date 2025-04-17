@@ -14,7 +14,7 @@ import { useAddItem } from '@/hooks/useAddItem';
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
   const dispatch = useDispatch();
   const headers = useSelector(
-    (state: RootState) => state.headerSlice.variables
+    (state: RootState) => state.headerSlice.headers
   );
   const [filterHeaderKeys, setFilterHeaderKeys] =
     useState<string[]>(headerKeys);

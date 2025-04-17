@@ -3,17 +3,17 @@ import { HeaderRest } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface HeaderState {
-  variables: HeaderRest[];
+  headers: HeaderRest[];
 }
 
 const getExistingHeaders = (): HeaderRest[] => {
   try {
-    const savedVariables = getFromLocalStorage('variables');
-    if (!savedVariables) return [{ id: 1, key: '', value: '' }];
+    const savedHeadersles = getFromLocalStorage('headers');
+    if (!savedHeadersles) return [{ id: 1, key: '', value: '' }];
 
-    if (!Array.isArray(savedVariables)) return [{ id: 1, key: '', value: '' }];
+    if (!Array.isArray(savedHeadersles)) return [{ id: 1, key: '', value: '' }];
 
-    const headers = savedVariables
+    const headers = savedHeadersles
       .filter((item) => {
         const id = typeof item.id === 'string' ? parseInt(item.id) : item.id;
         return !isNaN(id);
@@ -42,8 +42,8 @@ const saveHeadersToLS = (headers: HeaderRest[]) => {
   if (typeof window === 'undefined') return;
 
   try {
-    const savedVariables = getFromLocalStorage('variables');
-    const existingVariables = savedVariables ?? [];
+    const savedHeaderles = getFromLocalStorage('headers');
+    const existingVariables = savedHeaderles ?? [];
     const variables = Array.isArray(existingVariables)
       ? existingVariables.filter(
           (item) => typeof item.id === 'string' && !item.id.match(/^\d+$/)
@@ -51,14 +51,14 @@ const saveHeadersToLS = (headers: HeaderRest[]) => {
       : [];
 
     const combined = [...variables, ...headers];
-    saveToLocalStorage('variables', combined);
+    saveToLocalStorage('headers', combined);
   } catch (e) {
     console.error('Error saving headers to localStorage:', e);
   }
 };
 
 const initialState: HeaderState = {
-  variables: getExistingHeaders(),
+  headers: getExistingHeaders(),
 };
 
 const headerSlice = createSlice({
@@ -66,28 +66,28 @@ const headerSlice = createSlice({
   initialState,
   reducers: {
     setHeadersFromLS(state, action: PayloadAction<HeaderRest[]>) {
-      state.variables = action.payload;
+      state.headers = action.payload;
     },
     setNewHeader(state) {
-      const nextId = getNextId(state.variables);
-      state.variables.push({ id: nextId, key: '', value: '' });
+      const nextId = getNextId(state.headers);
+      state.headers.push({ id: nextId, key: '', value: '' });
     },
     setUpdateHeaders(state, action: PayloadAction<number>) {
-      const headers = state.variables.filter((el) => el.id !== action.payload);
-      state.variables = headers;
-      saveHeadersToLS(state.variables);
+      const headers = state.headers.filter((el) => el.id !== action.payload);
+      state.headers = headers;
+      saveHeadersToLS(state.headers);
     },
     setUpdateHeaderData(
       state,
       action: PayloadAction<{ data: HeaderRest; index: number }>
     ) {
       const { data, index } = action.payload;
-      if (index >= state.variables.length) return;
-      state.variables[index] = {
-        ...state.variables[index],
+      if (index >= state.headers.length) return;
+      state.headers[index] = {
+        ...state.headers[index],
         ...data,
       };
-      saveHeadersToLS(state.variables);
+      saveHeadersToLS(state.headers);
     },
   },
 });

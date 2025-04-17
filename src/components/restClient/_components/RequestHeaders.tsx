@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 const RequestHeaders = () => {
   const dispatch = useDispatch();
-  const { variables: headers} = useSelector(
+  const { headers} = useSelector(
     (state: RootState) => state.headerSlice
   );
 
