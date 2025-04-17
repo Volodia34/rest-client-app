@@ -12,6 +12,8 @@ import {
   setParamsAndEncode,
   setUrlValueInput,
 } from '@/store/slices/urlSlice';
+import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
+import { useVariable } from '@/hooks/useVariable';
 
 const HttpMethodURL = () => {
   const dispatch = useDispatch();
@@ -20,13 +22,18 @@ const HttpMethodURL = () => {
   const [filterMethods, setFilterMethods] = useState<string[]>(methods);
   const [render, setRender] = useState(false);
 
+  const { variables } = useVariable();
+
   const handleSelectMethod = (e: MouseEvent<HTMLElement>) => {
     dispatch(setMethod(e.currentTarget.id));
   };
 
   const handleUrl = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setUrlValueInput(e.target.value));
-    const rawUrl = e.target.value;
+    let rawUrl = e.target.value;
+    if (isVariables(rawUrl)) {
+      rawUrl = replaceVariables(rawUrl, variables)
+    }
+    dispatch(setUrlValueInput(rawUrl));
     const url = new URL(rawUrl);
 
     dispatch(setBaseUrl(`${url.protocol}//${url.host}`));

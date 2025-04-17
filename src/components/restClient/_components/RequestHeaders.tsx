@@ -31,7 +31,6 @@ const RequestHeaders = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(headers)
     if (!headers.length) {
       addHeaderBlock()
     }
