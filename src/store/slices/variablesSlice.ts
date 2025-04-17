@@ -1,0 +1,23 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface HeaderState {
+  variables: {[key: string]: string};
+}
+
+const initialState: HeaderState = {
+  variables: {},
+};
+
+const variablesSlice = createSlice({
+  name: 'variables',
+  initialState,
+  reducers: {
+    setVariables(state, action: PayloadAction<{key: string, value: string}>) {
+      state.variables[action.payload.key] = action.payload.value;
+    },
+  },
+});
+
+export const { setVariables} = variablesSlice.actions;
+export default variablesSlice.reducer;
+
