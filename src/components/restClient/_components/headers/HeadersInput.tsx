@@ -73,7 +73,7 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
         type="text"
         customStyle="widthPath"
       />
-      <Button className="button" text={'Add'} onClick={handleAdd} />
+      <Button className="button" text={headers[index] && headers[index].key ? 'Update' : 'Add'} onClick={handleAdd} />
       <Button className="button" text={'Remove'} onClick={removeRow} />
     </div>
   );

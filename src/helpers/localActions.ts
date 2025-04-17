@@ -4,6 +4,7 @@ export function saveToLocalStorage<T>(key: string, value: T): void {
 }
 
 export function getFromLocalStorage<T>(key: string): T | null {
+  if (typeof window === 'undefined') return null;
   const value = localStorage.getItem(key);
   if (value) {
     try {
