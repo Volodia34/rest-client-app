@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.scss';
-import ErrorBoundary from '@/errorsHandlers/ErrorBoundary';
-import Header from '@/components/header/Header';
-import { LanguageProvider } from '@/context/LanguageContext';
-import Footer from '@/components/footer/Footer';
-import { AuthProvider } from '@/context/useAuthContext';
+import ClientLayout from '@/components/main/ClientLayout';
+// import ErrorBoundary from '@/errorsHandlers/ErrorBoundary';
+// import Header from '@/components/header/Header';
+// import { LanguageProvider } from '@/context/LanguageContext';
+// import Footer from '@/components/footer/Footer';
+// import { AuthProvider } from '@/context/useAuthContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -40,13 +41,7 @@ export default function RootLayout({
             alignItems: 'center',
           }}
         >
-          <ErrorBoundary>
-            <LanguageProvider>
-              <Header />
-              <AuthProvider>{children}</AuthProvider>
-              <Footer />
-            </LanguageProvider>
-          </ErrorBoundary>
+          <ClientLayout>{children}</ClientLayout>
         </div>
       </body>
     </html>
