@@ -21,7 +21,7 @@ const RestBody = () => {
     (state: RootState) => state.bodySlice
   );
   const [error, setError] = useState('');
-  const [bodyChange, setBodyChange] = useState('');
+  const [bodyChange, setBodyChange] = useState(body);
   const [optionsValue, setOptionsValue] = useState(option);
   const [render, setRender] = useState(false);
 

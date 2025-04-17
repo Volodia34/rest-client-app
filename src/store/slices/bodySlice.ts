@@ -1,5 +1,5 @@
-import { encodeBase64 } from '@/helpers/encodeBase64';
-import { saveToLocalStorage } from '@/helpers/localActions';
+import { decodeBase64, encodeBase64 } from '@/helpers/encodeBase64';
+import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface RequestBody {
@@ -11,7 +11,7 @@ interface RequestBody {
 }
 
 const initialState: RequestBody = {
-  body: '',
+  body: getFromLocalStorage('body') ? decodeBase64(getFromLocalStorage('body') as string) : '',
   base64EncodedBody: '',
   method: 'GET',
   language: 'JavaScript-Fetch',
