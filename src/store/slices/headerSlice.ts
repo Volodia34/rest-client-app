@@ -9,9 +9,9 @@ interface HeaderState {
 const getExistingHeaders = (): HeaderRest[] => {
   try {
     const savedVariables = getFromLocalStorage('variables');
-    if (!savedVariables) return [{ id: 0, key: '', value: '' }];
+    if (!savedVariables) return [{ id: 1, key: '', value: '' }];
 
-    if (!Array.isArray(savedVariables)) return [{ id: 0, key: '', value: '' }];
+    if (!Array.isArray(savedVariables)) return [{ id: 1, key: '', value: '' }];
 
     const headers = savedVariables
       .filter((item) => {
@@ -26,7 +26,7 @@ const getExistingHeaders = (): HeaderRest[] => {
     return headers;
   } catch (e) {
     console.error('Error loading headers from localStorage:', e);
-    return [{ id: 0, key: '', value: '' }];
+    return [{ id: 1, key: '', value: '' }];
   }
 };
 
