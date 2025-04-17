@@ -1,12 +1,15 @@
 export const replaceVariables = (
-    input: string,
-    variables: { key: string; value: string }[]
-  ): string => {
-    let result = input;
-    variables.forEach(({ key, value }) => {
-      const pattern = new RegExp(`{{${key}}}`, 'g');
-      result = result.replace(pattern, value);
-    });
-    return result;
-  };
-  
+  input: string,
+  variables: { [key: string]: string }
+): string => {
+  return input.replace(/{{(.*?)}}/g, (_, key) => {
+    return variables[key] ?? `{{${key}}}`;
+  });
+};
+
+export const isVariables = (
+  input: string,
+): boolean => {
+  const regex = /{{(.*?)}}/g;
+  return regex.test(input);
+}

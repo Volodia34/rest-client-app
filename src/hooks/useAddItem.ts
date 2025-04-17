@@ -1,5 +1,7 @@
 import { HeaderRest } from '@/types/restClient';
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import { useVariable } from './useVariable';
+import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
 
 interface UseAddItemProps {
   onAdd: (data: { key: string; value: string }) => void;
@@ -20,6 +22,8 @@ export const useAddItem = ({
 }: UseAddItemProps) => {
   const [newKey, setNewKey] = useState(initialKey);
   const [newValue, setNewValue] = useState(initialValue);
+
+  const { setVariable, variables } = useVariable();
 
   const handleKeyChange = (
     e: string,
@@ -47,7 +51,17 @@ export const useAddItem = ({
 
     if (!trimmedKey || !trimmedValue) return;
 
-    onAdd({ key: trimmedKey, value: trimmedValue });
+    if (isVariables(trimmedValue)) {
+      const newValue = replaceVariables(trimmedValue, variables)
+      setNewValue(() => newValue)
+      onAdd({ key: trimmedKey, value: newValue });
+      setVariable(trimmedKey, newValue);
+    } else {
+      onAdd({ key: trimmedKey, value: trimmedValue });
+      setVariable(trimmedKey, trimmedValue);
+    }
+
+
     if (createItem) {
       createItem(trimmedKey, trimmedValue);
     }

@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setVariables } from '@/store/slices/variablesSlice';
-import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions';
+import { getFromLocalStorage } from '@/helpers/localActions';
 import { useEffect } from 'react';
 import { RootState } from '@/store/store';
 
@@ -23,8 +23,6 @@ export const useVariable = () => {
 
   const setVariable = (key: string, value: string) => {
     dispatch(setVariables({ key, value }));
-    const updated = { ...variables, [key]: value };
-    saveToLocalStorage(STORAGE_KEY, updated);
   };
 
   const getVariable = (key: string) => {
