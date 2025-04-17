@@ -1,10 +1,10 @@
 'use client';
 import Button from '@/UI/buttons/Button';
 import { useLanguageContext } from '@/context/LanguageContext';
-import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import './main.scss';
+import AuthLinks from '../links/AuthLinks';
 
 const MainPage = () => {
   const { t } = useLanguageContext();
@@ -39,11 +39,7 @@ const MainPage = () => {
                     user.displayName ?? 'Guest'
                   )}
                 </h1>
-                <div className="auth-content">
-                  <Link href="/restClient">REST Client</Link>
-                  <Link href="/historyPage">{t('main.history') as string}</Link>
-                  <Link href="/variables">{t('main.variables') as string}</Link>
-                </div>
+                <AuthLinks />
               </div>
             </>
           )}
