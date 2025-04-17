@@ -1,10 +1,13 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { HeaderRest } from '@/types/restClient';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 
 interface UseAddItemProps {
   onAdd: (data: { key: string; value: string }) => void;
   createItem?: (key: string, value: string) => void;
   initialKey?: string;
   initialValue?: string;
+  headers: HeaderRest[]
+  index: number
 }
 
 export const useAddItem = ({
@@ -12,17 +15,18 @@ export const useAddItem = ({
   createItem,
   initialKey = '',
   initialValue = '',
+  headers,
+  index,
 }: UseAddItemProps) => {
   const [newKey, setNewKey] = useState(initialKey);
   const [newValue, setNewValue] = useState(initialValue);
 
   const handleKeyChange = (
-    e: ChangeEvent<HTMLInputElement>,
+    e: string,
     filterOptions?: (value: string) => string[]
   ) => {
-    const value = e.target.value;
-    setNewKey(value);
-    return filterOptions?.(value);
+    setNewKey(e);
+    return filterOptions?.(e);
   };
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,14 +48,17 @@ export const useAddItem = ({
     if (!trimmedKey || !trimmedValue) return;
 
     onAdd({ key: trimmedKey, value: trimmedValue });
-    if (!initialKey && !initialValue) {
-      setNewKey('');
-      setNewValue('');
-    }
     if (createItem) {
       createItem(trimmedKey, trimmedValue);
     }
   };
+
+  useEffect(() => {
+    if (headers[index]) {
+      setNewKey(headers[index].key)
+      setNewValue(headers[index].value)
+    }
+  }, [])
 
   return {
     newKey,

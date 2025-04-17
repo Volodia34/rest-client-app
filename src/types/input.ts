@@ -16,7 +16,7 @@ export interface TextareaType extends BaseInputType {
 export interface SelectInputType extends BaseInputType {
   type: string;
   options: string[];
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => string[] | undefined;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onSelect?: (e: MouseEvent<HTMLLIElement>) => void;
   customStyle?: string;
 }
