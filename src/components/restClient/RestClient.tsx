@@ -1,5 +1,4 @@
 'use client';
-
 import GeneratedCode from './_components/GeneratedCode';
 import RequestHeaders from './_components/RequestHeaders';
 import './restClient.scss';
