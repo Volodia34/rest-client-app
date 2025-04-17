@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 const RequestHeaders = () => {
   const dispatch = useDispatch();
-  const { variables: headers } = useSelector(
+  const { variables: headers} = useSelector(
     (state: RootState) => state.headerSlice
   );
 
@@ -27,6 +27,12 @@ const RequestHeaders = () => {
     }
     setMounted(true);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!headers.length) {
+      addHeaderBlock()
+    }
+  }, [headers]);
 
   if (!mounted) {
     return null;
