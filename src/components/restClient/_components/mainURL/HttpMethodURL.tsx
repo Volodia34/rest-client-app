@@ -13,7 +13,7 @@ import {
   setUrlValueInput,
 } from '@/store/slices/urlSlice';
 
-const HttpMethodURL = () => {
+const HttpMethodURL = ({ onSendRequest }: { onSendRequest: () => void }) => {
   const dispatch = useDispatch();
   const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
   const { method } = useSelector((state: RootState) => state.bodySlice);
@@ -26,19 +26,22 @@ const HttpMethodURL = () => {
 
   const handleUrl = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setUrlValueInput(e.target.value));
-    const rawUrl = e.target.value;
-    const url = new URL(rawUrl);
+    try {
+      const rawUrl = e.target.value;
+      const url = new URL(rawUrl);
 
-    dispatch(setBaseUrl(`${url.protocol}//${url.host}`));
-    dispatch(setEndpoint(url.pathname));
+      dispatch(setBaseUrl(`${url.protocol}//${url.host}`));
+      dispatch(setEndpoint(url.pathname));
 
-    const params = new URLSearchParams(url.search);
-
-    dispatch(
-      setParamsAndEncode({
-        params: params.toString(),
-      })
-    );
+      const params = new URLSearchParams(url.search);
+      dispatch(
+        setParamsAndEncode({
+          params: params.toString(),
+        })
+      );
+    } catch (error) {
+      console.error('Invalid URL:', error);
+    }
   };
 
   const handleChangeMethod = (e: ChangeEvent<HTMLInputElement>): string[] => {
@@ -49,6 +52,10 @@ const HttpMethodURL = () => {
       dispatch(setMethod(methodSelect));
     }
     return filtered;
+  };
+
+  const handleSend = async () => {
+    await onSendRequest();
   };
 
   useEffect(() => {
@@ -74,7 +81,7 @@ const HttpMethodURL = () => {
         customStyle="widthPath"
         onChange={handleUrl}
       />
-      <Button className="button" text={'Send'} onClick={() => {}} />
+      <Button className="button" text={'Send'} onClick={handleSend} />
     </div>
   );
 };
