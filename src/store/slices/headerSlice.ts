@@ -1,3 +1,4 @@
+import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions';
 import { HeaderRest } from '@/types/restClient';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -7,13 +8,12 @@ interface HeaderState {
 
 const getExistingHeaders = (): HeaderRest[] => {
   try {
-    const savedVariables = localStorage.getItem('variables');
+    const savedVariables = getFromLocalStorage('variables');
     if (!savedVariables) return [];
 
-    const parsed = JSON.parse(savedVariables);
-    if (!Array.isArray(parsed)) return [];
+    if (!Array.isArray(savedVariables)) return [];
 
-    const headers = parsed
+    const headers = savedVariables
       .filter((item) => {
         const id = typeof item.id === 'string' ? parseInt(item.id) : item.id;
         return !isNaN(id);
@@ -42,8 +42,8 @@ const saveHeadersToLS = (headers: HeaderRest[]) => {
   if (typeof window === 'undefined') return;
 
   try {
-    const savedVariables = localStorage.getItem('variables');
-    const existingVariables = savedVariables ? JSON.parse(savedVariables) : [];
+    const savedVariables = getFromLocalStorage('variables');
+    const existingVariables = savedVariables ?? [];
     const variables = Array.isArray(existingVariables)
       ? existingVariables.filter(
           (item) => typeof item.id === 'string' && !item.id.match(/^\d+$/)
@@ -51,7 +51,7 @@ const saveHeadersToLS = (headers: HeaderRest[]) => {
       : [];
 
     const combined = [...variables, ...headers];
-    localStorage.setItem('variables', JSON.stringify(combined));
+    saveToLocalStorage('variables', combined);
   } catch (e) {
     console.error('Error saving headers to localStorage:', e);
   }
