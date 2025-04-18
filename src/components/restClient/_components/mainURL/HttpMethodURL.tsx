@@ -51,6 +51,7 @@ const HttpMethodURL = () => {
       );
     } catch {
       setErrorUrl('error in the url')
+      dispatch(setUrlValueInput(rawUrl))
     }
   };
 
