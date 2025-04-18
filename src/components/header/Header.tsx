@@ -8,6 +8,7 @@ import './header.scss';
 import { useEffect, useState } from 'react';
 import { useLanguageContext } from '@/context/LanguageContext';
 import Link from 'next/link';
+import ModalSpinner from '../modalSpinner/ModalSpinner';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -68,6 +69,7 @@ const Header = () => {
               )}
             </>
           )}
+          {loading && <ModalSpinner isOpen={loading} />}
         </div>
       </div>
     </header>

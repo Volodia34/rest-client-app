@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import './main.scss';
 import AuthLinks from '../links/AuthLinks';
+import ModalSpinner from '../modalSpinner/ModalSpinner';
 
 const MainPage = () => {
   const { t } = useLanguageContext();
@@ -45,6 +46,7 @@ const MainPage = () => {
           )}
         </>
       )}
+      {loading && <ModalSpinner isOpen={loading} />}
     </div>
   );
 };
