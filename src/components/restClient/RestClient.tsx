@@ -9,6 +9,8 @@ import HttpMethodURL from './_components/mainURL/HttpMethodURL';
 import EncodePath from './_components/EncodePath';
 import ResponseBlock from './response/ResponseBlock';
 import { useSendRequest } from '@/hooks/useSendRequest';
+import { useAuth } from '@/hooks/useAuth';
+import { redirect } from 'next/navigation';
 
 interface Response {
   status: number;
@@ -16,8 +18,18 @@ interface Response {
 }
 
 const RestClient = () => {
+  const { user, loading } = useAuth();
   const [response, setResponse] = useState<Response | null>(null);
   const { sendRequest } = useSendRequest();
+
+  if (loading) {
+    return null;
+  }
+
+  if (!user) {
+    redirect('/');
+    return null;
+  }
 
   const handleSendRequest = async () => {
     const res = await sendRequest();
