@@ -8,6 +8,7 @@ import Button from '@/UI/buttons/Button';
 import { z } from 'zod';
 import './formStyles.scss';
 import { useLanguageContext } from '@/context/LanguageContext';
+import ModalSpinner from '../modalSpinner/ModalSpinner';
 
 const signInSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -25,11 +26,13 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { t } = useLanguageContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const result = signInSchema.safeParse({ email, password });
     if (!result.success) {
@@ -46,25 +49,28 @@ const SignIn = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{t('auth.signin') as string}</h2>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder={t('auth.email') as string}
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder={t('auth.password') as string}
-        required
-      />
-      {error && <p>{error}</p>}
-      <Button text={t('auth.signin') as string} onClick={() => handleSubmit} />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <h2>{t('auth.signin') as string}</h2>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={t('auth.email') as string}
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder={t('auth.password') as string}
+          required
+        />
+        {error && <p>{error}</p>}
+        <Button text={t('auth.signin') as string} onClick={() => handleSubmit} />
+      </form>
+      <ModalSpinner isOpen={loading} />
+    </>
   );
 };
 
