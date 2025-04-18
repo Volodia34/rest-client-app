@@ -1,4 +1,4 @@
-import { saveToLocalStorage } from '@/helpers/localActions';
+import { getFromLocalStorage, saveToLocalStorage } from '@/helpers/localActions';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const STORAGE_KEY = 'variables';
@@ -8,7 +8,7 @@ interface HeaderState {
 }
 
 const initialState: HeaderState = {
-  variables: {},
+  variables: getFromLocalStorage<{ [key: string]: string }>(STORAGE_KEY) ?? {},
 };
 
 const variablesSlice = createSlice({

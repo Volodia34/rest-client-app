@@ -39,6 +39,7 @@ const SignUp = () => {
     const result = signUpSchema.safeParse({ email, password, username });
     if (!result.success) {
       setError(result.error.errors[0].message);
+      setLoading(false);
       return;
     }
 
@@ -51,6 +52,7 @@ const SignUp = () => {
       await updateProfile(userCredential.user, { displayName: username });
       router.push('/');
     } catch (err) {
+      setLoading(false);
       setError((err as Error).message);
     }
   };
