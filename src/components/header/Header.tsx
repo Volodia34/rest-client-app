@@ -20,7 +20,7 @@ const Header = () => {
   const handleModal = () => {
     setTimeout(() => {
       setLoadingModal(false)
-    }, 600)
+    }, 400)
   }
 
   const handleMainpage = () => {
@@ -31,7 +31,10 @@ const Header = () => {
 
   const handleLogout = () => {
     setLoadingModal(true)
-    setTimeout(() => logout(), 400)
+    setTimeout(() => {
+      logout()
+      router.push('/');
+    }, 400)
     handleModal()
   }
 

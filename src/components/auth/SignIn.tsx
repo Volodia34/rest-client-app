@@ -37,6 +37,7 @@ const SignIn = () => {
     const result = signInSchema.safeParse({ email, password });
     if (!result.success) {
       setError(result.error.errors[0].message);
+      setLoading(false);
       return;
     }
 
@@ -44,6 +45,7 @@ const SignIn = () => {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/');
     } catch (err) {
+      setLoading(false);
       setError((err as Error).message);
     }
   };
