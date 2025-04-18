@@ -30,7 +30,7 @@ const HttpMethodURL = () => {
   };
 
   const handleUrl = (e: ChangeEvent<HTMLInputElement>) => {
-    if (errorUrl) setErrorUrl('')
+    if (errorUrl) setErrorUrl('');
     let rawUrl = e.target.value;
     if (isVariables(rawUrl)) {
       rawUrl = replaceVariables(rawUrl, variables);
@@ -50,8 +50,8 @@ const HttpMethodURL = () => {
         })
       );
     } catch {
-      setErrorUrl('error in the url')
-      dispatch(setUrlValueInput(rawUrl))
+      setErrorUrl('error in the url');
+      dispatch(setUrlValueInput(rawUrl));
     }
   };
 
@@ -71,7 +71,11 @@ const HttpMethodURL = () => {
 
   return (
     <>
-      <div key={`${render}`} className="path-wrapper" data-testid="path-wrapper">
+      <div
+        key={`${render}`}
+        className="path-wrapper"
+        data-testid="path-wrapper"
+      >
         <SelectInput
           data-test="select-methods"
           forInput="methods"

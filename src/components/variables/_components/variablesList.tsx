@@ -13,7 +13,7 @@ export const VariablesList = () => {
   const [variableKeys, setVariableKeys] = useState<string[]>([]);
   const [newKey, setNewKey] = useState('');
   const [newValue, setNewValue] = useState('');
-  
+
   const { setVariable, removeVariables, variables } = useVariable();
 
   const handleAddVariable = () => {
@@ -25,8 +25,8 @@ export const VariablesList = () => {
   };
 
   useEffect(() => {
-    if (variables) setVariableKeys(Object.keys(variables))
-  }, [variables])
+    if (variables) setVariableKeys(Object.keys(variables));
+  }, [variables]);
 
   return (
     <div className={styles.variablesList}>
