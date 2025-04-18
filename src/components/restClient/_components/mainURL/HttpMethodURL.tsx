@@ -14,8 +14,10 @@ import {
 } from '@/store/slices/urlSlice';
 import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
 import { useVariable } from '@/hooks/useVariable';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const HttpMethodURL = () => {
+  const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
   const { method } = useSelector((state: RootState) => state.bodySlice);
@@ -50,7 +52,7 @@ const HttpMethodURL = () => {
         })
       );
     } catch {
-      setErrorUrl('error in the url');
+      setErrorUrl(`${t('restClient.httpMethodURLErrorUrl') as string}`);
       dispatch(setUrlValueInput(rawUrl));
     }
   };
@@ -93,7 +95,11 @@ const HttpMethodURL = () => {
           customStyle="widthPath"
           onChange={handleUrl}
         />
-        <Button className="button" text={'Send'} onClick={() => {}} />
+        <Button
+          className="button"
+          text={t('restClient.httpMethodURLSendButton') as string}
+          onClick={() => {}}
+        />
       </div>
       {errorUrl && <p className="warning-messages">{errorUrl}</p>}
     </>

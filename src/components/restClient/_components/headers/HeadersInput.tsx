@@ -10,8 +10,10 @@ import SelectInput from '@/UI/inputs/SelectInput';
 import { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAddItem } from '@/hooks/useAddItem';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const HeadersInput = ({ id, index }: { id: number; index: number }) => {
+  const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const headers = useSelector((state: RootState) => state.headerSlice.headers);
   const [filterHeaderKeys, setFilterHeaderKeys] =
@@ -73,10 +75,18 @@ const HeadersInput = ({ id, index }: { id: number; index: number }) => {
       />
       <Button
         className="button"
-        text={headers[index] && headers[index].key ? 'Update' : 'Add'}
+        text={
+          headers[index] && headers[index].key
+            ? (t('restClient.headersInputButtonUpdate') as string)
+            : (t('restClient.headersInputButtonAdd') as string)
+        }
         onClick={handleAdd}
       />
-      <Button className="button" text={'Remove'} onClick={removeRow} />
+      <Button
+        className="button"
+        text={t('restClient.headersInputButtonRemove') as string}
+        onClick={removeRow}
+      />
     </div>
   );
 };

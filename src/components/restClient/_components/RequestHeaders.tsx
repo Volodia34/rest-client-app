@@ -7,8 +7,10 @@ import { setHeadersFromLS } from '@/store/slices/headerSlice';
 import { useEffect, useState } from 'react';
 import { getFromLocalStorage } from '@/helpers/localActions';
 import { HeaderRest } from '@/types/restClient';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const RequestHeaders = () => {
+  const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const { headers } = useSelector((state: RootState) => state.headerSlice);
 
@@ -40,8 +42,8 @@ const RequestHeaders = () => {
 
   return (
     <RequestSection
-      title="Headers:"
-      buttonText="Add Header"
+      title={t('restClient.headerTitle') as string}
+      buttonText={t('restClient.headerAddButtonText') as string}
       onClick={addHeaderBlock}
     >
       {headers.length &&

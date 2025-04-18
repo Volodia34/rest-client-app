@@ -6,8 +6,10 @@ import RestBody from './_components/restBody/RestBody';
 import HttpMethodURL from './_components/mainURL/HttpMethodURL';
 import EncodePath from './_components/EncodePath';
 import AuthLinks from '../links/AuthLinks';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const RestClient = () => {
+  const { t } = useLanguageContext();
   return (
     <section className="container rest-client-wrapper">
       <AuthLinks restClient={true} />
@@ -15,7 +17,7 @@ const RestClient = () => {
       <HttpMethodURL />
       <RequestHeaders />
       <RestBody />
-      <GeneratedCode title={'Generated request code:'} />
+      <GeneratedCode title={t('restClient.generatedCodeTitle') as string} />
     </section>
   );
 };
