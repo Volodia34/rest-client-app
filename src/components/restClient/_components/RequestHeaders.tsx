@@ -1,0 +1,50 @@
+import RequestSection from './RequestSection';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import HeadersInput from './headers/HeadersInput';
+import { setNewHeader } from '@/store/slices/headerSlice';
+import { setHeadersFromLS } from '@/store/slices/headerSlice';
+import { useEffect, useState } from 'react';
+
+const RequestHeaders = () => {
+  const dispatch = useDispatch();
+  const { variables: headers } = useSelector(
+    (state: RootState) => state.headerSlice
+  );
+
+  const addHeaderBlock = () => {
+    dispatch(setNewHeader());
+  };
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('variables');
+      if (saved) {
+        dispatch(setHeadersFromLS(JSON.parse(saved)));
+      }
+    }
+    setMounted(true);
+  }, [dispatch]);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <RequestSection
+      title="Headers:"
+      buttonText="Add Header"
+      onClick={addHeaderBlock}
+    >
+      {headers.length &&
+        headers.map((el, index) => (
+          <HeadersInput key={`${index}-item-header`} id={el.id} index={index} />
+        ))}
+      <p></p>
+    </RequestSection>
+  );
+};
+
+export default RequestHeaders;
