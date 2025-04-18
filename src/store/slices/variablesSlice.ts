@@ -35,5 +35,6 @@ const variablesSlice = createSlice({
   },
 });
 
-export const { setVariables, removeVariable, clearVariable } = variablesSlice.actions;
+export const { setVariables, removeVariable, clearVariable } =
+  variablesSlice.actions;
 export default variablesSlice.reducer;

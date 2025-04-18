@@ -81,6 +81,9 @@ describe('translations', () => {
 
       Object.values(langTranslations).forEach((section) => {
         Object.values(section).forEach((value) => {
+          if (typeof value === 'object') {
+            return; 
+          }
           expect(typeof value).toBe('string');
         });
       });

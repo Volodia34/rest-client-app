@@ -46,6 +46,30 @@ export interface Translations {
     add: string;
     delete: string;
   };
+  restClient: {
+    generatedCodeTitle: string;
+    generatedCodeMessageText: string;
+    generatedCodeBodyTitle: string;
+    generatedCodeRestTitle: string;
+    generatedCodeRestCode: string;
+    headerTitle: string;
+    headerAddButtonText: string;
+    restBodyTitle: string;
+    restBodyButtonText: string;
+    restBodyPlaceholder: string;
+    httpMethodURLErrorUrl: string;
+    httpMethodURLSendButton: string;
+    headersInputButtonUpdate: string;
+    headersInputButtonAdd: string;
+    headersInputButtonRemove: string;
+    validation: {
+      language: string;
+      url: string;
+      method: string;
+      headers: string;
+      body: string;
+    };
+  };
 }
 
 export type TranslationKey =

@@ -6,6 +6,7 @@ import { EmptyState } from './emptyState';
 import { HistoryHeader } from './historyHeader';
 import { HistoryTable } from './historyTable';
 import styles from '../historyContent.module.scss';
+import AuthLinks from '@/components/links/AuthLinks';
 
 export function HistoryClientContent() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -34,6 +35,7 @@ export function HistoryClientContent() {
 
   return (
     <div className={styles.historyContainer}>
+      <AuthLinks historyPage={true} />
       {history.length > 0 ? (
         <>
           <HistoryHeader onClearHistory={handleClearHistory} />

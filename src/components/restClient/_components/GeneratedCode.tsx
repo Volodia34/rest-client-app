@@ -7,10 +7,10 @@ import SelectInput from '@/UI/inputs/SelectInput';
 import { generatedCode } from '@/constants/mockData';
 import { useGeneratedCode } from '@/hooks/useGeneratedCode';
 import CodeHighlighter from './generatedComponents/CodeHighlighter';
-
-const messageText = 'There will be a generated code here...';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const GeneratedCode: FC<{ title: string }> = ({ title }) => {
+  const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const { baseUrl, endpoint, params } = useSelector(
     (state: RootState) => state.urlSlice
@@ -51,7 +51,7 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
 
   return (
     <RequestSection key={`${render}`} title={title} buttonText={language}>
-      <p className="warning-messages">{warningMessages}</p>
+      {warningMessages && <p className="warning-messages">{warningMessages}</p>}
       <SelectInput
         data-testid="headers-key"
         value={language}
@@ -65,7 +65,7 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
       {generatedSnippet ? (
         <CodeHighlighter code={generatedSnippet} />
       ) : (
-        <p>{messageText}</p>
+        <p>{t('restClient.generatedCodeMessageText') as string}</p>
       )}
     </RequestSection>
   );

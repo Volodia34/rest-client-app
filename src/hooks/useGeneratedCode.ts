@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { postmanCodeGen } from '@/helpers/postmanCodeGen';
 import { HeaderRest } from '@/types/restClient';
 import { validateRequestFields } from '@/helpers/validateRequestFields';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 export const useGeneratedCode = (
   language: string,
@@ -12,6 +13,7 @@ export const useGeneratedCode = (
   params: string,
   body: string | null
 ) => {
+  const { t } = useLanguageContext();
   const [generatedSnippet, setGeneratedSnippet] = useState<string | null>(null);
   const [warningMessages, setWarningMessages] = useState<string | null>(null);
   const [render, setRender] = useState(false);
@@ -19,6 +21,7 @@ export const useGeneratedCode = (
   useEffect(() => {
     const url = `${baseUrl}${endpoint}?${params}`;
     const warning = validateRequestFields(
+      t,
       language,
       baseUrl,
       method,

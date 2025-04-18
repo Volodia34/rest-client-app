@@ -12,10 +12,12 @@ import { option } from '@/constants/mockData';
 import { setBody } from '@/store/slices/bodySlice';
 import { useVariable } from '@/hooks/useVariable';
 import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 const optionsMinLength = 1;
 
 const RestBody = () => {
+  const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const { body, formatBody } = useSelector(
     (state: RootState) => state.bodySlice
@@ -76,8 +78,12 @@ const RestBody = () => {
 
   return (
     <RequestSection
-      title="Body:"
-      buttonText={formatBody === 'JSON' ? 'Prettify' : undefined}
+      title={t('restClient.restBodyTitle') as string}
+      buttonText={
+        formatBody === 'JSON'
+          ? (t('restClient.restBodyButtonText') as string)
+          : undefined
+      }
       onClick={handlePrettify}
     >
       <SelectInput
@@ -96,7 +102,7 @@ const RestBody = () => {
         value={bodyChange}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="Enter JSON..."
+        placeholder={t('restClient.restBodyPlaceholder') as string}
       />
       <p className={error ? 'error' : 'hidden'}>{error}.</p>
     </RequestSection>

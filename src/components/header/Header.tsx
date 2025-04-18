@@ -8,12 +8,44 @@ import './header.scss';
 import { useEffect, useState } from 'react';
 import { useLanguageContext } from '@/context/LanguageContext';
 import Link from 'next/link';
+import ModalSpinner from '../modalSpinner/ModalSpinner';
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const { currentLang, toggleLanguage, t } = useLanguageContext();
   const { user, logout, loading } = useAuth();
+  const [loadingModal, setLoadingModal] = useState(false);
   const router = useRouter();
+
+  const handleModal = () => {
+    setTimeout(() => {
+      setLoadingModal(false)
+    }, 600)
+  }
+
+  const handleMainpage = () => {
+    setLoadingModal(true)
+    setTimeout(() => router.push('/'), 400)
+    handleModal()
+  }
+
+  const handleLogout = () => {
+    setLoadingModal(true)
+    setTimeout(() => logout(), 400)
+    handleModal()
+  }
+
+  const handleSignup = () => {
+    setLoadingModal(true)
+    setTimeout(() => router.push('/signup'), 400)
+    handleModal()
+  }
+
+  const handleSignin = () => {
+    setLoadingModal(true)
+    setTimeout(() => router.push('/signin'), 400)
+    handleModal()
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,12 +76,12 @@ const Header = () => {
                   <Button
                     className="login-button"
                     text={t('header.login') as string}
-                    onClick={() => router.push('/signin')}
+                    onClick={handleSignin}
                   />
                   <Button
                     className="sign-up-button"
                     text={t('header.signup') as string}
-                    onClick={() => router.push('/signup')}
+                    onClick={handleSignup}
                   />
                 </>
               ) : (
@@ -57,20 +89,23 @@ const Header = () => {
                   <Button
                     className="main-page-button"
                     text={t('header.mainpage') as string}
-                    onClick={() => router.push('/')}
+                    onClick={handleMainpage}
                   />
                   <Button
                     className="logout-button"
                     text={t('header.logout') as string}
-                    onClick={() => logout()}
+                    onClick={handleLogout}
                   />
                 </>
               )}
             </>
           )}
+          {loadingModal && <ModalSpinner isOpen={loadingModal} />}
+          {loading && <ModalSpinner isOpen={loading} />}
         </div>
       </div>
     </header>
   );
 };
+
 export default Header;

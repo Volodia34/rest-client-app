@@ -8,6 +8,7 @@ import Button from '@/UI/buttons/Button';
 import { z } from 'zod';
 import './formStyles.scss';
 import { useLanguageContext } from '@/context/LanguageContext';
+import ModalSpinner from '../modalSpinner/ModalSpinner';
 
 const signUpSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -27,11 +28,13 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { t } = useLanguageContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const result = signUpSchema.safeParse({ email, password, username });
     if (!result.success) {
@@ -53,32 +56,35 @@ const SignUp = () => {
   };
 
   return (
-    <form className="sign-up-form" onSubmit={handleSubmit}>
-      <h2>{t('auth.signup') as string}</h2>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder={t('auth.username') as string}
-        required
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder={t('auth.email') as string}
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder={t('auth.password') as string}
-        required
-      />
-      {error && <p>{error}</p>}
-      <Button text={t('auth.signup') as string} onClick={() => handleSubmit} />
-    </form>
+    <>
+      <form className="sign-up-form" onSubmit={handleSubmit}>
+        <h2>{t('auth.signup') as string}</h2>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder={t('auth.username') as string}
+          required
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={t('auth.email') as string}
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder={t('auth.password') as string}
+          required
+        />
+        {error && <p>{error}</p>}
+        <Button text={t('auth.signup') as string} onClick={() => handleSubmit} />
+      </form>
+      <ModalSpinner isOpen={loading} />
+    </>
   );
 };
 

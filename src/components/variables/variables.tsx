@@ -8,6 +8,7 @@ export default function Variables() {
   if (loading) {
     return null;
   }
+
   if (!user) {
     redirect('/');
   }
