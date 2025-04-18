@@ -1,0 +1,91 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - '(feature|fix)/*'
+  pull_request:
+    branches:
+      - 'develop'
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check branch name on push
+        if: github.event_name == 'push'
+        run: |
+          branch_name=$(git symbolic-ref --short HEAD)
+          echo "Current branch: $branch_name"
+          if [[ ! "$branch_name" =~ ^(feature|fix)/.* ]]; then
+            echo "❌ Invalid branch name. The branch name must start with '(feature|fix)/'"
+            exit 1
+          fi
+          echo "✅ The branch name is correct: $branch_name"
+
+      - name: Check source branch on pull request
+        if: github.event_name == 'pull_request'
+        run: |
+          branch_name="${{ github.head_ref }}"
+          echo "🔍 Checking the branch: $branch_name"
+          if [[ ! "$branch_name" =~ ^(feature|fix)/.* ]]; then
+            echo "❌ DENIED: You cannot send PR from test to main."
+            exit 1
+          fi
+          echo "✅ The branch is allowed: $branch_name"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build

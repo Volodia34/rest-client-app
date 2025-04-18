@@ -1,0 +1,68 @@
+@use '../../styles/variables/typography';
+@use '../../styles/variables/colors';
+@use '../../styles/variables/transitions';
+@use '../../styles/variables/z-index';
+
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: z-index.$z-header;
+  background-color: colors.$gray-300;
+  transition: all transitions.$transition-base;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
+  height: 7rem;
+
+  &.sticky {
+    height: 5rem;
+    background-color: rgba(colors.$gray-300, 0.5);
+    backdrop-filter: blur(5px);
+  }
+}
+
+body {
+  padding-top: 5rem;
+}
+
+.app-header {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin: 0 auto;
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.language-button,
+.logout-button,
+.login-button,
+.sign-up-button,
+.logout-button,
+.main-page-button {
+  cursor: pointer;
+  text-align: center;
+  font-size: typography.$font-size-base;
+  color: colors.$gray-900;
+  background-color: colors.$primary;
+  min-width: 6rem;
+  height: 2rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  transition:
+    background-color transitions.$transition-base,
+    color transitions.$transition-base;
+  height: auto;
+  &:hover {
+    background-color: colors.$primary-hover;
+    color: colors.$gray-100;
+  }
+}
