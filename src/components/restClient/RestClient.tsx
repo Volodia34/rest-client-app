@@ -7,16 +7,9 @@ import HttpMethodURL from './_components/mainURL/HttpMethodURL';
 import EncodePath from './_components/EncodePath';
 import AuthLinks from '../links/AuthLinks';
 import { useLanguageContext } from '@/context/LanguageContext';
-import { useAuth } from '@/hooks/useAuth';
-import ModalSpinner from '../modalSpinner/ModalSpinner';
 
 const RestClient = () => {
   const { t } = useLanguageContext();
-  const { loading } = useAuth();
-
-  if (loading) {
-    <ModalSpinner isOpen={loading} />
-  }
 
   return (
     <section className="container rest-client-wrapper">
