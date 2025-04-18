@@ -51,7 +51,7 @@ const GeneratedCode: FC<{ title: string }> = ({ title }) => {
 
   return (
     <RequestSection key={`${render}`} title={title} buttonText={language}>
-      <p className="warning-messages">{warningMessages}</p>
+      {warningMessages && <p className="warning-messages">{warningMessages}</p>}
       <SelectInput
         data-testid="headers-key"
         value={language}

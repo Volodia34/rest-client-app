@@ -64,6 +64,13 @@ export const translations: Record<Language, Translations> = {
       headersInputButtonUpdate: 'Update',
       headersInputButtonAdd: 'Add',
       headersInputButtonRemove: 'Remove',
+      validation: {
+        language: 'You need the language code.',
+        url: 'You need the main URL.',
+        method: 'You need the method.',
+        headers: 'You need the headers.',
+        body: 'You need the body.',
+      },
     },
   },
 
@@ -129,6 +136,13 @@ export const translations: Record<Language, Translations> = {
       headersInputButtonUpdate: 'Обновить',
       headersInputButtonAdd: 'Добавить',
       headersInputButtonRemove: 'Удалить',
+      validation: {
+        language: 'Требуется указать код языка.',
+        url: 'Требуется указать основной URL.',
+        method: 'Требуется указать метод.',
+        headers: 'Требуется указать заголовки.',
+        body: 'Требуется указать тело запроса.',
+      },
     },
   },
 } as const;

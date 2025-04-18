@@ -1,6 +1,10 @@
+import { useLanguageContext } from '@/context/LanguageContext';
 import { HeaderRest } from '@/types/restClient';
 
+type TranslateFunction = ReturnType<typeof useLanguageContext>['t'];
+
 export const validateRequestFields = (
+  t: TranslateFunction,
   language: string,
   baseUrl: string,
   method: string,
@@ -9,15 +13,15 @@ export const validateRequestFields = (
 ): string | null => {
   switch (true) {
     case !language:
-      return 'You need the language code.';
+      return t('restClient.validation.language') as string;
     case !baseUrl:
-      return 'You need the main URL.';
+      return t('restClient.validation.url') as string;
     case !method:
-      return 'You need the method.';
+      return t('restClient.validation.method') as string;
     case !headers || headers.length === 0 || !headers[0].key:
-      return 'You need the headers.';
+      return t('restClient.validation.headers') as string;
     case !body && ['POST', 'PUT', 'PATCH'].includes(method):
-      return 'You need the body.';
+      return t('restClient.validation.body') as string;
     default:
       return null;
   }

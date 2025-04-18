@@ -62,6 +62,13 @@ export interface Translations {
     headersInputButtonUpdate: string;
     headersInputButtonAdd: string;
     headersInputButtonRemove: string;
+    validation: {
+      language: string;
+      url: string;
+      method: string;
+      headers: string;
+      body: string;
+    };
   };
 }
 
