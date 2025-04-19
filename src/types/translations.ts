@@ -52,6 +52,7 @@ export interface Translations {
     generatedCodeBodyTitle: string;
     generatedCodeRestTitle: string;
     generatedCodeRestCode: string;
+    generatedResponse: string;
     headerTitle: string;
     headerAddButtonText: string;
     restBodyTitle: string;

@@ -52,7 +52,7 @@ export const useGeneratedCode = (
     }
 
     setRender((prev) => !prev);
-  }, [language, method, headers, baseUrl, endpoint, params, body]);
+  }, [language, method, headers, baseUrl, endpoint, params, body, t]);
 
   return { generatedSnippet, warningMessages, render };
 };
