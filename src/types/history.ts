@@ -3,6 +3,7 @@ export interface HistoryItem {
   url: string;
   timestamp: string;
   status?: number;
+  headers: Record<string, string>;
 }
 export interface HistoryHeaderProps {
   onClearHistory: () => void;

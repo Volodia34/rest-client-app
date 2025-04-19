@@ -11,6 +11,7 @@ import ResponseBlock from './response/ResponseBlock';
 import { useSendRequest } from '@/hooks/useSendRequest';
 import AuthLinks from '../links/AuthLinks';
 import { useLanguageContext } from '@/context/LanguageContext';
+import { useUrlParams } from '@/hooks/useUrlParams';
 
 interface Response {
   status: number;
@@ -21,6 +22,7 @@ const RestClient = () => {
   const { t } = useLanguageContext();
   const [response, setResponse] = useState<Response | null>(null);
   const { sendRequest } = useSendRequest();
+  useUrlParams();
 
   const handleSendRequest = async () => {
     const res = await sendRequest();

@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import { saveRequestToHistory } from '@/helpers/saveRequestToHistory';
 
 export const useSendRequest = () => {
   const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
@@ -38,28 +39,6 @@ export const useSendRequest = () => {
     console.log('Method:', method);
     console.log('Headers:', headers);
     console.log('Body:', finalBody);
-
-    const saveRequestToHistory = (
-      method: string,
-      url: string,
-      headers: Record<string, string>,
-      status: number
-    ) => {
-      const history = JSON.parse(
-        localStorage.getItem('requestHistory') || '[]'
-      );
-      const newEntry = {
-        method,
-        url,
-        headers,
-        timestamp: new Date().toLocaleString(),
-        status,
-      };
-      localStorage.setItem(
-        'requestHistory',
-        JSON.stringify([...history, newEntry])
-      );
-    };
 
     try {
       const response = await fetch(`/api/proxy?url=${encodedUrl}`, {
