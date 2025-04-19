@@ -9,7 +9,7 @@ const ModalSpinner: React.FC<ModalSpinnerProps> = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-spinner__overlay" role="dialog">
+    <div className="modal-spinner__overlay" role="dialog" data-testid="modal-spinner">
       <div className="modal-spinner__container">
         <div className="modal-spinner__loader" />
       </div>

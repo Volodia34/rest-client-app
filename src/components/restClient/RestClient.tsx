@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import GeneratedCode from './_components/GeneratedCode';
 import RequestHeaders from './_components/RequestHeaders';
 import './restClient.scss';
 import RestBody from './_components/restBody/RestBody';
@@ -10,7 +9,6 @@ import EncodePath from './_components/EncodePath';
 import ResponseBlock from './response/ResponseBlock';
 import { useSendRequest } from '@/hooks/useSendRequest';
 import AuthLinks from '../links/AuthLinks';
-import { useLanguageContext } from '@/context/LanguageContext';
 import { useUrlParams } from '@/hooks/useUrlParams';
 
 interface Response {
@@ -19,7 +17,6 @@ interface Response {
 }
 
 const RestClient = () => {
-  const { t } = useLanguageContext();
   const [response, setResponse] = useState<Response | null>(null);
   const { sendRequest } = useSendRequest();
   useUrlParams();
@@ -36,7 +33,6 @@ const RestClient = () => {
       <HttpMethodURL onSendRequest={handleSendRequest} />
       <RequestHeaders />
       <RestBody />
-      <GeneratedCode title={t('restClient.generatedCodeTitle') as string} />
       <ResponseBlock response={response} />
     </section>
   );
