@@ -7,6 +7,7 @@ interface Response {
 }
 
 const ResponseBlock = ({ response }: { response: Response | null }) => {
+  const { t } = useLanguageContext();
   if (!response) {
     return (
       <section className="container rest-client-wrapper">
@@ -18,7 +19,13 @@ const ResponseBlock = ({ response }: { response: Response | null }) => {
 
   return (
     <section className="container rest-client-wrapper">
-      <p className="rest-title">Status: {response.status}</p>
+      <p className="rest-title">
+        Status: {response.status}
+        {t('restClient.generatedCodeRestTitle') as string}{' '}
+        {t('restClient.generatedCodeRestCode') as string}
+      </p>
+      <GeneratedCode title={t('restClient.generatedCodeBodyTitle') as string} />
+
       <pre className="response-body">
         {JSON.stringify(response.data, null, 2)}
       </pre>

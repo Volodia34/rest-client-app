@@ -17,6 +17,7 @@ import { useVariable } from '@/hooks/useVariable';
 import { useLanguageContext } from '@/context/LanguageContext';
 
 const HttpMethodURL = ({ onSendRequest }: { onSendRequest: () => void }) => {
+  const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
   const { method } = useSelector((state: RootState) => state.bodySlice);
@@ -31,22 +32,28 @@ const HttpMethodURL = ({ onSendRequest }: { onSendRequest: () => void }) => {
   };
 
   const handleUrl = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setUrlValueInput(e.target.value));
+    if (errorUrl) setErrorUrl('');
+    let rawUrl = e.target.value;
+    if (isVariables(rawUrl)) {
+      rawUrl = replaceVariables(rawUrl, variables);
+    }
     try {
-      const rawUrl = e.target.value;
       const url = new URL(rawUrl);
+      dispatch(setUrlValueInput(rawUrl));
 
       dispatch(setBaseUrl(`${url.protocol}//${url.host}`));
       dispatch(setEndpoint(url.pathname));
 
       const params = new URLSearchParams(url.search);
+
       dispatch(
         setParamsAndEncode({
           params: params.toString(),
         })
       );
-    } catch (error) {
-      console.error('Invalid URL:', error);
+    } catch {
+      setErrorUrl(`${t('restClient.httpMethodURLErrorUrl') as string}`);
+      dispatch(setUrlValueInput(rawUrl));
     }
   };
 

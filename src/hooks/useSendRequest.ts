@@ -4,7 +4,7 @@ import { RootState } from '@/store/store';
 export const useSendRequest = () => {
   const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
   const { method, body } = useSelector((state: RootState) => state.bodySlice);
-  const { variables: headersArray } = useSelector(
+  const { headers: headersArray } = useSelector(
     (state: RootState) => state.headerSlice
   );
 
@@ -39,6 +39,28 @@ export const useSendRequest = () => {
     console.log('Headers:', headers);
     console.log('Body:', finalBody);
 
+    const saveRequestToHistory = (
+      method: string,
+      url: string,
+      headers: Record<string, string>,
+      status: number
+    ) => {
+      const history = JSON.parse(
+        localStorage.getItem('requestHistory') || '[]'
+      );
+      const newEntry = {
+        method,
+        url,
+        headers,
+        timestamp: new Date().toLocaleString(),
+        status,
+      };
+      localStorage.setItem(
+        'requestHistory',
+        JSON.stringify([...history, newEntry])
+      );
+    };
+
     try {
       const response = await fetch(`/api/proxy?url=${encodedUrl}`, {
         method,
@@ -53,6 +75,7 @@ export const useSendRequest = () => {
 
       console.log('Response status:', response.status);
       console.log('Response data:', data);
+      saveRequestToHistory(method, urlValueInput, headers, response.status);
 
       return { status: response.status, data };
     } catch (error: unknown) {

@@ -33,6 +33,7 @@
   .historyList {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .historyItem {
@@ -49,6 +50,7 @@
       font-weight: bold;
       padding: 0.25rem 0.5rem;
       border-radius: 4px;
+      width: 7rem;
 
       &[data-method='GET'] {
         background: #61affe;
@@ -61,6 +63,15 @@
       }
       &[data-method='DELETE'] {
         background: #f93e3e;
+      }
+      &[data-method='PATCH'] {
+        background: #fca130;
+      }
+      &[data-method='OPTIONS'] {
+        background: #fca130;
+      }
+      &[data-method='HEAD'] {
+        background: #fca130;
       }
     }
     .url {

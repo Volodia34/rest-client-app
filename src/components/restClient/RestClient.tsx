@@ -9,8 +9,8 @@ import HttpMethodURL from './_components/mainURL/HttpMethodURL';
 import EncodePath from './_components/EncodePath';
 import ResponseBlock from './response/ResponseBlock';
 import { useSendRequest } from '@/hooks/useSendRequest';
-import { useAuth } from '@/hooks/useAuth';
-import { redirect } from 'next/navigation';
+import AuthLinks from '../links/AuthLinks';
+import { useLanguageContext } from '@/context/LanguageContext';
 
 interface Response {
   status: number;
@@ -18,18 +18,9 @@ interface Response {
 }
 
 const RestClient = () => {
-  const { user, loading } = useAuth();
+  const { t } = useLanguageContext();
   const [response, setResponse] = useState<Response | null>(null);
   const { sendRequest } = useSendRequest();
-
-  if (loading) {
-    return null;
-  }
-
-  if (!user) {
-    redirect('/');
-    return null;
-  }
 
   const handleSendRequest = async () => {
     const res = await sendRequest();
@@ -43,7 +34,7 @@ const RestClient = () => {
       <HttpMethodURL onSendRequest={handleSendRequest} />
       <RequestHeaders />
       <RestBody />
-      <GeneratedCode title={'Generated request code:'} />
+      <GeneratedCode title={t('restClient.generatedCodeTitle') as string} />
       <ResponseBlock response={response} />
     </section>
   );
