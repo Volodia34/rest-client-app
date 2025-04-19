@@ -45,6 +45,31 @@
       color: $primary;
       background-color: antiquewhite;
     }
+
+
+    &.get {
+      color: $success;
+    }
+
+    &.post {
+      color: $primary;
+    }
+
+    &.put {
+      color: $secondary;
+    }
+
+    &.patch {
+      color: $info;
+    }
+
+    &.delete {
+      color: $danger;
+    }
+
+    &.head {
+      color: $gray-500;
+    }
   }
 }
 
