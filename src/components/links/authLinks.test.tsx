@@ -52,4 +52,35 @@ describe('AuthLinks', () => {
     expect(push).toHaveBeenCalledWith('/restClient');
     expect(screen.getByTestId('modal-spinner')).toBeInTheDocument();
   });
+
+  it('hides History link when historyPage is true', () => {
+    renderComponent({ historyPage: true });
+
+    expect(screen.queryByText('main.history')).not.toBeInTheDocument();
+    expect(screen.getByText('main.variables')).toBeInTheDocument();
+    expect(screen.getByText('REST Client')).toBeInTheDocument();
+  });
+
+  it('hides Variables link when variables is true', () => {
+    renderComponent({ variables: true });
+
+    expect(screen.queryByText('main.variables')).not.toBeInTheDocument();
+    expect(screen.getByText('main.history')).toBeInTheDocument();
+    expect(screen.getByText('REST Client')).toBeInTheDocument();
+  });
+
+  it('renders no links if all props are true', () => {
+    renderComponent({ restClient: true, historyPage: true, variables: true });
+
+    expect(screen.queryByText('main.variables')).not.toBeInTheDocument();
+    expect(screen.queryByText('main.history')).not.toBeInTheDocument();
+    expect(screen.queryByText('REST Client')).not.toBeInTheDocument();
+  });
+
+  it('sets loading to true when a link is clicked', () => {
+    renderComponent();
+    const link = screen.getByText('REST Client');
+    fireEvent.click(link);
+    expect(screen.getByTestId('modal-spinner')).toBeInTheDocument();
+  });
 });
