@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 
 const RestClient = dynamic(() => import('@/components/restClient/RestClient'), {
-  ssr: true,
+  ssr: false,
 });
 
 export default function RestClientPage() {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function middlewareHandler(req: NextRequest) {
+async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const targetUrl = searchParams.get('url');
 
@@ -74,8 +74,8 @@ export async function middlewareHandler(req: NextRequest) {
   }
 }
 
-export const GET = middlewareHandler;
-export const POST = middlewareHandler;
-export const PUT = middlewareHandler;
-export const PATCH = middlewareHandler;
-export const DELETE = middlewareHandler;
+export const GET = handler;
+export const POST = handler;
+export const PUT = handler;
+export const PATCH = handler;
+export const DELETE = handler;
