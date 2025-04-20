@@ -3,7 +3,6 @@ import { useAuth } from '@/hooks/useAuth';
 import { redirect } from 'next/navigation';
 import HistoryContent from './historyContent';
 
-// Мокаем useAuth и redirect
 jest.mock('@/hooks/useAuth', () => ({
   useAuth: jest.fn(),
 }));

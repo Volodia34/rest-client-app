@@ -7,7 +7,7 @@ jest.mock('@/hooks/useAuth');
 
 describe('AuthProvider и useAuthContext', () => {
   const mockAuthValue = {
-    user: { id: '1', name: 'Asel' } as unknown, // или используй User, если интерфейс правильный
+    user: { id: '1', name: 'Asel' } as unknown,
     loading: false,
     login: jest.fn(),
     logout: jest.fn(),
@@ -37,13 +37,13 @@ describe('AuthProvider и useAuthContext', () => {
 
   it('выбрасывает ошибку, если useAuthContext используется вне AuthProvider', () => {
     const TestComponent = () => {
-      // это вызовет ошибку
       useAuthContext();
       return null;
     };
 
-    // перехват ошибки в консоли
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleError = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
 
     expect(() => render(<TestComponent />)).toThrow(
       'useAuthContext must be used within an AuthProvider'

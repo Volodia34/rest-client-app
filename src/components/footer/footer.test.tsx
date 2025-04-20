@@ -10,6 +10,8 @@ jest.mock('next/image', () => ({
     alt: string;
     priority?: boolean;
     className?: string;
+    width?: number;
+    height?: number;
   }) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img

@@ -3,42 +3,45 @@ import ClientLayout from './ClientLayout';
 import '@testing-library/jest-dom';
 
 jest.mock('@/components/header/Header', () => {
-    const Header = () => <div>Header</div>;
-    Header.displayName = 'Header'; // Adding displayName
-    return Header;
-  });
-  
-  jest.mock('@/components/footer/Footer', () => {
-    const Footer = () => <div>Footer</div>;
-    Footer.displayName = 'Footer'; // Adding displayName
-    return Footer;
-  });
-  
-  jest.mock('@/errorsHandlers/ErrorBoundary', () => {
-    const ErrorBoundary = ({ children }: { children: React.ReactNode }) => <div>{children}</div>;
-    ErrorBoundary.displayName = 'ErrorBoundary'; // Adding displayName
-    return ErrorBoundary;
-  });
-  
-  jest.mock('@/context/LanguageContext', () => ({
-    LanguageProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  }));
-  
-  jest.mock('@/context/useAuthContext', () => ({
-    AuthProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  }));
-  
-  // Mock store with necessary methods
-  jest.mock('@/store/store', () => ({
-    store: {
-      dispatch: jest.fn(),
-      getState: jest.fn(),
-      subscribe: jest.fn(),
-    },
-  }));
-  
+  const Header = () => <div>Header</div>;
+  Header.displayName = 'Header';
+  return Header;
+});
 
-// Mocking redux store with required methods
+jest.mock('@/components/footer/Footer', () => {
+  const Footer = () => <div>Footer</div>;
+  Footer.displayName = 'Footer';
+  return Footer;
+});
+
+jest.mock('@/errorsHandlers/ErrorBoundary', () => {
+  const ErrorBoundary = ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  );
+  ErrorBoundary.displayName = 'ErrorBoundary';
+  return ErrorBoundary;
+});
+
+jest.mock('@/context/LanguageContext', () => ({
+  LanguageProvider: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
+}));
+
+jest.mock('@/context/useAuthContext', () => ({
+  AuthProvider: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
+}));
+
+jest.mock('@/store/store', () => ({
+  store: {
+    dispatch: jest.fn(),
+    getState: jest.fn(),
+    subscribe: jest.fn(),
+  },
+}));
+
 jest.mock('@/store/store', () => ({
   store: {
     dispatch: jest.fn(),
@@ -57,11 +60,9 @@ describe('ClientLayout', () => {
       </ClientLayout>
     );
 
-    // Check if the layout renders Header and Footer
     expect(screen.getByText('Header')).toBeInTheDocument();
     expect(screen.getByText('Footer')).toBeInTheDocument();
 
-    // Check if the child content is rendered correctly
     expect(screen.getByText(childText)).toBeInTheDocument();
   });
 
@@ -74,7 +75,6 @@ describe('ClientLayout', () => {
       </ClientLayout>
     );
 
-    // Ensure children are wrapped within both providers
     expect(screen.getByText(childText)).toBeInTheDocument();
   });
 });
