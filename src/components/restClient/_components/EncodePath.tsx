@@ -3,8 +3,6 @@ import { RootState } from '@/store/store';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-// http://localhost:3000/mini-postman/POST/?url=http://localhost:3000/client/&headers={"Accept":"ssddddd"}&body=eeeeee&params=id=123&key=dog
-
 const EncodePath = () => {
   const { baseUrl, endpointEnCode, encodeParams } = useSelector(
     (state: RootState) => state.urlSlice
@@ -38,10 +36,6 @@ const EncodePath = () => {
     if (queryString) urlSelect += `?${queryString}`;
 
     setUrl(urlSelect);
-
-    // const currentUrl = new URL(window.location.href);
-    // currentUrl.pathname = `/${urlSelect}`;
-    // window.history.pushState({}, '', currentUrl.toString());
   }, [
     baseUrl,
     body,

@@ -23,7 +23,6 @@ export const useAuth = () => {
         clearTimeout(tokenExpirationTimeout.current);
       }
       await signOut(auth);
-      await fetch('logout', { method: 'POST' });
       setUser(null);
       router.push('/');
     } catch (error) {
@@ -62,7 +61,6 @@ export const useAuth = () => {
       } else {
         if (wasAuthenticated.current) {
           console.log('🔴 User is logged out or token expired');
-          await fetch('logout', { method: 'POST' });
           setUser(null);
           router.push('/');
         }

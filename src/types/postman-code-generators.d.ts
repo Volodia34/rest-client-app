@@ -1,4 +1,3 @@
-// types/postman-code-generators.d.ts
 declare module 'postman-code-generators' {
   export function getLanguageList(): {
     key: string;
