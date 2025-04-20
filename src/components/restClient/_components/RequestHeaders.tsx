@@ -4,7 +4,7 @@ import { RootState } from '@/store/store';
 import HeadersInput from './headers/HeadersInput';
 import { setNewHeader } from '@/store/slices/headerSlice';
 import { setHeadersFromLS } from '@/store/slices/headerSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getFromLocalStorage } from '@/helpers/localActions';
 import { HeaderRest } from '@/types/restClient';
 import { useLanguageContext } from '@/context/LanguageContext';
@@ -14,9 +14,9 @@ const RequestHeaders = () => {
   const dispatch = useDispatch();
   const { headers } = useSelector((state: RootState) => state.headerSlice);
 
-  const addHeaderBlock = () => {
+  const addHeaderBlock = useCallback(() => {
     dispatch(setNewHeader());
-  };
+  }, [dispatch]);
 
   const [mounted, setMounted] = useState(false);
 
@@ -34,7 +34,7 @@ const RequestHeaders = () => {
     if (!headers.length) {
       addHeaderBlock();
     }
-  }, [headers]);
+  }, [headers, addHeaderBlock]);
 
   if (!mounted) {
     return null;

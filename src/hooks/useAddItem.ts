@@ -71,7 +71,7 @@ export const useAddItem = ({
       setNewKey(headers[index].key);
       setNewValue(headers[index].value);
     }
-  }, []);
+  }, [headers, index]);
 
   return {
     newKey,

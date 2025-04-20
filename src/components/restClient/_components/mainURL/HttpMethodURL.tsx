@@ -16,7 +16,7 @@ import { isVariables, replaceVariables } from '@/helpers/replaceVariables';
 import { useVariable } from '@/hooks/useVariable';
 import { useLanguageContext } from '@/context/LanguageContext';
 
-const HttpMethodURL = () => {
+const HttpMethodURL = ({ onSendRequest }: { onSendRequest: () => void }) => {
   const { t } = useLanguageContext();
   const dispatch = useDispatch();
   const { urlValueInput } = useSelector((state: RootState) => state.urlSlice);
@@ -67,42 +67,35 @@ const HttpMethodURL = () => {
     return filtered;
   };
 
+  const handleSend = async () => {
+    await onSendRequest();
+  };
+
   useEffect(() => {
     setRender((prev) => !prev);
   }, [method]);
 
   return (
-    <>
-      <div
-        key={`${render}`}
-        className="path-wrapper"
-        data-testid="path-wrapper"
-      >
-        <SelectInput
-          data-test="select-methods"
-          forInput="methods"
-          type="text"
-          options={filterMethods}
-          customStyle="widthMeth"
-          value={method}
-          onChange={handleChangeMethod}
-          onSelect={handleSelectMethod}
-        />
-        <Input
-          forInput="path"
-          type="text"
-          value={urlValueInput}
-          customStyle="widthPath"
-          onChange={handleUrl}
-        />
-        <Button
-          className="button"
-          text={t('restClient.httpMethodURLSendButton') as string}
-          onClick={() => {}}
-        />
-      </div>
-      {errorUrl && <p className="warning-messages">{errorUrl}</p>}
-    </>
+    <div key={`${render}`} className="path-wrapper" data-testid="path-wrapper">
+      <SelectInput
+        data-test="select-methods"
+        forInput="methods"
+        type="text"
+        options={filterMethods}
+        customStyle="widthMeth"
+        value={method}
+        onChange={handleChangeMethod}
+        onSelect={handleSelectMethod}
+      />
+      <Input
+        forInput="path"
+        type="text"
+        value={urlValueInput}
+        customStyle="widthPath"
+        onChange={handleUrl}
+      />
+      <Button className="button" text={'Send'} onClick={handleSend} />
+    </div>
   );
 };
 

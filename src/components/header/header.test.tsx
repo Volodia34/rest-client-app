@@ -27,6 +27,8 @@ jest.mock('@/hooks/useLanguage', () => ({
           return 'Sign Up';
         case 'header.logout':
           return 'Logout';
+        case 'header.mainpage':
+          return 'Main Page';
         default:
           return key;
       }
@@ -123,5 +125,5 @@ describe('Header', () => {
     });
 
     expect(mockToggleLanguage).toHaveBeenCalledTimes(1);
-  });
+  }); 
 });
