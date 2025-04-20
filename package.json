@@ -10,7 +10,8 @@
     "test:watch": "jest --watch",
     "coverage": "jest --coverage",
     "lint": "next lint",
-    "prettier-fix": "prettier --write ."
+    "prettier-fix": "prettier --write .",
+    "prepare": "husky"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
